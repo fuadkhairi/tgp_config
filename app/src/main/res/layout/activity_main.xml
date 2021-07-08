@@ -23,7 +23,7 @@
         android:textColor="@color/lb_tv_white"
         android:layout_width="wrap_content"
         android:fontFamily="@font/exo_bold"
-        android:textSize="@dimen/_14sdp"
+        android:textSize="@dimen/_14ssp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"/>
 
@@ -37,15 +37,15 @@
         android:layout_marginStart="@dimen/_12sdp"
         android:gravity="center">
         <ImageView
-            android:layout_width="@dimen/_32sdp"
-            android:layout_height="@dimen/_32sdp"
+            android:layout_width="@dimen/_26sdp"
+            android:layout_height="@dimen/_26sdp"
             android:src="@drawable/ic_dumbbell_solid"/>
         <TextView
             android:text="Workout"
             android:textColor="@color/lb_tv_white"
             android:layout_width="wrap_content"
             android:fontFamily="@font/exo_bold"
-            android:textSize="@dimen/_14sdp"
+            android:textSize="@dimen/_10ssp"
             android:layout_height="wrap_content" />
     </LinearLayout>
 
@@ -59,15 +59,15 @@
         android:layout_marginStart="@dimen/_12sdp"
         android:gravity="center">
         <ImageView
-            android:layout_width="@dimen/_32sdp"
-            android:layout_height="@dimen/_32sdp"
+            android:layout_width="@dimen/_26sdp"
+            android:layout_height="@dimen/_26sdp"
             android:src="@drawable/ic_cogs_solid"/>
         <TextView
             android:text="Mood"
             android:textColor="@color/lb_tv_white"
             android:layout_width="wrap_content"
             android:fontFamily="@font/exo_bold"
-            android:textSize="@dimen/_14sdp"
+            android:textSize="@dimen/_10ssp"
             android:layout_height="wrap_content" />
     </LinearLayout>
 
@@ -81,27 +81,27 @@
         android:layout_marginStart="@dimen/_12sdp"
         android:gravity="center">
         <ImageView
-            android:layout_width="@dimen/_32sdp"
-            android:layout_height="@dimen/_32sdp"
+            android:layout_width="@dimen/_26sdp"
+            android:layout_height="@dimen/_26sdp"
             android:src="@drawable/ic_beamed_note"/>
         <TextView
             android:text="Music"
             android:textColor="@color/lb_tv_white"
             android:layout_width="wrap_content"
             android:fontFamily="@font/exo_bold"
-            android:textSize="@dimen/_14sdp"
+            android:textSize="@dimen/_10ssp"
             android:layout_height="wrap_content" />
     </LinearLayout>
 
     <TextView
         android:id="@+id/quotesTV"
-        android:layout_marginTop="@dimen/_40sdp"
+        android:layout_marginTop="@dimen/_60sdp"
         android:layout_below="@id/musicToggle"
         android:text="Don't give up to your temptations"
         android:textColor="@color/lb_tv_white"
         android:layout_width="wrap_content"
         android:fontFamily="@font/exo_bold"
-        android:textSize="@dimen/_14sdp"
+        android:textSize="@dimen/_12ssp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"/>
 </RelativeLayout>

@@ -19,7 +19,7 @@
         android:id="@+id/currentDateTime"
         android:layout_marginTop="@dimen/_20sdp"
         android:layout_below="@id/gympodLogo"
-        android:text="8 Juli 2021"
+        android:text="Current Date"
         android:textColor="@color/lb_tv_white"
         android:layout_width="wrap_content"
         android:fontFamily="@font/exo_bold"
@@ -27,10 +27,80 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"/>
 
-    <Button
+    <LinearLayout
+        android:id="@+id/workoutToggle"
+        android:orientation="vertical"
+        android:layout_width="@dimen/_60sdp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/currentDateTime"
+        android:layout_marginTop="@dimen/_28sdp"
+        android:layout_marginStart="@dimen/_12sdp"
+        android:gravity="center">
+        <ImageView
+            android:layout_width="@dimen/_32sdp"
+            android:layout_height="@dimen/_32sdp"
+            android:src="@drawable/ic_dumbbell_solid"/>
+        <TextView
+            android:text="Workout"
+            android:textColor="@color/lb_tv_white"
+            android:layout_width="wrap_content"
+            android:fontFamily="@font/exo_bold"
+            android:textSize="@dimen/_14sdp"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/moodToggle"
+        android:orientation="vertical"
+        android:layout_width="@dimen/_60sdp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/workoutToggle"
+        android:layout_marginTop="@dimen/_28sdp"
+        android:layout_marginStart="@dimen/_12sdp"
+        android:gravity="center">
+        <ImageView
+            android:layout_width="@dimen/_32sdp"
+            android:layout_height="@dimen/_32sdp"
+            android:src="@drawable/ic_cogs_solid"/>
+        <TextView
+            android:text="Mood"
+            android:textColor="@color/lb_tv_white"
+            android:layout_width="wrap_content"
+            android:fontFamily="@font/exo_bold"
+            android:textSize="@dimen/_14sdp"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/musicToggle"
+        android:orientation="vertical"
+        android:layout_width="@dimen/_60sdp"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="@dimen/_12sdp"
+        android:gravity="center">
+        <ImageView
+            android:layout_width="@dimen/_32sdp"
+            android:layout_height="@dimen/_32sdp"
+            android:src="@drawable/ic_beamed_note"/>
+        <TextView
+            android:text="Music"
+            android:textColor="@color/lb_tv_white"
+            android:layout_width="wrap_content"
+            android:fontFamily="@font/exo_bold"
+            android:textSize="@dimen/_14sdp"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/quotesTV"
+        android:layout_marginTop="@dimen/_40sdp"
+        android:layout_below="@id/musicToggle"
+        android:text="Don't give up to your temptations"
+        android:textColor="@color/lb_tv_white"
         android:layout_width="wrap_content"
-        android:layout_height="80dp"
-        android:text="Play Music"
-        android:layout_centerInParent="true"/>
+        android:fontFamily="@font/exo_bold"
+        android:textSize="@dimen/_14sdp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"/>
 </RelativeLayout>

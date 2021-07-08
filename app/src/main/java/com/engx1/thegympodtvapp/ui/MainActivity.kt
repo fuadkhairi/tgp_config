@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         //pin the screen
-        startLockTask()
+        //startLockTask()
 
         //show realtime clock
         val dateFormat = SimpleDateFormat("EEEE, dd MMMM, HH:mm a", Locale.ENGLISH)

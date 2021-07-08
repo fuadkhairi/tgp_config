@@ -22,12 +22,9 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
-    //setContentView(R.layout.activity_main)
-
         binding.musicToggle.setOnClickListener {
             startActivity(Intent(this, MusicActivity::class.java))
         }
-
     }
 
     override fun onResume() {
@@ -40,5 +37,15 @@ class MainActivity : AppCompatActivity() {
         binding.currentDateTime.text = currentDateTime
 
         super.onResume()
+    }
+
+
+    override fun onDestroy() {
+        super.onDestroy()
+        val bbcRadio = ""
+        val intent = Intent(this, PlayerService::class.java).apply {
+            putExtra(PlayerService.STREAM_URL, bbcRadio)
+        }
+        stopService(intent)
     }
 }

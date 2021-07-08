@@ -23,15 +23,26 @@ class MusicActivity : AppCompatActivity() {
         setContentView(view)
 
         isRunning = isServiceRunningInForeground(this, PlayerService::class.java)
+        if (isRunning) {
+            binding.musicTV.text = "Music ON"
+        } else {
+            binding.musicTV.text = "Music OFF"
+        }
+
+        binding.back.setOnClickListener {
+            onBackPressed()
+        }
 
         binding.musicBTToggle.setOnClickListener {
             if (isRunning) {
                 isRunning = false
                 stopPlayerService()
+                binding.musicTV.text = "Music OFF"
                 Toast.makeText(this, "Stopping service...", Toast.LENGTH_SHORT).show()
             } else {
                 isRunning = true
                 startPlayerService()
+                binding.musicTV.text = "Music ON"
                 Toast.makeText(this, "Starting service...", Toast.LENGTH_SHORT).show()
             }
         }
@@ -40,7 +51,7 @@ class MusicActivity : AppCompatActivity() {
     private fun isServiceRunningInForeground(context: Context, serviceClass: Class<*>): Boolean {
         val manager: ActivityManager = context.getSystemService(ACTIVITY_SERVICE) as ActivityManager
         for (service in manager.getRunningServices(Int.MAX_VALUE)) {
-            if (serviceClass.name == service.service.getClassName()) {
+            if (serviceClass.name == service.service.className) {
                 if (service.foreground) {
                     return true
                 }

@@ -25,40 +25,9 @@ class MainActivity : AppCompatActivity() {
     //setContentView(R.layout.activity_main)
 
         binding.musicToggle.setOnClickListener {
-            if (isServiceRunningInForeground(this, PlayerService::class.java)) {
-                stopPlayerService()
-                Toast.makeText(this, "Stopping service...", Toast.LENGTH_SHORT).show()
-            } else {
-                startPlayerService()
-                Toast.makeText(this, "Starting service...", Toast.LENGTH_SHORT).show()
-            }
+            startActivity(Intent(this, MusicActivity::class.java))
         }
 
-    }
-
-    private fun isServiceRunningInForeground(context: Context, serviceClass: Class<*>): Boolean {
-        val manager: ActivityManager = context.getSystemService(ACTIVITY_SERVICE) as ActivityManager
-        for (service in manager.getRunningServices(Int.MAX_VALUE)) {
-            if (serviceClass.name == service.service.getClassName()) {
-                if (service.foreground) {
-                    return true
-                }
-            }
-        }
-        return false
-    }
-
-    private fun startPlayerService() {
-        val bbcRadio = "http://stream.live.vc.bbcmedia.co.uk/bbc_6music?s=1625665107&e=1625679507&h=6c9c0387f11bb7ef86ae48d0ef322eb7"
-        val intent = Intent(this, PlayerService::class.java).apply {
-            putExtra(PlayerService.STREAM_URL, bbcRadio)
-        }
-        bindService(intent, connection, Context.BIND_AUTO_CREATE)
-    }
-
-    private fun stopPlayerService() {
-        unbindService(connection)
-        // Stop foreground service and remove the notification.
     }
 
     override fun onResume() {
@@ -71,16 +40,5 @@ class MainActivity : AppCompatActivity() {
         binding.currentDateTime.text = currentDateTime
 
         super.onResume()
-    }
-
-
-    private val connection = object : ServiceConnection {
-        override fun onServiceDisconnected(name: ComponentName?) {}
-
-        override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
-            if (service is PlayerService.PlayerServiceBinder) {
-                service.getPlayerHolderInstance() // use the player and call methods on it to start and stop
-            }
-        }
     }
 }

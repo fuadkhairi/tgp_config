@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/pureBlack"
+    tools:context=".ui.MainActivity">
+
+    <ImageView
+        android:id="@+id/gympodLogo"
+        android:layout_width="@dimen/_46sdp"
+        android:layout_height="@dimen/_46sdp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/_40sdp"
+        android:src="@mipmap/raw_gympod_logo"/>
+
+    <TextView
+        android:id="@+id/currentDateTime"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_below="@id/gympodLogo"
+        android:text="8 Juli 2021"
+        android:textColor="@color/lb_tv_white"
+        android:layout_width="wrap_content"
+        android:fontFamily="@font/Exo2Bold"
+        android:textSize="@dimen/_14sdp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"/>
+
+    <Button
+        android:id="@+id/musicToggle"
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:text="Play Music"
+        android:layout_centerInParent="true"/>
+</RelativeLayout>

@@ -21,6 +21,7 @@ import android.app.Notification
 import android.content.Intent
 import android.os.Binder
 import android.os.IBinder
+import android.util.Log
 import com.beraldo.playerlib.player.PlayerHolder
 import com.beraldo.playerlib.player.PlayerModule
 import com.google.android.exoplayer2.ui.PlayerNotificationManager
@@ -46,7 +47,6 @@ class PlayerService : IntentService("playerlib"), PlayerNotificationManager.Noti
             initialize(it)
             playerHolder.start()
         }
-
         return PlayerServiceBinder()
     }
 
@@ -72,7 +72,6 @@ class PlayerService : IntentService("playerlib"), PlayerNotificationManager.Noti
             it.setPlayer(playerHolder.audioFocusPlayer)
         }
     }
-
     /** NotificationListener callbacks, we get these calls when our [playerNotificationManager]
      * dispatches them, subsequently to our [PlayerNotificationManager.setPlayer] call.
      *

@@ -33,7 +33,7 @@ class DescriptionAdapter(private val context: Context) :
     PlayerNotificationManager.MediaDescriptionAdapter {
 
     override fun getCurrentContentTitle(player: Player): String =
-        context.getString(R.string.notification_title)
+        context.getString(R.string.now_playing)
 
     override fun getCurrentContentText(player: Player): String? = null
 

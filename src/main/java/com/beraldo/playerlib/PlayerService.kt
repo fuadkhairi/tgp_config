@@ -42,16 +42,27 @@ class PlayerService : IntentService("playerlib"), PlayerNotificationManager.Noti
 
     private lateinit var playerNotificationManager: PlayerNotificationManager
 
-    override fun onBind(intent: Intent?): IBinder {
+//    override fun onBind(intent: Intent?): IBinder {
+//        intent?.getStringExtra(STREAM_URL)?.let {
+//            initialize(it)
+//            playerHolder.start()
+//        }
+//        return PlayerServiceBinder()
+//    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        removePlayer()
+    }
+
+    override fun onStart(intent: Intent?, startId: Int) {
         intent?.getStringExtra(STREAM_URL)?.let {
             initialize(it)
             playerHolder.start()
         }
-        return PlayerServiceBinder()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    private fun removePlayer() {
         playerNotificationManager.setPlayer(null)
         playerHolder.release()
     }

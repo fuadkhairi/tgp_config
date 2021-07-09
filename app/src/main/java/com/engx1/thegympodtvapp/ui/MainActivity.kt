@@ -1,23 +1,35 @@
 package com.engx1.thegympodtvapp.ui
 
-import android.app.ActivityManager
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.KeyEvent
-import android.view.Menu
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.beraldo.playerlib.PlayerService
+import com.engx1.thegympodtvapp.api.ApiClient
 import com.engx1.thegympodtvapp.databinding.ActivityMainBinding
+import com.engx1.thegympodtvapp.utils.CommonUtils
+import com.engx1.thegympodtvapp.viewmodel.MainViewModel
+import com.engx1.thegympodtvapp.viewmodel.MainViewModelFactory
 import java.text.SimpleDateFormat
 import java.util.*
+import androidx.lifecycle.Observer
+import com.engx1.thegympodtvapp.utils.Resource
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
+    lateinit var viewModel: MainViewModel
+
+
+    fun setupViewModel() {
+        this.let {
+            viewModel = ViewModelProvider(it, MainViewModelFactory(ApiClient.API_SERVICE)).get(MainViewModel::class.java)
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setupViewModel()
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
@@ -52,12 +64,37 @@ class MainActivity : AppCompatActivity() {
         //startLockTask()
     }
 
+    fun getMotivationalQuotes() {
+        if (CommonUtils.isOnline(this)) {
+            viewModel.getMotivationalQuotes()
+            viewModel.getDataMotivationalQuotes().observe(this, {
+                it.let {
+                    when(it.status) {
+                        Resource.Status.SUCCESS -> {
+                            (it.data?.data?.text + "\n- ${it.data?.data?.author}").also { s -> binding.quotesTV.text = s }
+                        }
+                        Resource.Status.ERROR -> {
+
+                        }
+                        Resource.Status.LOADING -> {
+
+                        }
+                    }
+                }
+            })
+        } else {
+
+        }
+    }
+
 
     override fun onResume() {
         //show realtime clock
         val dateFormat = SimpleDateFormat("EEEE, dd MMMM, HH:mm a", Locale.ENGLISH)
         val currentDateTime = dateFormat.format(Date())
         binding.currentDateTime.text = currentDateTime
+
+        getMotivationalQuotes()
 
         super.onResume()
     }

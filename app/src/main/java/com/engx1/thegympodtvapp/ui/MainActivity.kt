@@ -2,28 +2,31 @@ package com.engx1.thegympodtvapp.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.beraldo.playerlib.PlayerService
 import com.engx1.thegympodtvapp.api.ApiClient
 import com.engx1.thegympodtvapp.databinding.ActivityMainBinding
 import com.engx1.thegympodtvapp.utils.CommonUtils
+import com.engx1.thegympodtvapp.utils.Resource
 import com.engx1.thegympodtvapp.viewmodel.MainViewModel
 import com.engx1.thegympodtvapp.viewmodel.MainViewModelFactory
 import java.text.SimpleDateFormat
 import java.util.*
-import androidx.lifecycle.Observer
-import com.engx1.thegympodtvapp.utils.Resource
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-
     lateinit var viewModel: MainViewModel
 
-
-    fun setupViewModel() {
+    private fun setupViewModel() {
         this.let {
-            viewModel = ViewModelProvider(it, MainViewModelFactory(ApiClient.API_SERVICE)).get(MainViewModel::class.java)
+            viewModel = ViewModelProvider(
+                it,
+                MainViewModelFactory(ApiClient.API_SERVICE)
+            ).get(MainViewModel::class.java)
         }
     }
 
@@ -53,25 +56,28 @@ class MainActivity : AppCompatActivity() {
 //            finish()
 //        }
 
+        //pin the screen
+        //startLockTask()
+        initializePlayService()
+        getActiveBookings()
+    }
+
+    private fun initializePlayService() {
         val kpop = "http://167.114.64.181:8325/;stream/1"
         val intent = Intent(this, PlayerService::class.java).apply {
             putExtra(PlayerService.STREAM_URL, kpop)
         }
-        //bindService(intent, connection, Context.BIND_AUTO_CREATE)
         startService(intent)
-
-        //pin the screen
-        //startLockTask()
     }
 
-    fun getMotivationalQuotes() {
+    private fun getActiveBookings() {
         if (CommonUtils.isOnline(this)) {
-            viewModel.getMotivationalQuotes()
-            viewModel.getDataMotivationalQuotes().observe(this, {
+            viewModel.getActiveBooking()
+            viewModel.getDataActiveBooking().observe(this, {
                 it.let {
                     when(it.status) {
                         Resource.Status.SUCCESS -> {
-                            (it.data?.data?.text + "\n- ${it.data?.data?.author}").also { s -> binding.quotesTV.text = s }
+
                         }
                         Resource.Status.ERROR -> {
 
@@ -83,24 +89,45 @@ class MainActivity : AppCompatActivity() {
                 }
             })
         } else {
-
+            Toast.makeText(this, "Not connected to Internet", Toast.LENGTH_SHORT).show()
         }
     }
 
+    private fun getMotivationalQuotes() {
+        if (CommonUtils.isOnline(this)) {
+            viewModel.getMotivationalQuotes()
+            viewModel.getDataMotivationalQuotes().observe(this, {
+                it.let {
+                    when (it.status) {
+                        Resource.Status.SUCCESS -> {
+                            (it.data?.data?.text + "\n- ${it.data?.data?.author}").also { s ->
+                                binding.quotesTV.text = s
+                            }
+                        }
+                        Resource.Status.ERROR -> {
+
+                        }
+                        Resource.Status.LOADING -> {
+
+                        }
+                    }
+                }
+            })
+        } else {
+            Toast.makeText(this, "Not connected to Internet", Toast.LENGTH_SHORT).show()
+        }
+    }
 
     override fun onResume() {
         //show realtime clock
         val dateFormat = SimpleDateFormat("EEEE, dd MMMM, HH:mm a", Locale.ENGLISH)
         val currentDateTime = dateFormat.format(Date())
         binding.currentDateTime.text = currentDateTime
-
         getMotivationalQuotes()
-
         super.onResume()
     }
 
     override fun onBackPressed() {
-
     }
 
     override fun onDestroy() {

@@ -22,9 +22,24 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+
+        binding.workoutToggle.setOnClickListener {
+            startActivity(Intent(this, WorkoutActivity::class.java))
+        }
+        binding.moodToggle.setOnClickListener {
+            startActivity(Intent(this, MoodActivity::class.java))
+        }
         binding.musicToggle.setOnClickListener {
             startActivity(Intent(this, MusicActivity::class.java))
         }
+
+        val kpop = "http://167.114.64.181:8325/;stream/1"
+        val intent = Intent(this, PlayerService::class.java).apply {
+            putExtra(PlayerService.STREAM_URL, kpop)
+        }
+        //bindService(intent, connection, Context.BIND_AUTO_CREATE)
+        startService(intent)
+
         //pin the screen
         startLockTask()
     }

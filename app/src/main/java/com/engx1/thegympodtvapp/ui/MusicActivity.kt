@@ -61,20 +61,20 @@ class MusicActivity : AppCompatActivity() {
     }
 
     private fun startPlayerService() {
-        val bbcRadio = "http://stream.live.vc.bbcmedia.co.uk/bbc_6music?s=1625665107&e=1625679507&h=6c9c0387f11bb7ef86ae48d0ef322eb7"
+        val kpop = "http://167.114.64.181:8325/;stream/1"
         val intent = Intent(this, PlayerService::class.java).apply {
-            putExtra(PlayerService.STREAM_URL, bbcRadio)
+            putExtra(PlayerService.STREAM_URL, kpop)
         }
         //bindService(intent, connection, Context.BIND_AUTO_CREATE)
         startService(intent)
     }
 
     private fun stopPlayerService() {
-        //unbindService(connection)
-        val bbcRadio = "http://stream.live.vc.bbcmedia.co.uk/bbc_6music?s=1625665107&e=1625679507&h=6c9c0387f11bb7ef86ae48d0ef322eb7"
+        val kpop = "http://167.114.64.181:8325/;stream/1"
         val intent = Intent(this, PlayerService::class.java).apply {
-            putExtra(PlayerService.STREAM_URL, bbcRadio)
+            putExtra(PlayerService.STREAM_URL, kpop)
         }
+        //bindService(intent, connection, Context.BIND_AUTO_CREATE)
         stopService(intent)
     }
 

@@ -9,8 +9,8 @@
 
     <ImageView
         android:id="@+id/back"
-        android:layout_width="@dimen/_28sdp"
-        android:layout_height="@dimen/_28sdp"
+        android:layout_width="@dimen/_22sdp"
+        android:layout_height="@dimen/_22sdp"
         android:layout_margin="@dimen/_12sdp"
         android:src="@drawable/ic_chevron_left_solid"/>
 
@@ -22,8 +22,8 @@
         android:layout_width="wrap_content"
         android:fontFamily="@font/exo_bold"
         android:gravity="center"
-        android:textSize="@dimen/_14ssp"
-        android:layout_height="@dimen/_28sdp"
+        android:textSize="@dimen/_12ssp"
+        android:layout_height="@dimen/_22sdp"
         android:layout_centerHorizontal="true"/>
 
     <TextView

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/pureBlack"
+    tools:context=".ui.WorkoutActivity">
+
+    <ImageView
+        android:id="@+id/back"
+        android:layout_width="@dimen/_28sdp"
+        android:layout_height="@dimen/_28sdp"
+        android:layout_margin="@dimen/_12sdp"
+        android:src="@drawable/ic_chevron_left_solid"/>
+
+    <TextView
+        android:id="@+id/currentDateTime"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:text="@string/workout"
+        android:textColor="@color/lb_tv_white"
+        android:layout_width="wrap_content"
+        android:fontFamily="@font/exo_bold"
+        android:gravity="center"
+        android:textSize="@dimen/_14ssp"
+        android:layout_height="@dimen/_28sdp"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:id="@+id/musicTV"
+        android:text="Under Construction"
+        android:textColor="@color/lb_tv_white"
+        android:layout_width="wrap_content"
+        android:layout_centerInParent="true"
+        android:fontFamily="@font/exo_bold"
+        android:textSize="@dimen/_10ssp"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>

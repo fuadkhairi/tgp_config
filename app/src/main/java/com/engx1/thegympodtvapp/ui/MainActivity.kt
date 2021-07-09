@@ -25,12 +25,11 @@ class MainActivity : AppCompatActivity() {
         binding.musicToggle.setOnClickListener {
             startActivity(Intent(this, MusicActivity::class.java))
         }
+        //pin the screen
+        startLockTask()
     }
 
     override fun onResume() {
-        //pin the screen
-        //startLockTask()
-
         //show realtime clock
         val dateFormat = SimpleDateFormat("EEEE, dd MMMM, HH:mm a", Locale.ENGLISH)
         val currentDateTime = dateFormat.format(Date())

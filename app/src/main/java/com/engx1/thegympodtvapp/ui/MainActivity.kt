@@ -1,13 +1,12 @@
 package com.engx1.thegympodtvapp.ui
 
 import android.app.ActivityManager
-import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
-import android.content.ServiceConnection
 import android.os.Bundle
-import android.os.IBinder
-import android.widget.Toast
+import android.view.KeyEvent
+import android.view.Menu
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.beraldo.playerlib.PlayerService
 import com.engx1.thegympodtvapp.databinding.ActivityMainBinding
@@ -33,6 +32,15 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, MusicActivity::class.java))
         }
 
+//        binding.closeApp.setOnClickListener {
+//            packageManager.clearPackagePreferredActivities(packageName);
+//            val intent = Intent()
+//            intent.action = Intent.ACTION_MAIN
+//            intent.addCategory(Intent.CATEGORY_HOME)
+//            startActivity(intent)
+//            finish()
+//        }
+
         val kpop = "http://167.114.64.181:8325/;stream/1"
         val intent = Intent(this, PlayerService::class.java).apply {
             putExtra(PlayerService.STREAM_URL, kpop)
@@ -41,8 +49,9 @@ class MainActivity : AppCompatActivity() {
         startService(intent)
 
         //pin the screen
-        startLockTask()
+        //startLockTask()
     }
+
 
     override fun onResume() {
         //show realtime clock
@@ -53,6 +62,9 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
     }
 
+    override fun onBackPressed() {
+
+    }
 
     override fun onDestroy() {
         super.onDestroy()

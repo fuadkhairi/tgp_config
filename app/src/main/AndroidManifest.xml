@@ -4,6 +4,8 @@
     package="com.engx1.thegympodtvapp"
     tools:ignore="MissingLeanbackLauncher">
 
+<!--    <uses-permission android:name="android.permission.REORDER_TASKS" />-->
+
     <uses-feature
         android:name="android.software.leanback"
         android:required="false" />
@@ -26,8 +28,9 @@
         <activity android:name=".ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
+                <category android:name="android.intent.category.HOME"/>
                 <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
 

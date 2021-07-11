@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="pureBlack">#000000</color>
+    <color name="colorPrimary">#ffcc00</color>
+    <color name="colorPrimaryDark">#ffcc00</color>
+    <color name="pure_black">#000000</color>
+    <color name="pure_white">#FFFFFF</color>
+    <color name="transparent">#00000099</color>
+    <color name="primary_grey">#999999</color>
 </resources>

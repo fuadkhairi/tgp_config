@@ -5,4 +5,7 @@
     <string name="music">Music</string>
     <string name="don_t_give_up_to_your_temptations">Don`t give up to your temptations</string>
     <string name="current_date">Current Date</string>
+    <string name="tools">Tools</string>
+    <string name="lights">Lights</string>
+    <string name="mood_color">Mood Color</string>
 </resources>

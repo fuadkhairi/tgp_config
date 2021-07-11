@@ -16,6 +16,11 @@ class MusicActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMusicBinding
     var isRunning = false
 
+    //NOTES
+    //MUSIC PLAYER BUILT USING PLAYERLIB,GO TO
+    //https://github.com/beraldofilippo/playerlib FOR INSTRUCTION HOW TO EMBED IN THE APP
+    //July,11 2021 Fuad Khairi (@fuadkhairi)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMusicBinding.inflate(layoutInflater)

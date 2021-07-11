@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity() {
 
         //pin the screen
         //startLockTask()
-        initializePlayService()
+        //initializePlayService()
         getActiveBookings()
     }
 

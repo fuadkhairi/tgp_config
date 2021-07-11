@@ -57,7 +57,7 @@ class MoodViewModel(private val apiService: ApiService): ViewModel() {
         return mDataMoodColorList
     }
 
-    fun getMoodColorList(newState: Boolean, gympodId: String) {
+    fun getMoodColorList() {
         viewModelScope.launch {
             mDataMoodColorList.postValue(Resource.loading(null))
             try {

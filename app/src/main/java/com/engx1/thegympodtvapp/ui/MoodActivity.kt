@@ -4,22 +4,26 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
-import com.engx1.thegympodtvapp.R
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.engx1.thegympodtvapp.`interface`.AdapterClickListener
+import com.engx1.thegympodtvapp.adapter.ColorAdapter
 import com.engx1.thegympodtvapp.api.ApiClient
+import com.engx1.thegympodtvapp.api.ApiService
 import com.engx1.thegympodtvapp.databinding.ActivityMoodBinding
 import com.engx1.thegympodtvapp.model.LightColor
+import com.engx1.thegympodtvapp.model.MoodColorListResponse
 import com.engx1.thegympodtvapp.utils.CommonUtils
 import com.engx1.thegympodtvapp.utils.Resource
-import com.engx1.thegympodtvapp.viewmodel.MainViewModel
-import com.engx1.thegympodtvapp.viewmodel.MainViewModelFactory
 import com.engx1.thegympodtvapp.viewmodel.MoodViewModel
 import com.engx1.thegympodtvapp.viewmodel.MoodViewModelFactory
+import retrofit2.Call
 
-class MoodActivity : AppCompatActivity() {
+class MoodActivity : AppCompatActivity(), AdapterClickListener {
     private lateinit var binding: ActivityMoodBinding
     lateinit var viewModel: MoodViewModel
 
-    var moodColorList: ArrayList<LightColor> = ArrayList()
+    private var moodColorList: ArrayList<LightColor> = ArrayList()
+    private var colorAdapter: ColorAdapter? = null
 
     private fun setupViewModel() {
         this.let {
@@ -35,6 +39,10 @@ class MoodActivity : AppCompatActivity() {
         setupViewModel()
         binding = ActivityMoodBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        colorAdapter = ColorAdapter(this)
+
+        binding.colorListRV.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        binding.colorListRV.adapter = colorAdapter
 
         binding.back.setOnClickListener {
             onBackPressed()
@@ -95,14 +103,12 @@ class MoodActivity : AppCompatActivity() {
 
     private fun getMoodColorList() {
         if (CommonUtils.isOnline(this)) {
-            viewModel.getDataMoodColorList()
+            viewModel.getMoodColorList()
             viewModel.getDataMoodColorList().observe(this, {
                 it.let {
                     when (it.status) {
                         Resource.Status.SUCCESS -> {
-                            it.data.apply {
-                               moodColorList = this?.data?.colors!!
-                            }
+                            colorAdapter?.updateAdapter(it.data?.data?.colors!!)
                         }
                         Resource.Status.ERROR -> {
                         }
@@ -114,5 +120,9 @@ class MoodActivity : AppCompatActivity() {
         } else {
             Toast.makeText(this, "Not connected to Internet", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    override fun onClicked(lightColor: LightColor) {
+
     }
 }

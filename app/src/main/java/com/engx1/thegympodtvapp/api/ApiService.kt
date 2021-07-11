@@ -21,13 +21,12 @@ interface ApiService {
     suspend fun getActiveBookings(@Header("x-access-token") accessToken: String = X_ACCESS_TOKEN,
     @Path("time") time: String, @Path("gympod_id") gympodId: String): ActiveBookingResponse
 
+    @GET(GET_COLOR_LIST)
+    fun getColorList(@Header("x-access-token") accessToken: String = X_ACCESS_TOKEN): MoodColorListResponse
+
     @POST(SET_LIGHT_STATE)
     suspend fun setLightState(@Header("x-access-token") accessToken: String = X_ACCESS_TOKEN, @Body jsonObject: JsonObject): LightStateResponse
 
     @POST(SET_MOOD_STATE)
     suspend fun setMoodState(@Header("x-access-token") accessToken: String = X_ACCESS_TOKEN, @Body jsonObject: JsonObject): MoodStateResponse
-
-    @GET(GET_COLOR_LIST)
-    suspend fun getColorList(@Header("x-access-token") accessToken: String = X_ACCESS_TOKEN): MoodColorListResponse
-
 }

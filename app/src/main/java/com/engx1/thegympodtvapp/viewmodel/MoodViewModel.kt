@@ -8,6 +8,7 @@ import com.engx1.thegympodtvapp.api.ApiService
 import com.engx1.thegympodtvapp.model.LightStateResponse
 import com.engx1.thegympodtvapp.model.MoodColorListResponse
 import com.engx1.thegympodtvapp.model.MoodStateResponse
+import com.engx1.thegympodtvapp.model.MotivationalQuotesResponse
 import com.engx1.thegympodtvapp.utils.Resource
 import com.google.gson.JsonObject
 import kotlinx.coroutines.launch

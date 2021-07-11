@@ -3,12 +3,17 @@ package com.engx1.thegympodtvapp.ui
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.engx1.thegympodtvapp.`interface`.AdapterClickListener
 import com.engx1.thegympodtvapp.adapter.ColorAdapter
 import com.engx1.thegympodtvapp.api.ApiClient
 import com.engx1.thegympodtvapp.api.ApiService
+import com.engx1.thegympodtvapp.api.legacy.ApiCallBack
+import com.engx1.thegympodtvapp.api.legacy.ApiInterface
+import com.engx1.thegympodtvapp.api.legacy.ApiManager
+import com.engx1.thegympodtvapp.api.legacy.ApiResponseListener
 import com.engx1.thegympodtvapp.databinding.ActivityMoodBinding
 import com.engx1.thegympodtvapp.model.LightColor
 import com.engx1.thegympodtvapp.model.MoodColorListResponse
@@ -103,20 +108,36 @@ class MoodActivity : AppCompatActivity(), AdapterClickListener {
 
     private fun getMoodColorList() {
         if (CommonUtils.isOnline(this)) {
-            viewModel.getMoodColorList()
-            viewModel.getDataMoodColorList().observe(this, {
-                it.let {
-                    when (it.status) {
-                        Resource.Status.SUCCESS -> {
-                            colorAdapter?.updateAdapter(it.data?.data?.colors!!)
-                        }
-                        Resource.Status.ERROR -> {
-                        }
-                        Resource.Status.LOADING -> {
-                        }
-                    }
+//            viewModel.getMoodColorList()
+//            viewModel.getDataMoodColorList().observe(this, {
+//                it.let {
+//                    when (it.status) {
+//                        Resource.Status.SUCCESS -> {
+//                            colorAdapter?.updateAdapter(it.data?.data?.colors!!)
+//                        }
+//                        Resource.Status.ERROR -> {
+//                        }
+//                        Resource.Status.LOADING -> {
+//                        }
+//                    }
+//                }
+//            })
+
+            val apiCallBack = ApiCallBack(object :
+                ApiResponseListener<MoodColorListResponse> {
+                override fun onApiSuccess(response: MoodColorListResponse, apiName: String) {
+                    moodColorList = response.data.colors
+                    colorAdapter?.updateAdapter(response.data.colors)
                 }
-            })
+
+                override fun onApiError(responses: String, apiName: String) {
+
+                }
+
+                override fun onApiFailure(failureMessage: String, apiName: String) {
+                }
+            }, ApiService.GET_COLOR_LIST, this.applicationContext)
+            ApiManager(this).getColorList(apiCallBack)
         } else {
             Toast.makeText(this, "Not connected to Internet", Toast.LENGTH_SHORT).show()
         }

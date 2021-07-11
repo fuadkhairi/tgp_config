@@ -10,7 +10,9 @@ import android.os.IBinder
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.beraldo.playerlib.PlayerService
+import com.engx1.thegympodtvapp.R
 import com.engx1.thegympodtvapp.databinding.ActivityMusicBinding
+import com.engx1.thegympodtvapp.utils.SharedPrefManager
 
 class MusicActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMusicBinding
@@ -42,13 +44,11 @@ class MusicActivity : AppCompatActivity() {
             if (isRunning) {
                 isRunning = false
                 stopPlayerService()
-                binding.musicTV.text = "Music OFF"
-                Toast.makeText(this, "Stopping service...", Toast.LENGTH_SHORT).show()
+                binding.musicTV.text = getString(R.string.music_off)
             } else {
                 isRunning = true
                 startPlayerService()
-                binding.musicTV.text = "Music ON"
-                Toast.makeText(this, "Starting service...", Toast.LENGTH_SHORT).show()
+                binding.musicTV.text = getString(R.string.music_on)
             }
         }
     }
@@ -66,20 +66,19 @@ class MusicActivity : AppCompatActivity() {
     }
 
     private fun startPlayerService() {
-        val kpop = "http://167.114.64.181:8325/;stream/1"
+        val music = "http://167.114.64.181:8325/;stream/1"
         val intent = Intent(this, PlayerService::class.java).apply {
-            putExtra(PlayerService.STREAM_URL, kpop)
+            putExtra(PlayerService.STREAM_URL, music)
         }
-        //bindService(intent, connection, Context.BIND_AUTO_CREATE)
+        SharedPrefManager.savePreferenceBoolean(this, "music_state", true)
         startService(intent)
     }
 
     private fun stopPlayerService() {
-        val kpop = "http://167.114.64.181:8325/;stream/1"
         val intent = Intent(this, PlayerService::class.java).apply {
-            putExtra(PlayerService.STREAM_URL, kpop)
+            putExtra(PlayerService.STREAM_URL, "")
         }
-        //bindService(intent, connection, Context.BIND_AUTO_CREATE)
+        SharedPrefManager.savePreferenceBoolean(this, "music_state", false)
         stopService(intent)
     }
 

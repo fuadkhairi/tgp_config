@@ -25,7 +25,7 @@ class ColorAdapter(private val clickListener: AdapterClickListener): RecyclerVie
 
         holder.colorItem.setOnClickListener {
             selectedPos = position
-            clickListener.onClicked(colorList[position])
+            clickListener.onClicked(colorList[position], position)
             notifyDataSetChanged()
         }
 

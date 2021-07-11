@@ -10,6 +10,7 @@ import com.engx1.thegympodtvapp.api.ApiClient
 import com.engx1.thegympodtvapp.databinding.ActivityMainBinding
 import com.engx1.thegympodtvapp.utils.CommonUtils
 import com.engx1.thegympodtvapp.utils.Resource
+import com.engx1.thegympodtvapp.utils.SharedPrefManager
 import com.engx1.thegympodtvapp.viewmodel.MainViewModel
 import com.engx1.thegympodtvapp.viewmodel.MainViewModelFactory
 import java.text.SimpleDateFormat
@@ -56,15 +57,18 @@ class MainActivity : AppCompatActivity() {
 
         //pin the screen
         //startLockTask()
-        //initializePlayService()
 
+        val musicIsRunning = SharedPrefManager.getBooleanPreferences(this, "music_state")
+        if (musicIsRunning) {
+            initializePlayService()
+        }
         getActiveBookings()
     }
 
     private fun initializePlayService() {
-        val kpop = "http://167.114.64.181:8325/;stream/1"
+        val music = "http://167.114.64.181:8325/;stream/1"
         val intent = Intent(this, PlayerService::class.java).apply {
-            putExtra(PlayerService.STREAM_URL, kpop)
+            putExtra(PlayerService.STREAM_URL, music)
         }
         startService(intent)
     }

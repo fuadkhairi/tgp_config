@@ -8,4 +8,6 @@
     <string name="tools">Tools</string>
     <string name="lights">Lights</string>
     <string name="mood_color">Mood Color</string>
+    <string name="music_off">Music OFF</string>
+    <string name="music_on">Music ON</string>
 </resources>

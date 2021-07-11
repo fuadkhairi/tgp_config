@@ -17,6 +17,25 @@ class MoodViewModel(private val apiService: ApiService): ViewModel() {
     private val mDataSetLightState = MutableLiveData<Resource<LightStateResponse>>()
     private val mDataSetMoodState = MutableLiveData<Resource<MoodStateResponse>>()
     private val mDataMoodColorList = MutableLiveData<Resource<MoodColorListResponse>>()
+    private val mDataSetMoodColor = MutableLiveData<Resource<MoodStateResponse>>()
+
+    fun getDataSetMoodColor(): LiveData<Resource<MoodStateResponse>> {
+        return mDataSetMoodState
+    }
+
+    fun setMoodColor(color: String, gympodId: String) {
+        val jsonObject = JsonObject()
+        jsonObject.addProperty("gympod_id", gympodId)
+        jsonObject.addProperty("color", color)
+        viewModelScope.launch {
+            mDataSetMoodState.postValue(Resource.loading(null))
+            try {
+                mDataSetMoodState.postValue(Resource.success(apiService.setMoodState(ApiService.X_ACCESS_TOKEN, jsonObject)))
+            } catch (exception: Exception) {
+                mDataSetMoodState.postValue(Resource.error(exception.message.toString(), data = null))
+            }
+        }
+    }
 
     fun getDataSetLightState(): LiveData<Resource<LightStateResponse>> {
         return mDataSetLightState

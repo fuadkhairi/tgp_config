@@ -12,6 +12,7 @@ interface ApiService {
         const val GET_COLOR_LIST = "tv/control/colors"
         const val SET_LIGHT_STATE = "tv/control/lights"
         const val SET_MOOD_STATE = "tv/control/striplights"
+        const val SET_MOOD_COLOR = "tv/control/color/striplights"
     }
 
     @GET(GET_MOTIVATIONAL_QUOTES)
@@ -29,4 +30,7 @@ interface ApiService {
 
     @POST(SET_MOOD_STATE)
     suspend fun setMoodState(@Header("x-access-token") accessToken: String = X_ACCESS_TOKEN, @Body jsonObject: JsonObject): MoodStateResponse
+
+    @POST(SET_MOOD_COLOR)
+    suspend fun setActiveMoodColor(@Header("x-access-token") accessToken: String = X_ACCESS_TOKEN, @Body jsonObject: JsonObject): MoodStateResponse
 }

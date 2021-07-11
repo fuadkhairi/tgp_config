@@ -19,11 +19,11 @@ class MainViewModel(private val apiService: ApiService): ViewModel() {
         return mDataGetActiveBooking
     }
 
-    fun getActiveBooking() {
+    fun getActiveBooking(time: String) {
         viewModelScope.launch {
             mDataGetActiveBooking.postValue(Resource.loading(null))
             try {
-                mDataGetActiveBooking.postValue(Resource.success(data = apiService.getActiveBookings(ApiService.X_ACCESS_TOKEN, "20:00", "26")))
+                mDataGetActiveBooking.postValue(Resource.success(data = apiService.getActiveBookings(ApiService.X_ACCESS_TOKEN, time, "26")))
             } catch (exception: Exception) {
                 mDataGetActiveBooking.postValue(Resource.error(exception.message.toString(), data = null))
             }

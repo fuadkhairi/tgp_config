@@ -8,11 +8,21 @@
     tools:context=".ui.MoodActivity">
 
     <ImageView
+        android:id="@+id/close_app"
+        android:layout_width="@dimen/_22sdp"
+        android:layout_height="@dimen/_22sdp"
+        android:layout_margin="@dimen/_12sdp"
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/ic_baseline_close_24"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
         android:id="@+id/back"
         android:layout_width="@dimen/_22sdp"
         android:layout_height="@dimen/_22sdp"
         android:layout_margin="@dimen/_12sdp"
-        android:src="@drawable/ic_chevron_left_solid"/>
+        android:src="@drawable/ic_chevron_left_solid"
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/title"

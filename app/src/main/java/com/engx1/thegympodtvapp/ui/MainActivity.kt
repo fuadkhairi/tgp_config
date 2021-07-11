@@ -2,8 +2,6 @@ package com.engx1.thegympodtvapp.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -59,6 +57,7 @@ class MainActivity : AppCompatActivity() {
         //pin the screen
         //startLockTask()
         //initializePlayService()
+
         getActiveBookings()
     }
 
@@ -72,7 +71,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun getActiveBookings() {
         if (CommonUtils.isOnline(this)) {
-            viewModel.getActiveBooking()
+            viewModel.getActiveBooking(getCurrentTime())
             viewModel.getDataActiveBooking().observe(this, {
                 it.let {
                     when(it.status) {
@@ -116,6 +115,11 @@ class MainActivity : AppCompatActivity() {
         } else {
             Toast.makeText(this, "Not connected to Internet", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    fun getCurrentTime(): String {
+        val dateFormat = SimpleDateFormat("HH:mm", Locale.ENGLISH)
+        return dateFormat.format(Date())
     }
 
     override fun onResume() {

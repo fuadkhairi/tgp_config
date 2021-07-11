@@ -1,9 +1,9 @@
 package com.engx1.thegympodtvapp.ui
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.engx1.thegympodtvapp.`interface`.AdapterClickListener
@@ -11,7 +11,6 @@ import com.engx1.thegympodtvapp.adapter.ColorAdapter
 import com.engx1.thegympodtvapp.api.ApiClient
 import com.engx1.thegympodtvapp.api.ApiService
 import com.engx1.thegympodtvapp.api.legacy.ApiCallBack
-import com.engx1.thegympodtvapp.api.legacy.ApiInterface
 import com.engx1.thegympodtvapp.api.legacy.ApiManager
 import com.engx1.thegympodtvapp.api.legacy.ApiResponseListener
 import com.engx1.thegympodtvapp.databinding.ActivityMoodBinding
@@ -21,7 +20,6 @@ import com.engx1.thegympodtvapp.utils.CommonUtils
 import com.engx1.thegympodtvapp.utils.Resource
 import com.engx1.thegympodtvapp.viewmodel.MoodViewModel
 import com.engx1.thegympodtvapp.viewmodel.MoodViewModelFactory
-import retrofit2.Call
 
 class MoodActivity : AppCompatActivity(), AdapterClickListener {
     private lateinit var binding: ActivityMoodBinding
@@ -61,6 +59,10 @@ class MoodActivity : AppCompatActivity(), AdapterClickListener {
         binding.moodSwitch.setOnCheckedChangeListener { _, isChecked ->
             //Toast.makeText(this, "mood $isChecked", Toast.LENGTH_SHORT).show()
             changeMoodState(isChecked, "26")
+        }
+
+        binding.closeApp.setOnClickListener {
+            cleanDefault()
         }
 
         getMoodColorList()
@@ -145,5 +147,15 @@ class MoodActivity : AppCompatActivity(), AdapterClickListener {
 
     override fun onClicked(lightColor: LightColor) {
 
+    }
+
+    private fun cleanDefault() {
+        packageManager.clearPackagePreferredActivities(packageName)
+        val intent = Intent()
+        intent.action = Intent.ACTION_MAIN
+        intent.addCategory(Intent.CATEGORY_HOME)
+        startActivity(intent)
+        Toast.makeText(this, "Now you can close the app with home button", Toast.LENGTH_SHORT).show()
+        finish()
     }
 }

@@ -14,6 +14,7 @@ import java.lang.Exception
 class MainViewModel(private val apiService: ApiService): ViewModel() {
     private val mDataMotivationalQuotes = MutableLiveData<Resource<MotivationalQuotesResponse>>()
     private val mDataGetActiveBooking = MutableLiveData<Resource<ActiveBookingResponse>>()
+    //private val mDataGetHomeWorkout = MutableLiveData<Resource>
 
     fun getDataActiveBooking(): LiveData<Resource<ActiveBookingResponse>> {
         return mDataGetActiveBooking

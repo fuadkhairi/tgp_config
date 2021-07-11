@@ -32,7 +32,7 @@ class SplashActivity : AppCompatActivity() {
         binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        Timer().schedule(1000) {
+        Timer().schedule(1500) {
             startActivity(Intent(this@SplashActivity, MainActivity::class.java))
             finish()
         }

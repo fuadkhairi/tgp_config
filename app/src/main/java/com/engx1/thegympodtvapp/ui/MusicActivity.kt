@@ -104,10 +104,8 @@ class MusicActivity : AppCompatActivity() {
     private fun initMusic() {
         val m1 = MusicResponse("KPOP TOP 100", "KPOP", "http://121.159.140.57:8000")
         val m2 = MusicResponse("JPHiP Stream", "JPOP, KPOP, CPOP", "http://radio.jphip.com:8800")
-        val m3 = MusicResponse("HipHopRapture", "Hip Hop, Rap, East Coast Rap, West Coast Rap, Gangsta Rap","http://45.79.6.42:2410")
         playList.add(m1)
         playList.add(m2)
-        playList.add(m3)
     }
 
     private fun isServiceRunningInForeground(context: Context, serviceClass: Class<*>): Boolean {

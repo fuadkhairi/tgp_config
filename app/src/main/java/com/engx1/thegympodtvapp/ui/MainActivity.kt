@@ -80,7 +80,14 @@ class MainActivity : AppCompatActivity() {
                 it.let {
                     when(it.status) {
                         Resource.Status.SUCCESS -> {
-
+                            if (it.data?.data?.data?.isNotEmpty()!!) {
+                                "Welcome, ${it.data.data?.data!![0].firstName}".also { s -> binding.currentDateTime.text = s }
+                            } else {
+                                //show realtime clock
+                                val dateFormat = SimpleDateFormat("EEEE, dd MMMM, HH:mm a", Locale.ENGLISH)
+                                val currentDateTime = dateFormat.format(Date())
+                                binding.currentDateTime.text = currentDateTime
+                            }
                         }
                         Resource.Status.ERROR -> {
 
@@ -125,10 +132,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onResume() {
-        //show realtime clock
-        val dateFormat = SimpleDateFormat("EEEE, dd MMMM, HH:mm a", Locale.ENGLISH)
-        val currentDateTime = dateFormat.format(Date())
-        binding.currentDateTime.text = currentDateTime
         getMotivationalQuotes()
         super.onResume()
     }

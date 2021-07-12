@@ -34,8 +34,20 @@ class MusicActivity : AppCompatActivity() {
 
         initMusic()
 
-        binding.musicTV.text = playList[0].title
-        binding.genreTV.text = playList[0].genres
+
+        playIndex = SharedPrefManager.getPreferenceInt(this, "play_index") ?: 0
+        val title = SharedPrefManager.getPreferenceString(this, "music_title")
+        val genre = SharedPrefManager.getPreferenceString(this, "music_genre")
+
+        if (title != "") {
+            binding.musicTV.text = title
+            binding.genreTV.text = genre
+        } else {
+            binding.musicTV.text = playList[0].title
+            binding.genreTV.text = playList[0].genres
+            playIndex = 0
+        }
+
 
         isRunning = isServiceRunningInForeground(this, PlayerService::class.java)
         if (isRunning) {
@@ -43,6 +55,7 @@ class MusicActivity : AppCompatActivity() {
         } else {
             binding.controlButton.setImageResource(R.drawable.ic_baseline_play_arrow)
         }
+
 
         binding.back.setOnClickListener {
             onBackPressed()
@@ -68,7 +81,7 @@ class MusicActivity : AppCompatActivity() {
                 playIndex = 0
                 startPlayerService(playList[playIndex])
             }
-            Toast.makeText(this, playIndex.toString(), Toast.LENGTH_SHORT).show()
+
             isRunning = true
             binding.controlButton.setImageResource(R.drawable.ic_baseline_stop)
         }
@@ -81,7 +94,7 @@ class MusicActivity : AppCompatActivity() {
                 playIndex = playList.size-1
                 startPlayerService(playList[playIndex])
             }
-            Toast.makeText(this, playIndex.toString(), Toast.LENGTH_SHORT).show()
+
             isRunning = true
             binding.controlButton.setImageResource(R.drawable.ic_baseline_stop)
         }
@@ -89,9 +102,9 @@ class MusicActivity : AppCompatActivity() {
 
 
     private fun initMusic() {
-        val m1 = MusicResponse("KPOP TOP 100", "KPOP", "https://rush79.com", "http://121.159.140.57:8000")
-        val m2 = MusicResponse("JPHiP Stream", "JPOP, KPOP, CPOP", "https://jphip.com", "http://radio.jphip.com:8800")
-        val m3 = MusicResponse("HipHopRapture", "Hip Hop, Rap, East Coast Rap, West Coast Rap, Gangsta Rap", "https://hiphoprapture.com", "http://45.79.6.42:2410")
+        val m1 = MusicResponse("KPOP TOP 100", "KPOP", "http://121.159.140.57:8000")
+        val m2 = MusicResponse("JPHiP Stream", "JPOP, KPOP, CPOP", "http://radio.jphip.com:8800")
+        val m3 = MusicResponse("HipHopRapture", "Hip Hop, Rap, East Coast Rap, West Coast Rap, Gangsta Rap","http://45.79.6.42:2410")
         playList.add(m1)
         playList.add(m2)
         playList.add(m3)
@@ -112,11 +125,15 @@ class MusicActivity : AppCompatActivity() {
     private fun startPlayerService(music: MusicResponse) {
         (music.title).also { binding.musicTV.text = it }
         binding.genreTV.text = music.genres
-        val music = music.streamUrl
+        val musics = music.streamUrl
         val intent = Intent(this, PlayerService::class.java).apply {
-            putExtra(PlayerService.STREAM_URL, music)
+            putExtra(PlayerService.STREAM_URL, musics)
         }
         SharedPrefManager.savePreferenceBoolean(this, "music_state", true)
+        SharedPrefManager.savePreferenceInt(this, "play_index", playIndex)
+        SharedPrefManager.savePreferenceString(this, "music_title", music.title)
+        SharedPrefManager.savePreferenceString(this, "music_genre", music.genres)
+        SharedPrefManager.savePreferenceString(this, "music_stream", music.streamUrl)
         startService(intent)
     }
 

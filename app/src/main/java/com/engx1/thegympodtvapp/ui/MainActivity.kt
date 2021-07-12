@@ -66,9 +66,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initializePlayService() {
-        val music = "http://167.114.64.181:8325/;stream/1"
+        val stream = SharedPrefManager.getPreferenceString(this, "music_stream")
         val intent = Intent(this, PlayerService::class.java).apply {
-            putExtra(PlayerService.STREAM_URL, music)
+            putExtra(PlayerService.STREAM_URL, stream)
         }
         startService(intent)
     }

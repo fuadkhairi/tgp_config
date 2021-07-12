@@ -7,8 +7,6 @@ data class MusicResponse(
     var title: String,
     @SerializedName("genres")
     var genres: String,
-    @SerializedName("website")
-    var website: String,
     @SerializedName("stream_url")
     var streamUrl: String
 )

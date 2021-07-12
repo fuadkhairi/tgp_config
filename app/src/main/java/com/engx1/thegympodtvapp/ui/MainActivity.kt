@@ -82,6 +82,12 @@ class MainActivity : AppCompatActivity() {
                         Resource.Status.SUCCESS -> {
                             if (it.data?.data?.data?.isNotEmpty()!!) {
                                 "Welcome, ${it.data.data?.data!![0].firstName}".also { s -> binding.currentDateTime.text = s }
+
+                                val endTime = it.data.data?.data!![0].endTime
+                                val startTime = it.data.data?.data!![0].startTime
+
+                                SharedPrefManager.savePreferenceString(this, "current_booking_end_time", endTime)
+                                SharedPrefManager.savePreferenceString(this, "current_booking_start_time", startTime)
                             } else {
                                 //show realtime clock
                                 val dateFormat = SimpleDateFormat("EEEE, dd MMMM, HH:mm a", Locale.ENGLISH)

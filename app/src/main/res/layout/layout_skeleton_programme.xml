@@ -9,7 +9,8 @@
         android:adjustViewBounds="true"
         android:layout_width="match_parent"
         android:layout_marginBottom="@dimen/_10sdp"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/_130sdp"
         android:src="@drawable/default_bg"
+        android:scaleType="center"
         app:tint="@color/primary_grey_transparent"/>
 </RelativeLayout>

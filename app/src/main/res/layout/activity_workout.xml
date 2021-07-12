@@ -29,6 +29,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:layout_below="@id/mainWorkoutTV"
         android:layout_marginTop="@dimen/_12sdp"
+        android:layoutAnimation="@anim/list_animation"
         android:id="@+id/mainProgrammeRV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>

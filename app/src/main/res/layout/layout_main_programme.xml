@@ -2,15 +2,16 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layoutAnimation="@anim/list_animation"
     android:background="@color/transparent">
 
     <ImageView
         android:id="@+id/programmeBannerIV"
-        android:adjustViewBounds="true"
+        android:scaleType="center"
         android:src="@drawable/default_bg"
         android:layout_width="match_parent"
         android:layout_marginBottom="@dimen/_10sdp"
-        android:layout_height="wrap_content"/>
+        android:layout_height="@dimen/_130sdp"/>
 
 
 </RelativeLayout>

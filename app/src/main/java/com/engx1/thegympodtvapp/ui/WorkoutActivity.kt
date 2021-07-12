@@ -49,6 +49,7 @@ class WorkoutActivity : AppCompatActivity(), AdapterClickListener {
                 override fun onApiSuccess(response: MainWorkoutResponse, apiName: String) {
                     skeletonScreen?.hide()
                     programmeAdapter?.updateAdapter(response.data)
+                    binding.mainProgrammeRV.scheduleLayoutAnimation()
                 }
 
                 override fun onApiError(responses: String, apiName: String) {

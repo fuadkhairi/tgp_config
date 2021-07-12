@@ -1,0 +1,15 @@
+{
+    "type": "music",
+    "data": [
+        {
+          "title": "KPOP TOP 100",
+          "genre": "Kpop",
+          "stream_url": "http://121.159.140.57:8000"
+        },
+        {
+          "title": "JPHiP Stream",
+          "genre": "Kpop, JPop, Cpop",
+          "stream_url": "ttp://radio.jphip.com:8800"
+        }
+      ]
+  }

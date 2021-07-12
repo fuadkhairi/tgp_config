@@ -20,5 +20,9 @@ data class BookingData(
 
 data class User(
     @SerializedName("first_name")
-    var firstName: String
+    var firstName: String?,
+    @SerializedName("end_time")
+    var endTime: String?,
+    @SerializedName("start_time")
+    var startTime: String?
 )

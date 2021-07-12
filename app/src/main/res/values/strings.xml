@@ -10,4 +10,5 @@
     <string name="mood_color">Mood Color</string>
     <string name="music_off">Music OFF</string>
     <string name="music_on">Music ON</string>
+    <string name="main_workout">Main Workout</string>
 </resources>

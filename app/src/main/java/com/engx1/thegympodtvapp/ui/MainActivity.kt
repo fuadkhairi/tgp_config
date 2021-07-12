@@ -103,9 +103,7 @@ class MainActivity : AppCompatActivity() {
                 it.let {
                     when (it.status) {
                         Resource.Status.SUCCESS -> {
-                            (it.data?.data?.text + "\n- ${it.data?.data?.author}").also { s ->
-                                binding.quotesTV.text = s
-                            }
+                            binding.quotesTV.text = it.data?.data?.text
                         }
                         Resource.Status.ERROR -> {
 

@@ -15,9 +15,9 @@
         android:src="@drawable/ic_chevron_left_solid"/>
 
     <TextView
-        android:id="@+id/currentDateTime"
+        android:id="@+id/mainWorkoutTV"
         android:layout_marginTop="@dimen/_12sdp"
-        android:text="@string/workout"
+        android:text="@string/main_workout"
         android:textColor="@color/lb_tv_white"
         android:layout_width="wrap_content"
         android:fontFamily="@font/exo_bold"
@@ -26,14 +26,11 @@
         android:layout_height="@dimen/_22sdp"
         android:layout_centerHorizontal="true"/>
 
-    <TextView
-        android:id="@+id/musicTV"
-        android:text="Under Construction"
-        android:textColor="@color/lb_tv_white"
-        android:layout_width="wrap_content"
-        android:layout_centerInParent="true"
-        android:fontFamily="@font/exo_bold"
-        android:textSize="@dimen/_10ssp"
-        android:layout_height="wrap_content" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_below="@id/mainWorkoutTV"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:id="@+id/mainProgrammeRV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
 </RelativeLayout>

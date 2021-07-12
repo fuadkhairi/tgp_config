@@ -13,6 +13,7 @@ interface ApiService {
         const val SET_LIGHT_STATE = "tv/control/lights"
         const val SET_MOOD_STATE = "tv/control/striplights"
         const val SET_MOOD_COLOR = "tv/control/color/striplights"
+        const val GET_MAIN_PROGRAMME = "tv/programme/main"
     }
 
     @GET(GET_MOTIVATIONAL_QUOTES)

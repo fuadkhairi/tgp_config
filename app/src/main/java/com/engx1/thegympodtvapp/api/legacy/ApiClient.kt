@@ -11,10 +11,9 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
-open class ApiClient internal constructor(private val context: Context?) {
+open class ApiClient internal constructor() {
     private val apiInterface: ApiInterface
     private var requestBuilder: Request.Builder? = null
-
 
     init {
         val interceptor = HttpLoggingInterceptor()
@@ -70,12 +69,12 @@ open class ApiClient internal constructor(private val context: Context?) {
             if (isTrue) {
                 if (apiClient == null) {
                     apiClient =
-                        ApiClient(context)
+                        ApiClient()
                 }
             } else {
                 if (apiClient == null) {
                     apiClient =
-                        ApiClient(context)
+                        ApiClient()
                 }
             }
 

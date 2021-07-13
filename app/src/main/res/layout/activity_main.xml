@@ -20,7 +20,6 @@
         android:id="@+id/currentDateTime"
         android:layout_marginTop="@dimen/_20sdp"
         android:layout_below="@id/gympodLogo"
-        android:text="@string/current_date"
         android:textColor="@color/lb_tv_white"
         android:layout_width="wrap_content"
         android:fontFamily="@font/exo_bold"

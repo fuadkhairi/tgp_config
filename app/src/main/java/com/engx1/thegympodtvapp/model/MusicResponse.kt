@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 data class MusicResponse(
     @SerializedName("title")
     var title: String,
-    @SerializedName("genres")
+    @SerializedName("genre")
     var genres: String,
     @SerializedName("stream_url")
     var streamUrl: String

@@ -1,6 +1,7 @@
 package com.engx1.thegympodtvapp.api.legacy
 
 import com.engx1.thegympodtvapp.api.ApiService
+import com.engx1.thegympodtvapp.model.AvailableMusicResponse
 import com.engx1.thegympodtvapp.model.MainWorkoutResponse
 import com.engx1.thegympodtvapp.model.MoodColorListResponse
 import retrofit2.Call
@@ -17,6 +18,9 @@ interface ApiInterface {
     fun getMainProgramme(
         @Header("x-access-token") id: String = ApiService.X_ACCESS_TOKEN
     ): Call<MainWorkoutResponse>
+
+    @GET(ApiService.GET_AVAILABLE_MUSIC)
+    fun getAvailableMusic(): Call<AvailableMusicResponse>
 //
 //    @POST(GET_BANK_ACCOUNT_INQUIRY)
 //    fun getBankAccountInquiry(@Body jsonObject: JsonObject): Call<BankAccountInquiryResponse>

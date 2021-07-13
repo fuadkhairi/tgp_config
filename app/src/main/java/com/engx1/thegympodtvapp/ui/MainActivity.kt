@@ -32,6 +32,7 @@ import java.util.*
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     lateinit var viewModel: MainViewModel
+    var isBooked = false
 
     private fun setupViewModel() {
         this.let {
@@ -66,13 +67,14 @@ class MainActivity : AppCompatActivity() {
         }
         getActiveBookings()
         getAvailableUpdate()
+        getUserBookingProgramme()
     }
 
     private val countDownUpdate: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent) {
-
             if (intent.extras!!.getString("countdown") == "0") {
                 binding.currentCountdown.visibility = View.INVISIBLE
+                isBooked = false
             } else {
                 ("Your session ends in " + intent.extras!!.getString("countdown")).also { binding.currentCountdown.text = it }
             }
@@ -111,6 +113,31 @@ class MainActivity : AppCompatActivity() {
         startService(intent)
     }
 
+
+    private fun getUserBookingProgramme() {
+        if (CommonUtils.isOnline(this)) {
+            viewModel.getUserBookingProgramme()
+            viewModel.getDataUserBookingProgramme().observe(this, {
+                it.let {
+                    when(it.status) {
+                        Resource.Status.SUCCESS -> {
+                            it.data.apply {
+                            }
+                        }
+                        Resource.Status.ERROR -> {
+
+                        }
+                        Resource.Status.LOADING -> {
+
+                        }
+                    }
+                }
+            })
+        } else {
+            Toast.makeText(this, "Not connected to Internet", Toast.LENGTH_SHORT).show()
+        }
+    }
+
     @SuppressLint("SimpleDateFormat")
     private fun getActiveBookings() {
         if (CommonUtils.isOnline(this)) {
@@ -120,6 +147,7 @@ class MainActivity : AppCompatActivity() {
                     when(it.status) {
                         Resource.Status.SUCCESS -> {
                             if (it.data?.data?.data?.isNotEmpty()!!) {
+                                isBooked = true
                                 "Welcome, ${it.data.data?.data!![0].firstName}".also { s -> binding.currentDateTime.text = s }
                                 //val startTime = "2021-07-13 10:00:00"
                                 //val endTime = "2021-07-13 10:15:00"

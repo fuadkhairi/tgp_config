@@ -1,7 +1,13 @@
 package com.engx1.thegympodtvapp.ui
 
+import android.annotation.SuppressLint
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -12,8 +18,8 @@ import com.engx1.thegympodtvapp.api.legacy.ApiCallBack
 import com.engx1.thegympodtvapp.api.legacy.ApiManager
 import com.engx1.thegympodtvapp.api.legacy.ApiResponseListener
 import com.engx1.thegympodtvapp.databinding.ActivityMainBinding
-import com.engx1.thegympodtvapp.model.AvailableMusicResponse
 import com.engx1.thegympodtvapp.model.AvailableUpdateResponse
+import com.engx1.thegympodtvapp.service.CountDownTimeService
 import com.engx1.thegympodtvapp.utils.CommonUtils
 import com.engx1.thegympodtvapp.utils.ProgressDialogUtils
 import com.engx1.thegympodtvapp.utils.Resource
@@ -52,16 +58,25 @@ class MainActivity : AppCompatActivity() {
         binding.musicToggle.setOnClickListener {
             startActivity(Intent(this, MusicActivity::class.java))
         }
-
         //pin the screen
         //startLockTask()
-
         val musicIsRunning = SharedPrefManager.getBooleanPreferences(this, "music_state")
         if (musicIsRunning) {
             initializePlayService()
         }
         getActiveBookings()
         getAvailableUpdate()
+    }
+
+    private val countDownUpdate: BroadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent) {
+
+            if (intent.extras!!.getString("countdown") == "0") {
+                binding.currentCountdown.visibility = View.INVISIBLE
+            } else {
+                ("Your session ends in " + intent.extras!!.getString("countdown")).also { binding.currentCountdown.text = it }
+            }
+        }
     }
 
 
@@ -96,6 +111,7 @@ class MainActivity : AppCompatActivity() {
         startService(intent)
     }
 
+    @SuppressLint("SimpleDateFormat")
     private fun getActiveBookings() {
         if (CommonUtils.isOnline(this)) {
             viewModel.getActiveBooking(getCurrentTime())
@@ -105,12 +121,16 @@ class MainActivity : AppCompatActivity() {
                         Resource.Status.SUCCESS -> {
                             if (it.data?.data?.data?.isNotEmpty()!!) {
                                 "Welcome, ${it.data.data?.data!![0].firstName}".also { s -> binding.currentDateTime.text = s }
-
-                                val endTime = it.data.data?.data!![0].endTime
-                                val startTime = it.data.data?.data!![0].startTime
-
-                                SharedPrefManager.savePreferenceString(this, "current_booking_end_time", endTime)
-                                SharedPrefManager.savePreferenceString(this, "current_booking_start_time", startTime)
+                                //val startTime = "2021-07-13 10:00:00"
+                                //val endTime = "2021-07-13 10:15:00"
+                                val endTime = it.data.data?.data!![0].endTime ?: ""
+                                val startTime = it.data.data?.data!![0].startTime ?: ""
+                                val sdf = SimpleDateFormat("yyyy-dd-MM hh:mm:ss")
+                                val s = sdf.parse(startTime)
+                                val e = sdf.parse(endTime)
+                                val diff: Long = e.time - s.time
+                                startService(Intent(this, CountDownTimeService::class.java).putExtra("end_time", diff))
+                                registerReceiver(countDownUpdate, IntentFilter("COUNTDOWN_UPDATED"))
                             } else {
                                 //show realtime clock
                                 val dateFormat = SimpleDateFormat("EEEE, dd MMMM, HH:mm a", Locale.ENGLISH)

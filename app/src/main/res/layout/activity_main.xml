@@ -27,6 +27,16 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"/>
 
+    <TextView
+        android:id="@+id/currentCountdown"
+        android:layout_below="@id/currentDateTime"
+        android:textColor="@color/lb_tv_white"
+        android:layout_width="wrap_content"
+        android:fontFamily="@font/exo_regular"
+        android:textSize="@dimen/_9ssp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"/>
+
 <!--    <LinearLayout-->
 <!--        android:id="@+id/closeApp"-->
 <!--        android:orientation="vertical"-->
@@ -47,8 +57,8 @@
         android:orientation="vertical"
         android:layout_width="@dimen/_60sdp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/currentDateTime"
-        android:layout_marginTop="@dimen/_28sdp"
+        android:layout_below="@id/currentCountdown"
+        android:layout_marginTop="@dimen/_12sdp"
         android:layout_marginStart="@dimen/_12sdp"
         android:gravity="center">
         <ImageView

@@ -38,6 +38,8 @@
 
         <service android:name="com.beraldo.playerlib.PlayerService" />
 
+        <service android:name=".service.CountDownTimeService" />
+
         <receiver
             android:name=".service.LaunchPlayerBroadcastReceiver"
             android:exported="true"
@@ -46,6 +48,8 @@
                 <action android:name="com.beraldo.playerlib.LAUNCH_PLAYER_ACTIVITY" />
             </intent-filter>
         </receiver>
+
+
     </application>
 
 </manifest>

@@ -7,9 +7,11 @@
           "change_log":
             [
               "Updated UI",
-              "Removed Unused Data"
+              "Removed Unused Data",
+              "Now load music data from Github",
+              "Mood Setting improved"
             ]
         }
       ],
-    "download_url": ""   
+    "download_url": "https://github.com/fuadkhairi/tgp_config/raw/master/update_file/1.0.1.apk"   
   }

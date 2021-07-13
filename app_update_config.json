@@ -1,0 +1,15 @@
+{
+    "type": "update",
+    "data": [
+        {
+          "title": "13 July 2021 Update",
+          "version": "1.0.1",
+          "change_log":
+            [
+              "Updated UI",
+              "Removed Unused Data"
+            ]
+        }
+      ],
+    "download_url": ""   
+  }

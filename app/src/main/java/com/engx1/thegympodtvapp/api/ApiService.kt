@@ -15,6 +15,7 @@ interface ApiService {
         const val SET_MOOD_COLOR = "tv/control/color/striplights"
         const val GET_MAIN_PROGRAMME = "tv/programme/main"
         const val GET_AVAILABLE_MUSIC = "https://raw.githubusercontent.com/fuadkhairi/tgp_config/master/music_config.json"
+        const val GET_AVAILABLE_UPDATE = "https://raw.githubusercontent.com/fuadkhairi/tgp_config/master/app_update_config.json"
     }
 
     @GET(GET_MOTIVATIONAL_QUOTES)

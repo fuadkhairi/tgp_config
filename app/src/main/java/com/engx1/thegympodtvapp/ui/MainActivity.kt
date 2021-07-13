@@ -7,8 +7,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.beraldo.playerlib.PlayerService
 import com.engx1.thegympodtvapp.api.ApiClient
+import com.engx1.thegympodtvapp.api.ApiService
+import com.engx1.thegympodtvapp.api.legacy.ApiCallBack
+import com.engx1.thegympodtvapp.api.legacy.ApiManager
+import com.engx1.thegympodtvapp.api.legacy.ApiResponseListener
 import com.engx1.thegympodtvapp.databinding.ActivityMainBinding
+import com.engx1.thegympodtvapp.model.AvailableMusicResponse
+import com.engx1.thegympodtvapp.model.AvailableUpdateResponse
 import com.engx1.thegympodtvapp.utils.CommonUtils
+import com.engx1.thegympodtvapp.utils.ProgressDialogUtils
 import com.engx1.thegympodtvapp.utils.Resource
 import com.engx1.thegympodtvapp.utils.SharedPrefManager
 import com.engx1.thegympodtvapp.viewmodel.MainViewModel
@@ -46,15 +53,6 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, MusicActivity::class.java))
         }
 
-//        binding.closeApp.setOnClickListener {
-//            packageManager.clearPackagePreferredActivities(packageName);
-//            val intent = Intent()
-//            intent.action = Intent.ACTION_MAIN
-//            intent.addCategory(Intent.CATEGORY_HOME)
-//            startActivity(intent)
-//            finish()
-//        }
-
         //pin the screen
         //startLockTask()
 
@@ -63,6 +61,31 @@ class MainActivity : AppCompatActivity() {
             initializePlayService()
         }
         getActiveBookings()
+        getAvailableUpdate()
+    }
+
+
+    private fun getAvailableUpdate() {
+        ProgressDialogUtils.show(this, "Getting updates..")
+        if (CommonUtils.isOnline(this)) {
+            val apiCallBack = ApiCallBack(object :
+                ApiResponseListener<AvailableUpdateResponse> {
+                override fun onApiSuccess(response: AvailableUpdateResponse, apiName: String) {
+                    ProgressDialogUtils.dismiss()
+                }
+
+                override fun onApiError(responses: String, apiName: String) {
+                    ProgressDialogUtils.dismiss()
+                }
+
+                override fun onApiFailure(failureMessage: String, apiName: String) {
+                    ProgressDialogUtils.dismiss()
+                }
+            }, ApiService.GET_AVAILABLE_UPDATE, this.applicationContext)
+            ApiManager(this).getAvailableUpdate(apiCallBack)
+        } else {
+            Toast.makeText(this, "Not connected to Internet", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun initializePlayService() {
@@ -96,10 +119,14 @@ class MainActivity : AppCompatActivity() {
                             }
                         }
                         Resource.Status.ERROR -> {
-
+                            val dateFormat = SimpleDateFormat("EEEE, dd MMMM, HH:mm a", Locale.ENGLISH)
+                            val currentDateTime = dateFormat.format(Date())
+                            binding.currentDateTime.text = currentDateTime
                         }
                         Resource.Status.LOADING -> {
-
+                            val dateFormat = SimpleDateFormat("EEEE, dd MMMM, HH:mm a", Locale.ENGLISH)
+                            val currentDateTime = dateFormat.format(Date())
+                            binding.currentDateTime.text = currentDateTime
                         }
                     }
                 }
@@ -132,7 +159,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun getCurrentTime(): String {
+    private fun getCurrentTime(): String {
         val dateFormat = SimpleDateFormat("HH:mm", Locale.ENGLISH)
         return dateFormat.format(Date())
     }

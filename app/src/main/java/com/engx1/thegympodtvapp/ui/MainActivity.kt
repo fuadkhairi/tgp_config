@@ -98,23 +98,18 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
     private fun getAvailableUpdate() {
-        ProgressDialogUtils.show(this, "Getting updates..")
         if (CommonUtils.isOnline(this)) {
             val apiCallBack = ApiCallBack(object :
                 ApiResponseListener<AvailableUpdateResponse> {
                 override fun onApiSuccess(response: AvailableUpdateResponse, apiName: String) {
-                    ProgressDialogUtils.dismiss()
-                    compareVersion(response)
+                    //compareVersion(response)
                 }
 
                 override fun onApiError(responses: String, apiName: String) {
-                    ProgressDialogUtils.dismiss()
                 }
 
                 override fun onApiFailure(failureMessage: String, apiName: String) {
-                    ProgressDialogUtils.dismiss()
                 }
             }, ApiService.GET_AVAILABLE_UPDATE, this.applicationContext)
             ApiManager(this).getAvailableUpdate(apiCallBack)

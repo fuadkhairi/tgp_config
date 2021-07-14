@@ -19,7 +19,7 @@ data class BookingData(
 )
 
 data class User(
-    @SerializedName("first_name")
+    @SerializedName("firstname")
     var firstName: String?,
     @SerializedName("end_time")
     var endTime: String?,

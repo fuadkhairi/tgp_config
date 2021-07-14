@@ -25,7 +25,7 @@ class MainViewModel(private val apiService: ApiService): ViewModel() {
         viewModelScope.launch {
             mDataGetUserBookingData.postValue(Resource.loading(null))
             try {
-                mDataGetUserBookingData.postValue(Resource.success(data = apiService.getBookingProgramme(ApiService.X_ACCESS_TOKEN, "26", "home")))
+                mDataGetUserBookingData.postValue(Resource.success(data = apiService.getBookingProgramme(ApiService.X_ACCESS_TOKEN, "1", "home")))
             } catch (exception: Exception) {
                 mDataGetUserBookingData.postValue(Resource.error(exception.message.toString(), data = null))
             }
@@ -40,7 +40,7 @@ class MainViewModel(private val apiService: ApiService): ViewModel() {
         viewModelScope.launch {
             mDataGetActiveBooking.postValue(Resource.loading(null))
             try {
-                mDataGetActiveBooking.postValue(Resource.success(data = apiService.getActiveBookings(ApiService.X_ACCESS_TOKEN, time, "26")))
+                mDataGetActiveBooking.postValue(Resource.success(data = apiService.getActiveBookings(ApiService.X_ACCESS_TOKEN, time, "1")))
             } catch (exception: Exception) {
                 mDataGetActiveBooking.postValue(Resource.error(exception.message.toString(), data = null))
             }

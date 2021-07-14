@@ -3,6 +3,7 @@ package com.engx1.thegympodtvapp.ui
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.ActivityManager
 import android.app.DownloadManager
 import android.content.*
 import android.content.pm.PackageManager
@@ -231,19 +232,24 @@ class MainActivity : AppCompatActivity() {
                                 }
                                 //val startTime = "2021-07-13 10:00:00"
                                 //val endTime = "2021-07-13 10:15:00"
-                                val endTime = it.data.data?.data!![0].endTime ?: ""
-                                val startTime = it.data.data?.data!![0].startTime ?: ""
-                                val currentTime = it.data.data?.currentTime ?: ""
-                                val sdf = SimpleDateFormat("yyyy-dd-MM hh:mm:ss")
-                                val c = sdf.parse(currentTime)
-                                val e = sdf.parse(endTime)
-                                val diff: Long = e.time - c.time
-                                startService(
-                                    Intent(
-                                        this,
-                                        CountDownTimeService::class.java
-                                    ).putExtra("end_time", diff)
-                                )
+
+                                val isRunning = isServiceRunning(this, CountDownTimeService::class.java)
+
+                                if(!isRunning) {
+                                    val endTime = it.data.data?.data!![0].endTime ?: ""
+                                    val startTime = it.data.data?.data!![0].startTime ?: ""
+                                    val currentTime = it.data.data?.currentTime ?: ""
+                                    val sdf = SimpleDateFormat("yyyy-dd-MM hh:mm:ss")
+                                    val c = sdf.parse(currentTime)
+                                    val e = sdf.parse(endTime)
+                                    val diff: Long = e.time - c.time
+                                    startService(
+                                        Intent(
+                                            this,
+                                            CountDownTimeService::class.java
+                                        ).putExtra("end_time", diff)
+                                    )
+                                }
                                 registerReceiver(countDownUpdate, IntentFilter("COUNTDOWN_UPDATED"))
                             } else {
                                 //show realtime clock
@@ -271,6 +277,18 @@ class MainActivity : AppCompatActivity() {
         } else {
             Toast.makeText(this, "Not connected to Internet", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun isServiceRunning(context: Context, serviceClass: Class<*>): Boolean {
+        val manager: ActivityManager = context.getSystemService(ACTIVITY_SERVICE) as ActivityManager
+        for (service in manager.getRunningServices(Int.MAX_VALUE)) {
+            if (serviceClass.name == service.service.className) {
+                if (service.started) {
+                    return true
+                }
+            }
+        }
+        return false
     }
 
     private fun getMotivationalQuotes() {

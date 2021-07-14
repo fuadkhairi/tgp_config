@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:orientation="vertical"
+    android:background="@color/pure_black"
+    android:paddingLeft="32dp"
+    android:paddingTop="24dp"
+    android:paddingRight="32dp"
+    android:paddingBottom="24dp"
+    >
+
+    <ImageView
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:scaleY="0.5"
+        android:scaleX="0.5"
+        android:layout_gravity="center_horizontal"
+        android:src="@mipmap/raw_gympod_logo"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/pure_white"
+        android:text="The Gympod Update"
+        android:textSize="@dimen/_16sdp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Current app version is outdated"
+        android:textSize="@dimen/_12sdp"
+        android:textColor="@color/pure_white"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/updateBT"
+        app:backgroundTint="@color/pure_black"
+        android:layout_marginTop="36dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="update now" />
+
+
+</LinearLayout>

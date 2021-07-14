@@ -4,6 +4,7 @@
         {
           "title": "13 July 2021 Update",
           "version": "1.0.1",
+          "download_url": "https://github.com/fuadkhairi/tgp_config/raw/master/update_file/1.0.1.apk",
           "change_log":
             [
               "Updated UI",
@@ -12,6 +13,5 @@
               "Mood Setting improved"
             ]
         }
-      ],
-    "download_url": "https://github.com/fuadkhairi/tgp_config/raw/master/update_file/1.0.1.apk"   
+      ]   
   }

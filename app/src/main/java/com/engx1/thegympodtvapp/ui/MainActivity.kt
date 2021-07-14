@@ -136,7 +136,6 @@ class MainActivity : AppCompatActivity() {
         val newVersion = compareTo.data[0].version
         val vc = VersionChecker()
         if (vc.getVersionStatus(newVersion) < 0) {
-            Toast.makeText(this, "Update needs update!",Toast.LENGTH_SHORT).show()
             showUpdateDialog(compareTo.downloadUrl)
         }
     }

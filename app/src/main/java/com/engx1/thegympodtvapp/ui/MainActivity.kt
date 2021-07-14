@@ -136,6 +136,7 @@ class MainActivity : AppCompatActivity() {
         val newVersion = compareTo.data[0].version
         val vc = VersionChecker()
         if (vc.getVersionStatus(newVersion) < 0) {
+            Toast.makeText(this, "Update needs update!",Toast.LENGTH_SHORT).show()
             showUpdateDialog(compareTo.downloadUrl)
         }
     }
@@ -149,10 +150,13 @@ class MainActivity : AppCompatActivity() {
         val updateBtn =
             popUp.findViewById<Button>(R.id.updateBT)
         alertDialogBuilder.setView(popUp)
-        alertDialogBuilder.setCancelable(true)
+        alertDialogBuilder.setCancelable(false)
         val alertDialog = alertDialogBuilder.create()
+        alertDialog.show()
 
         updateBtn.setOnClickListener {
+            Toast.makeText(this@MainActivity, "Update started in the background..", Toast.LENGTH_LONG).show()
+            alertDialog.dismiss()
             var destination: String =
                 Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
                     .toString() + "/"
@@ -174,6 +178,7 @@ class MainActivity : AppCompatActivity() {
             //set BroadcastReceiver to install app when .apk is downloaded
             val onComplete: BroadcastReceiver = object : BroadcastReceiver() {
                 override fun onReceive(ctxt: Context?, intent: Intent?) {
+                    alertDialog.dismiss()
                     val toInstall = File(uri.path)
                     val apkUri: Uri = FileProvider.getUriForFile(
                         this@MainActivity,
@@ -185,15 +190,11 @@ class MainActivity : AppCompatActivity() {
                     intent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
                     this@MainActivity.startActivity(intent)
                     unregisterReceiver(this)
-                    finish()
+                    finishAffinity()
                 }
             }
             registerReceiver(onComplete, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))
-            Toast.makeText(this@MainActivity, "Update started in the background..", Toast.LENGTH_LONG).show()
-            alertDialog.dismiss()
         }
-
-        alertDialog.show()
     }
 
 
@@ -307,9 +308,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onResume() {
+        getAvailableUpdate()
         getMotivationalQuotes()
         getActiveBookings()
-        getAvailableUpdate()
         getUserBookingProgramme()
         super.onResume()
     }

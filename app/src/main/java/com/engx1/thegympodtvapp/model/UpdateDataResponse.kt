@@ -8,6 +8,8 @@ data class UpdateDataResponse(
     var title: String,
     @SerializedName("version")
     var version: String,
+    @SerializedName("download_url")
+    var downloadUrl: String,
     @SerializedName("change_log")
     var changeLog: ArrayList<String>
 ): Serializable

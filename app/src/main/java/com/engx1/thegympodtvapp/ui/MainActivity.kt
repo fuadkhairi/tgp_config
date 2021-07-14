@@ -136,7 +136,7 @@ class MainActivity : AppCompatActivity() {
         val newVersion = compareTo.data[0].version
         val vc = VersionChecker()
         if (vc.getVersionStatus(newVersion) < 0) {
-            showUpdateDialog(compareTo.downloadUrl)
+            showUpdateDialog(compareTo.data[0].downloadUrl)
         }
     }
 

@@ -6,7 +6,5 @@ data class AvailableUpdateResponse(
     @SerializedName("type")
     var type: String,
     @SerializedName("data")
-    var data: ArrayList<UpdateDataResponse>,
-    @SerializedName("download_url")
-    var downloadUrl: String
+    var data: ArrayList<UpdateDataResponse>
 )

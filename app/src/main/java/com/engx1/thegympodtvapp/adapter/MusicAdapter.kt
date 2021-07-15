@@ -38,7 +38,7 @@ class MusicAdapter(private val clickListener: MusicClickListener): RecyclerView.
             clickListener.onClicked(musicList[position], position)
         }
 
-        if (selectedPos == position && isStream) {
+        if (selectedPos == position) {
             holder.currentStream.visibility = View.VISIBLE
         } else {
             holder.currentStream.visibility = View.INVISIBLE
@@ -49,14 +49,12 @@ class MusicAdapter(private val clickListener: MusicClickListener): RecyclerView.
         return musicList.size
     }
 
-    fun setSelectedItem(position: Int, isStreaming: Boolean) {
+    fun setSelectedItem(position: Int) {
         selectedPos = position
-        isStream = isStreaming
         notifyDataSetChanged()
     }
 
     companion object {
         var selectedPos = RecyclerView.NO_POSITION
-        var isStream = false
     }
 }

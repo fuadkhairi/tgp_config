@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     lateinit var viewModel: MainViewModel
     var isBooked = false
-    private val REQUEST_PERMISSIONS : Int = 101
+    private val REQUEST_PERMISSIONS: Int = 101
 
     private fun setupViewModel() {
         this.let {
@@ -144,7 +144,11 @@ class MainActivity : AppCompatActivity() {
         alertDialog.show()
 
         updateBtn.setOnClickListener {
-            Toast.makeText(this@MainActivity, "Update started in the background..", Toast.LENGTH_LONG).show()
+            Toast.makeText(
+                this@MainActivity,
+                "Update started in the background..",
+                Toast.LENGTH_LONG
+            ).show()
             alertDialog.dismiss()
             var destination: String =
                 Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
@@ -224,6 +228,7 @@ class MainActivity : AppCompatActivity() {
                                 "Welcome, ${it.data.data?.data!![0].firstName}".also { s ->
                                     binding.welcomeMessageTV.text = s
                                 }
+                                binding.welcomeMessageTV.setTextColor(resources.getColor(R.color.colorPrimary, theme))
                                 //val startTime = "2021-07-13 10:00:00"
                                 //val endTime = "2021-07-13 10:15:00"
 
@@ -234,9 +239,10 @@ class MainActivity : AppCompatActivity() {
                                 val currentDateTime = dateFormat.format(Date())
                                 binding.currentDateTime.text = currentDateTime
 
-                                val isRunning = isServiceRunning(this, CountDownTimeService::class.java)
+                                val isRunning =
+                                    isServiceRunning(this, CountDownTimeService::class.java)
 
-                                if(!isRunning) {
+                                if (!isRunning) {
                                     val endTime = it.data.data?.data!![0].endTime ?: ""
                                     val currentTime = it.data.data?.currentTime ?: ""
                                     val sdf = SimpleDateFormat("yyyy-dd-MM hh:mm:ss")

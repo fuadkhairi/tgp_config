@@ -73,11 +73,11 @@ class MusicActivity : AppCompatActivity(), MusicClickListener {
             if (playIndex < playList.size-1) {
                 playIndex++
                 startPlayerService(playList[playIndex])
-                musicAdapter?.setSelectedItem(playIndex, isRunning)
+                musicAdapter?.setSelectedItem(playIndex)
             } else {
                 playIndex = 0
                 startPlayerService(playList[playIndex])
-                musicAdapter?.setSelectedItem(playIndex, isRunning)
+                musicAdapter?.setSelectedItem(playIndex)
             }
 
             isRunning = true
@@ -88,11 +88,11 @@ class MusicActivity : AppCompatActivity(), MusicClickListener {
             if (playIndex > 0) {
                 playIndex--
                 startPlayerService(playList[playIndex])
-                musicAdapter?.setSelectedItem(playIndex, isRunning)
+                musicAdapter?.setSelectedItem(playIndex)
             } else {
                 playIndex = playList.size-1
                 startPlayerService(playList[playIndex])
-                musicAdapter?.setSelectedItem(playIndex, isRunning)
+                musicAdapter?.setSelectedItem(playIndex)
             }
 
             isRunning = true
@@ -123,7 +123,7 @@ class MusicActivity : AppCompatActivity(), MusicClickListener {
                         playIndex = 0
                     }
                     musicAdapter?.updateAdapter(playList)
-                    musicAdapter?.setSelectedItem(playIndex, isRunning)
+                    musicAdapter?.setSelectedItem(playIndex)
                 }
 
                 override fun onApiError(responses: String, apiName: String) {
@@ -179,7 +179,7 @@ class MusicActivity : AppCompatActivity(), MusicClickListener {
     override fun onClicked(music: MusicResponse, position: Int) {
         playIndex = position
         startPlayerService(playList[playIndex])
-        musicAdapter?.setSelectedItem(playIndex, isRunning)
+        musicAdapter?.setSelectedItem(playIndex)
     }
 
 }

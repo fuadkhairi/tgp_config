@@ -27,7 +27,7 @@ class CountDownTimeService: Service() {
         counter = object : CountDownTimer(endTime, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 val seconds = millisUntilFinished / 1000
-                val time = String.format("%02d:%02d:%02d", seconds / 3600, seconds / 60 % 60, seconds % 60)
+                val time = String.format("%02d:%02d", seconds / 3600, seconds / 60 % 60)
                 val i = Intent("COUNTDOWN_UPDATED")
                 i.putExtra("countdown", time)
                 sendBroadcast(i)

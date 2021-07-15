@@ -17,48 +17,75 @@
         android:src="@mipmap/raw_gympod_logo"/>
 
     <TextView
-        android:id="@+id/currentDateTime"
+        android:id="@+id/welcomeMessageTV"
         android:layout_marginTop="@dimen/_20sdp"
         android:layout_below="@id/gympodLogo"
         android:textColor="@color/lb_tv_white"
+        android:text="Welcome"
         android:layout_width="wrap_content"
         android:fontFamily="@font/exo_bold"
         android:textSize="@dimen/_12ssp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"/>
 
-    <TextView
-        android:id="@+id/currentCountdown"
-        android:layout_below="@id/currentDateTime"
-        android:textColor="@color/lb_tv_white"
-        android:layout_width="wrap_content"
-        android:fontFamily="@font/exo_regular"
-        android:textSize="@dimen/_9ssp"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"/>
+    <LinearLayout
+        android:id="@+id/bookedView"
+        android:visibility="gone"
+        android:layout_below="@id/welcomeMessageTV"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_80sdp"
+        android:orientation="horizontal"
+        android:weightSum="12">
+        <TextView
+            android:id="@+id/currentDateTime"
+            android:paddingHorizontal="@dimen/_12sdp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:textColor="@color/lb_tv_white"
+            android:layout_width="0dp"
+            android:fontFamily="@font/exo_regular"
+            android:textSize="@dimen/_12ssp"
+            android:layout_weight="6"
+            android:layout_height="match_parent"/>
 
-<!--    <LinearLayout-->
-<!--        android:id="@+id/closeApp"-->
-<!--        android:orientation="vertical"-->
-<!--        android:layout_width="@dimen/_60sdp"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="@dimen/_28sdp"-->
-<!--        android:layout_alignParentEnd="true"-->
-<!--        android:layout_marginStart="@dimen/_12sdp"-->
-<!--        android:gravity="center">-->
-<!--        <ImageView-->
-<!--            android:layout_width="@dimen/_26sdp"-->
-<!--            android:layout_height="@dimen/_26sdp"-->
-<!--            android:src="@drawable/ic_baseline_close_24"/>-->
-<!--    </LinearLayout>-->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_weight="6">
+            <TextView
+                android:layout_marginHorizontal="@dimen/_12sdp"
+                android:gravity="center"
+                android:id="@+id/countDownTitle"
+                android:textColor="@color/lb_tv_white"
+                android:layout_width="match_parent"
+                android:fontFamily="@font/exo_regular"
+                android:text="Your session ends in"
+                android:textSize="@dimen/_9ssp"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/currentCountdown"
+                android:layout_marginHorizontal="@dimen/_12sdp"
+                android:gravity="center"
+                android:textColor="@color/colorPrimary"
+                android:layout_width="match_parent"
+                android:fontFamily="@font/exo_bold"
+                android:textSize="@dimen/_20ssp"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+
+    </LinearLayout>
+
 
     <LinearLayout
         android:id="@+id/workoutToggle"
         android:orientation="vertical"
         android:layout_width="@dimen/_60sdp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/currentCountdown"
-        android:layout_marginTop="@dimen/_12sdp"
+        android:layout_below="@id/bookedView"
+        android:layout_marginTop="@dimen/_20sdp"
         android:layout_marginStart="@dimen/_12sdp"
         android:gravity="center">
         <ImageView

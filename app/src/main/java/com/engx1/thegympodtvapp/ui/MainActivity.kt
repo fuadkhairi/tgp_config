@@ -1,24 +1,18 @@
 package com.engx1.thegympodtvapp.ui
 
-import android.Manifest
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.app.ActivityManager
 import android.app.DownloadManager
 import android.content.*
-import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.lifecycle.ViewModelProvider
 import com.beraldo.playerlib.PlayerService
@@ -92,7 +86,7 @@ class MainActivity : AppCompatActivity() {
                 binding.currentCountdown.visibility = View.INVISIBLE
                 isBooked = false
             } else {
-                ("Your session ends in " + intent.extras!!.getString("countdown")).also {
+                (intent.extras!!.getString("countdown")).also {
                     binding.currentCountdown.text = it
                 }
             }
@@ -228,21 +222,28 @@ class MainActivity : AppCompatActivity() {
                             if (it.data?.data?.data?.isNotEmpty()!!) {
                                 isBooked = true
                                 "Welcome, ${it.data.data?.data!![0].firstName}".also { s ->
-                                    binding.currentDateTime.text = s
+                                    binding.welcomeMessageTV.text = s
                                 }
                                 //val startTime = "2021-07-13 10:00:00"
                                 //val endTime = "2021-07-13 10:15:00"
+
+                                binding.bookedView.visibility = View.VISIBLE
+
+                                val dateFormat =
+                                    SimpleDateFormat("EEEE, dd MMMM, HH:mm a", Locale.ENGLISH)
+                                val currentDateTime = dateFormat.format(Date())
+                                binding.currentDateTime.text = currentDateTime
 
                                 val isRunning = isServiceRunning(this, CountDownTimeService::class.java)
 
                                 if(!isRunning) {
                                     val endTime = it.data.data?.data!![0].endTime ?: ""
-                                    val startTime = it.data.data?.data!![0].startTime ?: ""
                                     val currentTime = it.data.data?.currentTime ?: ""
                                     val sdf = SimpleDateFormat("yyyy-dd-MM hh:mm:ss")
                                     val c = sdf.parse(currentTime)
                                     val e = sdf.parse(endTime)
                                     val diff: Long = e.time - c.time
+                                    getUserBookingProgramme()
                                     startService(
                                         Intent(
                                             this,
@@ -252,24 +253,15 @@ class MainActivity : AppCompatActivity() {
                                 }
                                 registerReceiver(countDownUpdate, IntentFilter("COUNTDOWN_UPDATED"))
                             } else {
-                                //show realtime clock
-                                val dateFormat =
-                                    SimpleDateFormat("EEEE, dd MMMM, HH:mm a", Locale.ENGLISH)
-                                val currentDateTime = dateFormat.format(Date())
-                                binding.currentDateTime.text = currentDateTime
+                                binding.bookedView.visibility = View.GONE
+                                showCurrentDateTime()
                             }
                         }
                         Resource.Status.ERROR -> {
-                            val dateFormat =
-                                SimpleDateFormat("EEEE, dd MMMM, HH:mm a", Locale.ENGLISH)
-                            val currentDateTime = dateFormat.format(Date())
-                            binding.currentDateTime.text = currentDateTime
+                            showCurrentDateTime()
                         }
                         Resource.Status.LOADING -> {
-                            val dateFormat =
-                                SimpleDateFormat("EEEE, dd MMMM, HH:mm a", Locale.ENGLISH)
-                            val currentDateTime = dateFormat.format(Date())
-                            binding.currentDateTime.text = currentDateTime
+                            showCurrentDateTime()
                         }
                     }
                 }
@@ -277,6 +269,14 @@ class MainActivity : AppCompatActivity() {
         } else {
             Toast.makeText(this, "Not connected to Internet", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun showCurrentDateTime() {
+        //show realtime clock
+        val dateFormat =
+            SimpleDateFormat("EEEE, dd MMMM, HH:mm a", Locale.ENGLISH)
+        val currentDateTime = dateFormat.format(Date())
+        binding.welcomeMessageTV.text = currentDateTime
     }
 
     private fun isServiceRunning(context: Context, serviceClass: Class<*>): Boolean {
@@ -323,7 +323,6 @@ class MainActivity : AppCompatActivity() {
         getAvailableUpdate()
         getMotivationalQuotes()
         getActiveBookings()
-        getUserBookingProgramme()
         super.onResume()
     }
 

@@ -98,7 +98,6 @@ class MusicActivity : AppCompatActivity(), MusicClickListener {
             isRunning = true
             binding.controlButton.setImageResource(R.drawable.ic_baseline_stop)
         }
-
         getAvailableMusic()
     }
 

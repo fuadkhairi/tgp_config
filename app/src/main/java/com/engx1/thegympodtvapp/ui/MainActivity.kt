@@ -98,7 +98,7 @@ class MainActivity : AppCompatActivity() {
             val apiCallBack = ApiCallBack(object :
                 ApiResponseListener<AvailableUpdateResponse> {
                 override fun onApiSuccess(response: AvailableUpdateResponse, apiName: String) {
-                    //compareVersion(response)
+                    compareVersion(response)
                 }
 
                 override fun onApiError(responses: String, apiName: String) {
@@ -234,6 +234,8 @@ class MainActivity : AppCompatActivity() {
 
                                 binding.bookedView.visibility = View.VISIBLE
 
+                                getUserBookingProgramme()
+
                                 val dateFormat =
                                     SimpleDateFormat("EEEE, dd MMMM, HH:mm a", Locale.ENGLISH)
                                 val currentDateTime = dateFormat.format(Date())
@@ -249,7 +251,6 @@ class MainActivity : AppCompatActivity() {
                                     val c = sdf.parse(currentTime)
                                     val e = sdf.parse(endTime)
                                     val diff: Long = e.time - c.time
-                                    getUserBookingProgramme()
                                     startService(
                                         Intent(
                                             this,
@@ -327,8 +328,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         getAvailableUpdate()
-        getMotivationalQuotes()
         getActiveBookings()
+        getMotivationalQuotes()
         super.onResume()
     }
 

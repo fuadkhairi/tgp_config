@@ -34,7 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Current app version is outdated"
+        android:text="Current version is outdated"
         android:textSize="@dimen/_12sdp"
         android:textColor="@color/pure_white"/>
 
@@ -47,5 +47,9 @@
         android:layout_height="wrap_content"
         android:text="update now" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@drawable/fading_background"/>
 
 </LinearLayout>

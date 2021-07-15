@@ -38,7 +38,4 @@ class MainProgrammeAdapter (private val clickListener: AdapterClickListener): Re
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val programmeBanner: ImageView = itemView.findViewById(R.id.programmeBannerIV)
     }
-
-
-
 }

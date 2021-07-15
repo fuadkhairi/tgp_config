@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/streamItemLayout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_60sdp"
+    android:background="@color/pure_black">
+
+    <TextView
+        android:id="@+id/streamTitleTV"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="Stream title"
+        android:fontFamily="@font/exo_bold"
+        android:gravity="center"
+        android:layout_marginLeft="@dimen/_20sdp"
+        android:textColor="@color/lb_tv_white"
+        />
+
+    <TextView
+        android:id="@+id/currentStreamTV"
+        android:visibility="invisible"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="Currently streaming"
+        android:fontFamily="@font/exo_regular"
+        android:gravity="center"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="@dimen/_14sdp"
+        android:textColor="@color/colorPrimary"
+        />
+
+</RelativeLayout>

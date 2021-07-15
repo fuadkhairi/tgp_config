@@ -21,7 +21,8 @@ interface ApiInterface {
     ): Call<MainWorkoutResponse>
 
     @GET(ApiService.GET_AVAILABLE_MUSIC)
-    fun getAvailableMusic(): Call<AvailableMusicResponse>
+    fun getAvailableMusic(@Header("x-access-token") id: String = ApiService.X_ACCESS_TOKEN
+    ): Call<AvailableMusicResponse>
 
     @GET(ApiService.GET_AVAILABLE_UPDATE)
     fun getAvailableUpdate(): Call<AvailableUpdateResponse>

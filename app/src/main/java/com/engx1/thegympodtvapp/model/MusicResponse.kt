@@ -3,10 +3,10 @@ package com.engx1.thegympodtvapp.model
 import com.google.gson.annotations.SerializedName
 
 data class MusicResponse(
-    @SerializedName("title")
+    @SerializedName("playlist_name")
     var title: String,
-    @SerializedName("genre")
-    var genres: String,
-    @SerializedName("stream_url")
+    @SerializedName("vendor")
+    var vendor: String,
+    @SerializedName("platlist_link")
     var streamUrl: String
 )

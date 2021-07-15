@@ -29,6 +29,7 @@
 
 
     <RelativeLayout
+        android:id="@+id/currentPlayView"
         android:orientation="vertical"
         android:layout_marginTop="@dimen/_20sdp"
         android:layout_width="match_parent"
@@ -101,5 +102,24 @@
             android:background="@drawable/fading_background"
             />
     </RelativeLayout>
+
+    <TextView
+        android:id="@+id/streamPlaylistTV"
+        android:layout_below="@id/currentPlayView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_24sdp"
+        android:layout_marginHorizontal="@dimen/_12sdp"
+        android:text="Stream Playlist"
+        android:textAlignment="center"
+        android:textColor="@color/lb_tv_white"
+        android:fontFamily="@font/exo_bold"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/streamListRV"
+        android:layout_below="@id/streamPlaylistTV"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
 </RelativeLayout>

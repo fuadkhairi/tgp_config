@@ -139,7 +139,6 @@ class MusicActivity : AppCompatActivity(), MusicClickListener {
         }
     }
 
-
     private fun isServiceRunningInForeground(context: Context, serviceClass: Class<*>): Boolean {
         val manager: ActivityManager = context.getSystemService(ACTIVITY_SERVICE) as ActivityManager
         for (service in manager.getRunningServices(Int.MAX_VALUE)) {

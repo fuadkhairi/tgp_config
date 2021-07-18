@@ -55,7 +55,6 @@
 
         <TextView
             android:id="@+id/genreTV"
-
             android:layout_below="@id/musicTV"
             android:layout_centerHorizontal="true"
             android:textColor="@color/lb_tv_white"
@@ -110,8 +109,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_24sdp"
         android:layout_marginHorizontal="@dimen/_12sdp"
-        android:text="Stream Playlist"
+        android:text="@string/stream_playlist"
         android:textAlignment="center"
+        android:textSize="@dimen/_14sdp"
         android:textColor="@color/lb_tv_white"
         android:fontFamily="@font/exo_bold"/>
 

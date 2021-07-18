@@ -2,7 +2,9 @@ package com.engx1.thegympodtvapp.ui
 
 import android.annotation.SuppressLint
 import android.app.ActivityManager
+import android.app.AlarmManager
 import android.app.DownloadManager
+import android.app.PendingIntent
 import android.content.*
 import android.net.Uri
 import android.os.Bundle
@@ -39,7 +41,14 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     lateinit var viewModel: MainViewModel
     var isBooked = false
-    private val REQUEST_PERMISSIONS: Int = 101
+
+    companion object {
+        private val REQUEST_PERMISSIONS = 101
+        private val REQUEST_CODE = 202
+    }
+
+    private var alarmMgr: AlarmManager? = null
+    private lateinit var alarmIntent: PendingIntent
 
     private fun setupViewModel() {
         this.let {
@@ -234,7 +243,7 @@ class MainActivity : AppCompatActivity() {
 
                                 binding.bookedView.visibility = View.VISIBLE
 
-                                getUserBookingProgramme()
+                                //getUserBookingProgramme()
 
                                 val dateFormat =
                                     SimpleDateFormat("EEEE, dd MMMM, HH:mm a", Locale.ENGLISH)

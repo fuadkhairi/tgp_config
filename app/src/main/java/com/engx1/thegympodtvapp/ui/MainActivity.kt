@@ -9,6 +9,7 @@ import android.content.*
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
@@ -87,16 +88,43 @@ class MainActivity : AppCompatActivity() {
         if (musicIsRunning) {
             initializePlayService()
         }
+
+        setupAlarmService()
+    }
+
+    private fun setupAlarmService() {
+        val mIntent = Intent("HOME_UPDATE")
+        val mPendingIntent = PendingIntent.getBroadcast(this, 0, mIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+        val mAlarmManager = this
+            .getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        //repeat every 5 minutes
+        mAlarmManager.setRepeating(
+            AlarmManager.RTC_WAKEUP, System.currentTimeMillis(),
+            300000, mPendingIntent
+        )
+        registerReceiver(updateDataReceiver, IntentFilter("HOME_UPDATE"))
+    }
+
+    private val updateDataReceiver: BroadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent) {
+            getAvailableUpdate()
+            getActiveBookings()
+            getMotivationalQuotes()
+            Log.d("Update Home", "executed")
+        }
     }
 
     private val countDownUpdate: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent) {
-            if (intent.extras!!.getString("countdown") == "0") {
-                binding.currentCountdown.visibility = View.INVISIBLE
-                isBooked = false
-            } else {
-                (intent.extras!!.getString("countdown")).also {
-                    binding.currentCountdown.text = it
+            when {
+                intent.extras!!.getString("countdown") == "0" -> {
+                    binding.currentCountdown.visibility = View.INVISIBLE
+                    isBooked = false
+                }
+                else -> {
+                    (intent.extras!!.getString("countdown")).also {
+                        binding.currentCountdown.text = it
+                    }
                 }
             }
         }
@@ -107,7 +135,7 @@ class MainActivity : AppCompatActivity() {
             val apiCallBack = ApiCallBack(object :
                 ApiResponseListener<AvailableUpdateResponse> {
                 override fun onApiSuccess(response: AvailableUpdateResponse, apiName: String) {
-                    compareVersion(response)
+                    //compareVersion(response)
                 }
 
                 override fun onApiError(responses: String, apiName: String) {

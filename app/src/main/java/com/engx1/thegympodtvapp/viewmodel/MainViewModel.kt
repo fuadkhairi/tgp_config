@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.engx1.thegympodtvapp.api.ApiService
 import com.engx1.thegympodtvapp.model.ActiveBookingResponse
 import com.engx1.thegympodtvapp.model.BookingProgrammeResponse
+import com.engx1.thegympodtvapp.model.LoginResponse
 import com.engx1.thegympodtvapp.model.MotivationalQuotesResponse
 import com.engx1.thegympodtvapp.utils.Resource
 import kotlinx.coroutines.launch
@@ -16,6 +17,22 @@ class MainViewModel(private val apiService: ApiService): ViewModel() {
     private val mDataMotivationalQuotes = MutableLiveData<Resource<MotivationalQuotesResponse>>()
     private val mDataGetActiveBooking = MutableLiveData<Resource<ActiveBookingResponse>>()
     private val mDataGetUserBookingData = MutableLiveData<Resource<BookingProgrammeResponse>>()
+    private val mDataLogin = MutableLiveData<Resource<LoginResponse>>()
+
+    fun getDataUserLogin(): LiveData<Resource<LoginResponse>> {
+        return mDataLogin
+    }
+
+    fun login(email: String, password: String, deviceId: String, platform: String, version: String) {
+        viewModelScope.launch {
+            mDataLogin.postValue(Resource.loading(null))
+            try {
+                mDataLogin.postValue(Resource.success(data = apiService.login(email, password, deviceId, platform, version)))
+            } catch (exception: Exception) {
+                mDataLogin.postValue(Resource.error(exception.message.toString(), data = null))
+            }
+        }
+    }
 
     fun getDataUserBookingProgramme(): LiveData<Resource<BookingProgrammeResponse>> {
         return mDataGetUserBookingData

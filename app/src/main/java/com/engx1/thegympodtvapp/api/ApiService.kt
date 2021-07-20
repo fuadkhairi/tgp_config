@@ -1,5 +1,6 @@
 package com.engx1.thegympodtvapp.api
 
+import com.engx1.thegympodtvapp.BuildConfig
 import com.engx1.thegympodtvapp.model.*
 import com.google.gson.JsonObject
 import retrofit2.http.*
@@ -16,10 +17,27 @@ interface ApiService {
         const val SET_MOOD_COLOR = "tv/control/color/striplights"
         const val GET_MAIN_PROGRAMME = "tv/programme/main"
         const val GET_AVAILABLE_MUSIC = "tv/programme/playlist"
-            //"https://raw.githubusercontent.com/fuadkhairi/tgp_config/master/music_config.json"
         const val GET_AVAILABLE_UPDATE =
             "https://raw.githubusercontent.com/fuadkhairi/tgp_config/master/app_update_config.json"
+        const val GET_ACADEMY_MAIN_PROGRAMME = "workout/main"
+        const val GET_INSTRUCTOR = "workout/instructor"
+        const val USER_LOGIN = "login"
     }
+
+    @POST(USER_LOGIN)
+    suspend fun login(
+        @Query("email") email: String,
+        @Query("password") password: String,
+        @Query("device_id") deviceId: String,
+        @Query("platform") platform: String,
+        @Query("version") version: String
+    ) : LoginResponse
+
+    @POST(GET_INSTRUCTOR)
+    suspend fun getInstructor(@Header("Authorization") bearerToken: String, @Query("limit") limit: Int): InstructorListResponse
+
+    @GET(GET_ACADEMY_MAIN_PROGRAMME)
+    suspend fun getAcademyMainProgramme(@Header("Authorization") bearerToken: String): MainWorkoutResponse
 
     @GET(GET_MOTIVATIONAL_QUOTES)
     suspend fun getMotivationQuotes(@Header("x-access-token") accessToken: String = X_ACCESS_TOKEN): MotivationalQuotesResponse

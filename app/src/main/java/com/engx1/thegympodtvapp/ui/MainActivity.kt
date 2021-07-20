@@ -29,6 +29,7 @@ import com.engx1.thegympodtvapp.api.legacy.ApiResponseListener
 import com.engx1.thegympodtvapp.databinding.ActivityMainBinding
 import com.engx1.thegympodtvapp.model.AvailableUpdateResponse
 import com.engx1.thegympodtvapp.service.CountDownTimeService
+import com.engx1.thegympodtvapp.ui.academy.AcademyActivity
 import com.engx1.thegympodtvapp.utils.*
 import com.engx1.thegympodtvapp.viewmodel.MainViewModel
 import com.engx1.thegympodtvapp.viewmodel.MainViewModelFactory
@@ -68,13 +69,19 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
+        SharedPrefManager.savePreferenceString(
+            this,
+            "token",
+            "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6Ijc4YWRmOWE4MzY1NjY2MjI2ZTQxYTg0MDcxNTg5MzhmNmY2ZGQyNDkyYTY5Mjg1YTYwNWUxNGU3NDkzMGNiYjk3OThmYTQzNDI3NjI4NGZlIn0.eyJhdWQiOiIzIiwianRpIjoiNzhhZGY5YTgzNjU2NjYyMjZlNDFhODQwNzE1ODkzOGY2ZjZkZDI0OTJhNjkyODVhNjA1ZTE0ZTc0OTMwY2JiOTc5OGZhNDM0Mjc2Mjg0ZmUiLCJpYXQiOjE2MjY2NTU0MjUsIm5iZiI6MTYyNjY1NTQyNSwiZXhwIjoxNjU4MTkxNDI1LCJzdWIiOiIzMiIsInNjb3BlcyI6W119.P_T7PgWI5sS3HslfaQGgvJdPbn2cHibCQa9kWHgZGU3eSqv8jYU0Co4xzBIsjdMLIEhYbGkwHOrpmM-Nlo6csyVfCqpdCtzhsVJvfodtbjnGMrn7sL2L4e55S_H5yDwHbH-p9j_D7Wi9NNjZuBq-ga08i40RKc9ujG2QzCiMXW_YsLr4HYYCMRd9RbZkWIha1UGZK29bmMeBd-8mKdv5R9lp50w6r_93vNicTFW5kDBkhiUPYh4xnszm9JOGoUemeAzZD6ZchYLfUZtNLoxCzc2tlz3Hsdwvoe6x_DY3Sygi4JMXziMuEI48ifL-EOdaqPrRg1PnAkXnyNQAFky3CA"
+        )
+
         PermissionManager.Builder()
             .key(REQUEST_PERMISSIONS)
             .permission(PermissionEnum.READ_EXTERNAL_STORAGE, PermissionEnum.WRITE_EXTERNAL_STORAGE)
             .ask(this@MainActivity)
 
         binding.workoutToggle.setOnClickListener {
-            startActivity(Intent(this, WorkoutActivity::class.java))
+            startActivity(Intent(this, AcademyActivity::class.java))
         }
         binding.moodToggle.setOnClickListener {
             startActivity(Intent(this, MoodActivity::class.java))
@@ -94,7 +101,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupAlarmService() {
         val mIntent = Intent("HOME_UPDATE")
-        val mPendingIntent = PendingIntent.getBroadcast(this, 0, mIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+        val mPendingIntent =
+            PendingIntent.getBroadcast(this, 0, mIntent, PendingIntent.FLAG_UPDATE_CURRENT)
         val mAlarmManager = this
             .getSystemService(Context.ALARM_SERVICE) as AlarmManager
         //repeat every 5 minutes
@@ -265,7 +273,12 @@ class MainActivity : AppCompatActivity() {
                                 "Welcome, ${it.data.data?.data!![0].firstName}".also { s ->
                                     binding.welcomeMessageTV.text = s
                                 }
-                                binding.welcomeMessageTV.setTextColor(resources.getColor(R.color.colorPrimary, theme))
+                                binding.welcomeMessageTV.setTextColor(
+                                    resources.getColor(
+                                        R.color.colorPrimary,
+                                        theme
+                                    )
+                                )
                                 //val startTime = "2021-07-13 10:00:00"
                                 //val endTime = "2021-07-13 10:15:00"
 

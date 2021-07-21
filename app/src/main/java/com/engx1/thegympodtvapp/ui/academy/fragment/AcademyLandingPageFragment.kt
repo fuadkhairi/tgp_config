@@ -6,8 +6,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.engx1.thegympodtvapp.R
+import com.engx1.thegympodtvapp.`interface`.AdapterClickListener
+import com.engx1.thegympodtvapp.adapter.InstructorAdapter
+import com.engx1.thegympodtvapp.adapter.MainProgrammeAdapter
 import com.engx1.thegympodtvapp.api.ApiClient
 import com.engx1.thegympodtvapp.databinding.FragmentAcademyLandingPageBinding
 import com.engx1.thegympodtvapp.utils.Resource
@@ -18,7 +23,8 @@ class AcademyLandingPageFragment : Fragment() {
 
     private lateinit var binding: FragmentAcademyLandingPageBinding
     private lateinit var viewModel: AcademyViewModel
-
+    private var academyAdapter: MainProgrammeAdapter? = null
+    private var instructorAdapter: InstructorAdapter? = null
 
     private fun setupViewModel() {
         activity?.let {
@@ -33,7 +39,7 @@ class AcademyLandingPageFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentAcademyLandingPageBinding.inflate(inflater, container, false)
         setupViewModel()
         return binding.root
@@ -41,13 +47,27 @@ class AcademyLandingPageFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
+        academyAdapter = MainProgrammeAdapter {
+            Toast.makeText(context, it.name, Toast.LENGTH_SHORT).show()
+        }
+        binding.academyRV.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        binding.academyRV.adapter = academyAdapter
+
+        instructorAdapter = InstructorAdapter {
+            Toast.makeText(context, it.name, Toast.LENGTH_SHORT).show()
+        }
+        binding.instructorRV.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        binding.instructorRV.adapter = instructorAdapter
+
         activity?.let { activity ->
             viewModel.getDataMainWorkout().observe(activity, {
                 it.let {
                     when (it.status) {
                         Resource.Status.SUCCESS -> {
                             it.data.apply {
-                                Log.d("WORKOUT", it.data.toString())
+                                academyAdapter!!.updateAdapter(it.data!!.data)
                             }
                         }
                         Resource.Status.ERROR -> {
@@ -67,7 +87,7 @@ class AcademyLandingPageFragment : Fragment() {
                     when (it.status) {
                         Resource.Status.SUCCESS -> {
                             it.data.apply {
-                                Log.d("INSTRUCTOR", it.data.toString())
+                                instructorAdapter!!.updateAdapter(it.data!!.data)
                             }
                         }
                         Resource.Status.ERROR -> {

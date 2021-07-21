@@ -54,7 +54,7 @@ class AcademyActivity : AppCompatActivity() {
 
     private fun getInstructorList() {
         if (CommonUtils.isOnline(this)) {
-            viewModel.getListInstructor("Bearer $token", 50)
+            viewModel.getListInstructor("Bearer $token", 5)
         } else {
             Toast.makeText(this, "Not connected to Internet", Toast.LENGTH_SHORT).show()
         }

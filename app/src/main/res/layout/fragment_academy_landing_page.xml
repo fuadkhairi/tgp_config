@@ -29,7 +29,7 @@
 
     <TextView
         android:id="@+id/instructorTV"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/mainWorkoutTV"
         android:layout_marginHorizontal="@dimen/_20sdp"
@@ -38,6 +38,20 @@
         android:text="Instructor"
         android:textColor="@color/lb_tv_white"
         android:textSize="@dimen/_12sdp" />
+
+    <TextView
+        android:id="@+id/seeAllTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/mainWorkoutTV"
+        android:layout_marginHorizontal="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_14sdp"
+        android:fontFamily="@font/exo_bold"
+        android:text="@string/see_all"
+        android:layout_alignParentEnd="true"
+        android:textColor="@color/lb_tv_white"
+        android:textSize="@dimen/_10sdp" />
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/instructorRV"

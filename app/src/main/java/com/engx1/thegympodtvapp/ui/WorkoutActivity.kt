@@ -28,7 +28,7 @@ class WorkoutActivity : AppCompatActivity(), AdapterClickListener {
         binding = ActivityWorkoutBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        programmeAdapter = MainProgrammeAdapter(this)
+        //programmeAdapter = MainProgrammeAdapter(this)
 
         binding.back.setOnClickListener {
             onBackPressed()

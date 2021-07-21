@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout android:id="@+id/academyLayout"
+<RelativeLayout android:id="@+id/instructorLayout"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:layout_width="@dimen/_100sdp"
     android:layout_height="wrap_content"
-    android:layoutAnimation="@anim/list_animation"
     android:layout_marginHorizontal="@dimen/_20sdp"
     android:background="@color/transparent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -11,13 +10,13 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/bannerCV"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_120sdp"
+        android:layout_height="@dimen/_100sdp"
         app:cardCornerRadius="@dimen/_10sdp"
         android:layout_marginBottom="@dimen/_8sdp"
         android:elevation="10dp">
 
         <ImageView
-            android:id="@+id/programmeBannerIV"
+            android:id="@+id/instructorIV"
             android:scaleType="centerCrop"
             android:src="@drawable/default_bg"
             android:layout_width="match_parent"
@@ -25,7 +24,7 @@
     </androidx.cardview.widget.CardView>
 
     <TextView
-        android:id="@+id/titleTV"
+        android:id="@+id/instructorNameTV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/bannerCV"
@@ -35,10 +34,10 @@
         android:textSize="@dimen/_10sdp" />
 
     <TextView
-        android:id="@+id/descriptionTV"
+        android:id="@+id/instructorInfoTV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/titleTV"
+        android:layout_below="@id/instructorNameTV"
         android:fontFamily="@font/exo_bold"
         android:text="Yoga"
         android:textColor="@color/lb_tv_white"

@@ -47,22 +47,6 @@ class AcademyActivity : AppCompatActivity() {
     private fun getMainWorkoutProgramme() {
         if (CommonUtils.isOnline(this)) {
             viewModel.getMainWorkout("Bearer $token")
-            viewModel.getDataMainWorkout().observe(this, {
-                it.let {
-                    when (it.status) {
-                        Resource.Status.SUCCESS -> {
-                            it.data.apply {
-                            }
-                        }
-                        Resource.Status.ERROR -> {
-
-                        }
-                        Resource.Status.LOADING -> {
-
-                        }
-                    }
-                }
-            })
         } else {
             Toast.makeText(this, "Not connected to Internet", Toast.LENGTH_SHORT).show()
         }
@@ -71,22 +55,6 @@ class AcademyActivity : AppCompatActivity() {
     private fun getInstructorList() {
         if (CommonUtils.isOnline(this)) {
             viewModel.getListInstructor("Bearer $token", 50)
-            viewModel.getDataListInstructor().observe(this, {
-                it.let {
-                    when (it.status) {
-                        Resource.Status.SUCCESS -> {
-                            it.data.apply {
-                            }
-                        }
-                        Resource.Status.ERROR -> {
-
-                        }
-                        Resource.Status.LOADING -> {
-
-                        }
-                    }
-                }
-            })
         } else {
             Toast.makeText(this, "Not connected to Internet", Toast.LENGTH_SHORT).show()
         }

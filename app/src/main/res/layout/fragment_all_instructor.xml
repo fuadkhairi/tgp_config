@@ -22,7 +22,7 @@
         android:layout_marginTop="@dimen/_12sdp"
         android:fontFamily="@font/exo_bold"
         android:gravity="center"
-        android:text="Instructors"
+        android:text="@string/instructors"
         android:textColor="@color/lb_tv_white"
         android:textSize="@dimen/_18ssp" />
 

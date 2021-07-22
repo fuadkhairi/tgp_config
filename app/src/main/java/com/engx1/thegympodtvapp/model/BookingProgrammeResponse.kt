@@ -45,7 +45,7 @@ data class UserHomeProgramme(
     @SerializedName("status")
     var status: Int,
     @SerializedName("exercises")
-    var exercise: ArrayList<Exercise>,
+    var exercise: ArrayList<Exercise>
 )
 
 

@@ -33,6 +33,9 @@ interface ApiService {
         @Query("version") version: String
     ) : LoginResponse
 
+    @GET("$GET_INSTRUCTOR/{id}")
+    suspend fun getInstructorDetail(@Header("Authorization") bearerToken: String, @Path("id") id: Int): InstructorListResponse
+
     @POST(GET_INSTRUCTOR)
     suspend fun getInstructor(@Header("Authorization") bearerToken: String, @Query("limit") limit: Int): InstructorListResponse
 

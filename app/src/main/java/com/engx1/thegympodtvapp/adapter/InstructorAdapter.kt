@@ -11,11 +11,15 @@ import com.bumptech.glide.Glide
 import com.engx1.thegympodtvapp.R
 import com.engx1.thegympodtvapp.model.Instructor
 
-class InstructorAdapter (val clickListener: (Instructor) -> Unit): RecyclerView.Adapter<InstructorAdapter.ViewHolder>() {
+class InstructorAdapter (private val isHorizontalList: Boolean, val clickListener: (Instructor) -> Unit): RecyclerView.Adapter<InstructorAdapter.ViewHolder>() {
     private val instructorList: MutableList<Instructor> = ArrayList()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val view = inflater.inflate(R.layout.layout_instructor_list, parent, false)
+        val view: View = if (isHorizontalList) {
+            inflater.inflate(R.layout.layout_instructor_list, parent, false)
+        } else {
+            inflater.inflate(R.layout.layout_all_instructor_list, parent, false)
+        }
         return ViewHolder(view)
     }
 

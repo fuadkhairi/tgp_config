@@ -4,115 +4,115 @@ import com.google.gson.annotations.SerializedName
 
 data class InstructorDetailResponse(
     @SerializedName("success")
-    var success: String,
+    var success: String?,
     @SerializedName("data")
-    var data : InstructorData
+    var data : InstructorData?
 )
 
 
 data class InstructorData(
     @SerializedName("instructor")
-    var instructor: InstructorDetail,
+    var instructor: InstructorDetail?,
     @SerializedName("social_media")
-    var socialMedia: ArrayList<InstructorSocialMedia>,
+    var socialMedia: ArrayList<InstructorSocialMedia>?,
     @SerializedName("programme")
-    var programme: ArrayList<InstructorProgramme>
+    var programme: ArrayList<InstructorProgramme>?
 )
 
 
 data class InstructorDetail(
     @SerializedName("name")
-    var name: String,
+    var name: String?,
     @SerializedName("specialization")
-    var specialization: String,
+    var specialization: String?,
     @SerializedName("description")
-    var description: String,
+    var description: String?,
     @SerializedName("photo")
-    var photo: String
+    var photo: String?
 )
 
 data class InstructorSocialMedia(
     @SerializedName("name")
-    var name: String,
+    var name: String?,
     @SerializedName("username")
-    var username: String,
+    var username: String?,
     @SerializedName("url")
-    var url: String,
+    var url: String?,
     @SerializedName("icon")
-    var icon: String
+    var icon: String?
 )
 
 data class InstructorProgramme(
     @SerializedName("id")
-    var id: Int,
+    var id: Int?,
     @SerializedName("main_category_id")
-    var mainCategoryId: Int,
+    var mainCategoryId: Int?,
     @SerializedName("main_category_name")
-    var mainCategoryName: String,
+    var mainCategoryName: String?,
     @SerializedName("level_id")
-    var levelId: Int,
+    var levelId: Int?,
     @SerializedName("name")
-    var name: String,
+    var name: String?,
     @SerializedName("total_mins")
-    var totalMin: Int,
+    var totalMin: Int?,
     @SerializedName("images")
-    var images: HomeProgrammeImage,
+    var images: HomeProgrammeImage?,
     @SerializedName("descriptions")
-    var descriptions: String,
+    var descriptions: String?,
     @SerializedName("status")
-    var status: Int,
+    var status: Int?,
     @SerializedName("level")
-    var level: String,
+    var level: String?,
     @SerializedName("intensity")
-    var intensity: Int,
+    var intensity: Int?,
     @SerializedName("instructor")
-    var instructor: ArrayList<InstructorName>,
+    var instructor: ArrayList<InstructorName>?,
     @SerializedName("exercises")
-    var exercises: ArrayList<ProgrammeExercise>
+    var exercises: ArrayList<ProgrammeExercise>?
 )
 
 data class InstructorName(
     @SerializedName("id")
-    var id: Int,
+    var id: Int?,
     @SerializedName("name")
-    var name: String
+    var name: String?
 )
 
 data class ProgrammeExercise(
     @SerializedName("id")
-    var id: Int,
+    var id: Int?,
     @SerializedName("name")
-    var name: String,
+    var name: String?,
     @SerializedName("total_mins")
-    var totalMin: Int,
+    var totalMin: Int?,
     @SerializedName("exercise_type")
-    var exerciseType: String,
+    var exerciseType: String?,
     @SerializedName("images")
-    var images: HomeProgrammeImage,
+    var images: HomeProgrammeImage?,
     @SerializedName("description")
-    var description: String,
+    var description: String?,
     @SerializedName("status")
-    var status: Int,
+    var status: Int?,
     @SerializedName("pivot")
-    var pivot: InstructorPivot
+    var pivot: InstructorPivot?
 )
 
 
 data class InstructorPivot(
     @SerializedName("sub_workout_id")
-    var subWorkoutId: Int,
+    var subWorkoutId: Int?,
     @SerializedName("exercise_id")
-    var exerciseId: Int,
+    var exerciseId: Int?,
     @SerializedName("workout_duration")
-    var workoutDuration: Int,
+    var workoutDuration: Int?,
     @SerializedName("rest_duration")
-    var restDuration: Int,
+    var restDuration: Int?,
     @SerializedName("feedback_text")
-    var feedbackText: Int,
+    var feedbackText: String?,
     @SerializedName("workout_sets")
-    var workoutSets: Int,
+    var workoutSets: Int?,
     @SerializedName("workout_reps")
-    var workoutReps: Int,
+    var workoutReps: Int?,
     @SerializedName("is_sets")
-    var isSets: Boolean
+    var isSets: Boolean?
 )

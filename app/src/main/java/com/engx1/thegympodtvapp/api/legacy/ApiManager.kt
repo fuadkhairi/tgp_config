@@ -1,27 +1,28 @@
 package com.engx1.thegympodtvapp.api.legacy
 
 import android.content.Context
-import com.engx1.thegympodtvapp.model.AvailableMusicResponse
-import com.engx1.thegympodtvapp.model.AvailableUpdateResponse
-import com.engx1.thegympodtvapp.model.MainWorkoutResponse
-import com.engx1.thegympodtvapp.model.MoodColorListResponse
+import com.engx1.thegympodtvapp.model.*
 
-class ApiManager(private var mContext: Context?) : ApiClient() {
+class ApiManager(private var mContext: Context?) : ApiClient(mContext) {
+
+    fun getIndividualInstructor(callBack: ApiCallBack<InstructorDetailResponse>, id: Int) {
+        current(mContext, true).getInstructorDetail(id).enqueue(callBack)
+    }
 
     fun getColorList(callBack: ApiCallBack<MoodColorListResponse>) {
-        current(mContext, true).getColorList().enqueue(callBack)
+        current(mContext, false).getColorList().enqueue(callBack)
     }
 
     fun getMainProgramme(callBack: ApiCallBack<MainWorkoutResponse>) {
-        current(mContext, true).getMainProgramme().enqueue(callBack)
+        current(mContext, false).getMainProgramme().enqueue(callBack)
     }
 
     fun getAvailableMusic(callBack: ApiCallBack<AvailableMusicResponse>) {
-        current(mContext, true).getAvailableMusic().enqueue(callBack)
+        current(mContext, false).getAvailableMusic().enqueue(callBack)
     }
 
     fun getAvailableUpdate(callBack: ApiCallBack<AvailableUpdateResponse>) {
-        current(mContext, true).getAvailableUpdate().enqueue(callBack)
+        current(mContext, false).getAvailableUpdate().enqueue(callBack)
     }
 
 

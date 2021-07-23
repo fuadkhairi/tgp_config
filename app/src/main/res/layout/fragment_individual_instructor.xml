@@ -70,7 +70,7 @@
             android:layout_marginHorizontal="@dimen/_20sdp"/>
 
         <TextView
-            android:id="@+id/instructorGenre"
+            android:id="@+id/instructorSpecializationTV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/socialMediaRV"
@@ -86,7 +86,7 @@
             android:id="@+id/instructorInfoTV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/instructorGenre"
+            android:layout_below="@id/instructorSpecializationTV"
             android:layout_marginHorizontal="@dimen/_20sdp"
             android:layout_marginBottom="@dimen/_10sdp"
             android:layout_toEndOf="@id/instructorCV"

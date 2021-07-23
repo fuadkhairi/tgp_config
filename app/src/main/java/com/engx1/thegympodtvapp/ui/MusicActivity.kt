@@ -9,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.beraldo.playerlib.PlayerService
 import com.engx1.thegympodtvapp.R
-import com.engx1.thegympodtvapp.`interface`.AdapterClickListener
 import com.engx1.thegympodtvapp.`interface`.MusicClickListener
 import com.engx1.thegympodtvapp.adapter.MusicAdapter
 import com.engx1.thegympodtvapp.api.ApiService
@@ -18,7 +17,6 @@ import com.engx1.thegympodtvapp.api.legacy.ApiManager
 import com.engx1.thegympodtvapp.api.legacy.ApiResponseListener
 import com.engx1.thegympodtvapp.databinding.ActivityMusicBinding
 import com.engx1.thegympodtvapp.model.AvailableMusicResponse
-import com.engx1.thegympodtvapp.model.LightColor
 import com.engx1.thegympodtvapp.model.MusicResponse
 import com.engx1.thegympodtvapp.utils.CommonUtils
 import com.engx1.thegympodtvapp.utils.ProgressDialogUtils

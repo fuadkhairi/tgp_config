@@ -50,7 +50,16 @@ class AllInstructorFragment : Fragment() {
         }
 
         instructorAdapter = InstructorAdapter(false) {
-            Toast.makeText(context, it.name, Toast.LENGTH_SHORT).show()
+            //Toast.makeText(context, it.name, Toast.LENGTH_SHORT).show()
+            val args = Bundle()
+            args.putInt("id", it.id)
+            val fragment = IndividualInstructorFragment()
+            fragment.arguments = args
+            activity?.supportFragmentManager
+                ?.beginTransaction()
+                ?.replace(R.id.academyLayout, fragment)
+                ?.addToBackStack(null)
+                ?.commit()
         }
         binding.allInstructorRV.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         binding.allInstructorRV.adapter = instructorAdapter

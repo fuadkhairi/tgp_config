@@ -51,9 +51,7 @@ data class UserHomeProgramme(
 
 data class HomeProgrammeImage(
     @SerializedName("listing_image")
-    var listingImage: String,
-    @SerializedName("thumbs")
-    var thumbs: ArrayList<String>
+    var listingImage: String
 )
 
 data class Exercise(

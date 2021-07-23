@@ -3,6 +3,7 @@ package com.engx1.thegympodtvapp.api.legacy
 import android.annotation.SuppressLint
 import android.content.Context
 import com.engx1.thegympodtvapp.constant.AppUrlConstant
+import com.engx1.thegympodtvapp.utils.SharedPrefManager
 import okhttp3.CacheControl
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -11,9 +12,11 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
-open class ApiClient internal constructor() {
+open class ApiClient internal constructor(context: Context?) {
     private val apiInterface: ApiInterface
     private var requestBuilder: Request.Builder? = null
+
+    private val token = SharedPrefManager.getPreferenceString(context, "token").toString()
 
     init {
         val interceptor = HttpLoggingInterceptor()
@@ -28,6 +31,7 @@ open class ApiClient internal constructor() {
             requestBuilder = if (isTrue) {
                 original.newBuilder()
                     .header("Content-Type", "application/json")
+                    .header("Authorization", "Bearer $token")
                     .method(original.method, original.body)
             } else {
                 original.newBuilder()
@@ -69,12 +73,12 @@ open class ApiClient internal constructor() {
             if (isTrue) {
                 if (apiClient == null) {
                     apiClient =
-                        ApiClient()
+                        ApiClient(context)
                 }
             } else {
                 if (apiClient == null) {
                     apiClient =
-                        ApiClient()
+                        ApiClient(context)
                 }
             }
 

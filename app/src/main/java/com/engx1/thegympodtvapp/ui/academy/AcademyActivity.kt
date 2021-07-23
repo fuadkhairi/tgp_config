@@ -9,7 +9,6 @@ import com.engx1.thegympodtvapp.api.ApiClient
 import com.engx1.thegympodtvapp.databinding.ActivityAcademyBinding
 import com.engx1.thegympodtvapp.ui.academy.fragment.AcademyLandingPageFragment
 import com.engx1.thegympodtvapp.utils.CommonUtils
-import com.engx1.thegympodtvapp.utils.Resource
 import com.engx1.thegympodtvapp.utils.SharedPrefManager
 import com.engx1.thegympodtvapp.viewmodel.AcademyViewModel
 import com.engx1.thegympodtvapp.viewmodel.AcademyViewModelFactory

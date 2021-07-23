@@ -1,22 +1,18 @@
 package com.engx1.thegympodtvapp.ui.academy.fragment
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.engx1.thegympodtvapp.adapter.SocialMediaAdapter
 import com.engx1.thegympodtvapp.api.ApiClient
-import com.engx1.thegympodtvapp.api.ApiService
-import com.engx1.thegympodtvapp.api.legacy.ApiCallBack
-import com.engx1.thegympodtvapp.api.legacy.ApiManager
-import com.engx1.thegympodtvapp.api.legacy.ApiResponseListener
 import com.engx1.thegympodtvapp.databinding.FragmentIndividualInstructorBinding
-import com.engx1.thegympodtvapp.model.InstructorDetailResponse
-import com.engx1.thegympodtvapp.model.MoodColorListResponse
-import com.engx1.thegympodtvapp.utils.CommonUtils
 import com.engx1.thegympodtvapp.utils.SharedPrefManager
 import com.engx1.thegympodtvapp.viewmodel.AcademyViewModel
 import com.engx1.thegympodtvapp.viewmodel.AcademyViewModelFactory
@@ -24,7 +20,9 @@ import com.engx1.thegympodtvapp.viewmodel.AcademyViewModelFactory
 class IndividualInstructorFragment : Fragment() {
     private lateinit var binding: FragmentIndividualInstructorBinding
     private lateinit var viewModel: AcademyViewModel
-    lateinit var token: String
+    private lateinit var token: String
+
+    private var socialMediaAdapter: SocialMediaAdapter? = null
 
     private fun setupViewModel() {
         activity?.let {
@@ -53,6 +51,13 @@ class IndividualInstructorFragment : Fragment() {
             activity?.onBackPressed()
         }
 
+        socialMediaAdapter = SocialMediaAdapter {
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(it.url)))
+        }
+
+        binding.socialMediaRV.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        binding.socialMediaRV.adapter = socialMediaAdapter
+
         viewModel.getInstructorDetail("Bearer $token", instructorId)
         activity?.let { activity ->
             viewModel.getDataInstructorDetail().observe(activity, {
@@ -61,6 +66,7 @@ class IndividualInstructorFragment : Fragment() {
                     Glide.with(activity).load(it.data?.data?.instructor?.photo).into(binding.instructorIV)
                     binding.instructorSpecializationTV.text = it.data?.data?.instructor?.specialization
                     binding.instructorInfoTV.text = it.data?.data?.instructor?.description
+                    it?.data?.data?.socialMedia?.let { it1 -> socialMediaAdapter!!.updateAdapter(it1) }
                 }
             })
         }

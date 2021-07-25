@@ -115,6 +115,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/colorListRV"
             android:layout_marginTop="@dimen/_12sdp"
+            tools:listitem="@layout/layout_color"
             android:layout_below="@id/moodColorTV"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_36sdp"/>

@@ -20,7 +20,7 @@
         android:layout_height="@dimen/_22sdp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/_12sdp"
-        android:fontFamily="@font/exo_bold"
+        android:fontFamily="@font/exo_regular"
         android:gravity="center"
         android:text="PTX"
         android:textColor="@color/lb_tv_white"

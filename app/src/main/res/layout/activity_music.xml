@@ -117,6 +117,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/streamListRV"
+        tools:listitem="@layout/layout_music_playlist"
         android:layout_below="@id/streamPlaylistTV"
         android:layout_marginTop="@dimen/_12sdp"
         android:layout_width="match_parent"

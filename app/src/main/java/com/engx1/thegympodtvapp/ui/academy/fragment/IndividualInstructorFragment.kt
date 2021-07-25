@@ -1,7 +1,6 @@
 package com.engx1.thegympodtvapp.ui.academy.fragment
 
 import android.content.Intent
-import android.content.IntentFilter
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,18 +11,14 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
-import com.engx1.thegympodtvapp.R
 import com.engx1.thegympodtvapp.adapter.SocialMediaAdapter
-import com.engx1.thegympodtvapp.adapter.SubClassAdapter
+import com.engx1.thegympodtvapp.adapter.SubProgrammeAdapter
 import com.engx1.thegympodtvapp.api.ApiClient
 import com.engx1.thegympodtvapp.databinding.FragmentIndividualInstructorBinding
-import com.engx1.thegympodtvapp.service.CountDownTimeService
 import com.engx1.thegympodtvapp.utils.Resource
 import com.engx1.thegympodtvapp.utils.SharedPrefManager
 import com.engx1.thegympodtvapp.viewmodel.AcademyViewModel
 import com.engx1.thegympodtvapp.viewmodel.AcademyViewModelFactory
-import java.text.SimpleDateFormat
-import java.util.*
 
 class IndividualInstructorFragment : Fragment() {
     private lateinit var binding: FragmentIndividualInstructorBinding
@@ -31,7 +26,7 @@ class IndividualInstructorFragment : Fragment() {
     private lateinit var token: String
 
     private var socialMediaAdapter: SocialMediaAdapter? = null
-    private var subClassAdapter: SubClassAdapter? = null
+    private var subProgrammeAdapter: SubProgrammeAdapter? = null
 
     private fun setupViewModel() {
         activity?.let {
@@ -64,17 +59,17 @@ class IndividualInstructorFragment : Fragment() {
             startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(it.url)))
         }
 
-        subClassAdapter = SubClassAdapter {
+        subProgrammeAdapter = SubProgrammeAdapter {
             Toast.makeText(context, it.name, Toast.LENGTH_SHORT).show()
         }
 
-        subClassAdapter!!.clearAdapter()
+        subProgrammeAdapter!!.clearAdapter()
 
         binding.socialMediaRV.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         binding.socialMediaRV.adapter = socialMediaAdapter
 
         binding.instructorSubClassRV.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        binding.instructorSubClassRV.adapter = subClassAdapter
+        binding.instructorSubClassRV.adapter = subProgrammeAdapter
 
         viewModel.getInstructorDetail("Bearer $token", instructorId)
         activity?.let { activity ->
@@ -88,16 +83,16 @@ class IndividualInstructorFragment : Fragment() {
                             binding.instructorInfoTV.text = it.data?.data?.instructor?.description
                             it?.data?.data?.socialMedia?.let { it1 -> socialMediaAdapter!!.updateAdapter(it1) }
                             if (it?.data?.data?.programme?.isEmpty() == true) {
-                                subClassAdapter!!.clearAdapter()
+                                subProgrammeAdapter!!.clearAdapter()
                             } else {
-                                it?.data?.data?.programme?.let { programmeList -> subClassAdapter!!.updateAdapter(programmeList) }
+                                it?.data?.data?.programme?.let { programmeList -> subProgrammeAdapter!!.updateAdapter(programmeList) }
                             }
                         }
                         Resource.Status.ERROR -> {
-                            subClassAdapter!!.clearAdapter()
+                            subProgrammeAdapter!!.clearAdapter()
                         }
                         Resource.Status.LOADING -> {
-                            subClassAdapter!!.clearAdapter()
+                            subProgrammeAdapter!!.clearAdapter()
                         }
                     }
                 }

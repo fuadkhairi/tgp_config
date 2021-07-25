@@ -4,17 +4,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.engx1.thegympodtvapp.R
-import com.engx1.thegympodtvapp.`interface`.AdapterClickListener
 import com.engx1.thegympodtvapp.model.InstructorProgramme
-import com.engx1.thegympodtvapp.model.MainProgramme
 
-class SubClassAdapter (val clickListener: (InstructorProgramme) -> Unit): RecyclerView.Adapter<SubClassAdapter.ViewHolder>() {
+class SubProgrammeAdapter (val clickListener: (InstructorProgramme) -> Unit): RecyclerView.Adapter<SubProgrammeAdapter.ViewHolder>() {
     private val programmeList: MutableList<InstructorProgramme> = ArrayList()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)

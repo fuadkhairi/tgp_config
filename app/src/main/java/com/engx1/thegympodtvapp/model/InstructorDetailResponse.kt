@@ -57,6 +57,12 @@ data class InstructorProgramme(
     var totalMin: Int?,
     @SerializedName("images")
     var images: HomeProgrammeImage?,
+    @SerializedName("asessment_video")
+    var assessmentVideo: String?,
+    @SerializedName("introduction_video")
+    var introductionVideo: String?,
+    @SerializedName("introduction_vimeo_id")
+    var introductionVimeoId: String?,
     @SerializedName("descriptions")
     var descriptions: String?,
     @SerializedName("status")

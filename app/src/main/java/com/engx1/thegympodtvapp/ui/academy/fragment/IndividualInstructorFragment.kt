@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.engx1.thegympodtvapp.R
 import com.engx1.thegympodtvapp.adapter.SocialMediaAdapter
 import com.engx1.thegympodtvapp.adapter.SubProgrammeAdapter
 import com.engx1.thegympodtvapp.api.ApiClient
@@ -37,6 +38,7 @@ class IndividualInstructorFragment : Fragment() {
                 ).get(AcademyViewModel::class.java)
         }
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -60,7 +62,16 @@ class IndividualInstructorFragment : Fragment() {
         }
 
         subProgrammeAdapter = SubProgrammeAdapter {
-            Toast.makeText(context, it.name, Toast.LENGTH_SHORT).show()
+            //Toast.makeText(context, it.name, Toast.LENGTH_SHORT).show()
+            val args = Bundle()
+            args.putInt("id", it.id!!)
+            val fragment = ClassDetailFragment()
+            fragment.arguments = args
+            activity?.supportFragmentManager
+                ?.beginTransaction()
+                ?.replace(R.id.academyLayout, fragment)
+                ?.addToBackStack(null)
+                ?.commit()
         }
 
         subProgrammeAdapter!!.clearAdapter()
@@ -68,8 +79,8 @@ class IndividualInstructorFragment : Fragment() {
         binding.socialMediaRV.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         binding.socialMediaRV.adapter = socialMediaAdapter
 
-        binding.instructorSubClassRV.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        binding.instructorSubClassRV.adapter = subProgrammeAdapter
+        binding.instructorSubProgrammeRV.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        binding.instructorSubProgrammeRV.adapter = subProgrammeAdapter
 
         viewModel.getInstructorDetail("Bearer $token", instructorId)
         activity?.let { activity ->

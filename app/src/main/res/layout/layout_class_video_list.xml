@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:id="@+id/instructorLayout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/_12sdp"
+    android:background="@color/semiDark"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/bannerCV"
+        android:layout_width="@dimen/_100sdp"
+        android:layout_height="@dimen/_100sdp">
+
+        <ImageView
+            android:id="@+id/instructorIV"
+            android:scaleType="centerCrop"
+            android:src="@drawable/default_bg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/classVideoTitleTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/_6sdp"
+        android:fontFamily="@font/exo_bold"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_toEndOf="@id/bannerCV"
+        android:text="Yoga"
+        android:textColor="@color/lb_tv_white"
+        android:textSize="@dimen/_12sdp" />
+
+    <TextView
+        android:id="@+id/totalMinsTitleTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:layout_below="@id/classVideoTitleTV"
+        android:layout_marginHorizontal="@dimen/_20sdp"
+        android:layout_marginBottom="@dimen/_6sdp"
+        android:layout_toEndOf="@id/bannerCV"
+        android:fontFamily="@font/exo_regular"
+        android:layout_centerVertical="true"
+        android:text="Total Mins:"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/_10sdp" />
+
+    <TextView
+        android:id="@+id/totalMinsTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/totalMinsTitleTV"
+        android:layout_marginHorizontal="@dimen/_20sdp"
+        android:layout_toEndOf="@id/bannerCV"
+        android:fontFamily="@font/exo_bold"
+        android:text="10"
+        android:textColor="@color/lb_tv_white"
+        android:textSize="@dimen/_10sdp" />
+
+
+    <ImageView
+        android:id="@+id/back"
+        android:layout_width="@dimen/_22sdp"
+        android:layout_height="@dimen/_22sdp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true"
+        android:scaleX="-1"
+        android:layout_marginEnd="@dimen/_6sdp"
+        android:src="@drawable/ic_chevron_left_solid" />
+
+</RelativeLayout>

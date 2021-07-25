@@ -136,6 +136,7 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/classVideoRV"
+                tools:listitem="@layout/layout_class_video_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
         </LinearLayout>

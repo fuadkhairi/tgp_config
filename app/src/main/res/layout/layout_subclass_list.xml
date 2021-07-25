@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/academyLayout"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_180sdp"
+    android:layout_marginHorizontal="@dimen/_20sdp"
+    app:cardCornerRadius="@dimen/_8sdp"
+    android:background="@color/semiDark">
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/semiDark">
+
+        <ImageView
+            android:id="@+id/programmeBannerIV"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_120sdp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/default_bg" />
+
+        <LinearLayout
+            android:layout_marginLeft="@dimen/_8sdp"
+            android:layout_below="@id/programmeBannerIV"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/exo_regular"
+                    android:text="Difficulty Level:"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/_10sdp" />
+                <TextView
+                    android:id="@+id/difficultyLevelTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/exo_regular"
+                    android:layout_marginStart="@dimen/_4sdp"
+                    android:text="ADVANCED"
+                    android:textAllCaps="true"
+                    android:textColor="@color/lb_tv_white"
+                    android:textSize="@dimen/_10sdp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/exo_regular"
+                    android:text="Intensity:"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/_10sdp" />
+
+                <TextView
+                    android:id="@+id/intensityTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/exo_regular"
+                    android:layout_marginStart="@dimen/_4sdp"
+                    android:text="3"
+                    android:textAllCaps="true"
+                    android:textColor="@color/lb_tv_white"
+                    android:textSize="@dimen/_10sdp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/exo_regular"
+                    android:text="Duration:"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/_10sdp" />
+
+                <TextView
+                    android:id="@+id/durationTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/exo_regular"
+                    android:layout_marginStart="@dimen/_4sdp"
+                    android:text="20 Minutes"
+                    android:textColor="@color/lb_tv_white"
+                    android:textSize="@dimen/_10sdp" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@id/programmeBannerIV"
+            android:orientation="horizontal">
+            <View
+                android:layout_width="@dimen/_2sdp"
+                android:layout_height="match_parent"
+                android:background="@color/lb_tv_white"/>
+
+            <TextView
+                android:id="@+id/subClassNameTV"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/exo_regular"
+                android:gravity="center"
+                android:layout_marginHorizontal="@dimen/_12sdp"
+                android:text="Power and Chill Yoga"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/_10sdp" />
+        </LinearLayout>
+
+
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

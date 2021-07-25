@@ -97,10 +97,9 @@
     </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/instructorClassRV"
+        android:id="@+id/instructorSubClassRV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/_20sdp"
         android:layout_below="@id/instructorProfileLayout"
         android:layout_marginTop="@dimen/_14sdp" />
 

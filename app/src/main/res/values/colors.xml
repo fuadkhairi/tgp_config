@@ -7,4 +7,5 @@
     <color name="transparent">#00000099</color>
     <color name="primary_grey">#999999</color>
     <color name="primary_grey_transparent">#10999999</color>
+    <color name="semiDark">#303030</color>
 </resources>

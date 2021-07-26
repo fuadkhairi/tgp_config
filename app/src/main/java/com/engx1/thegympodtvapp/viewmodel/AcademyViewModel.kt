@@ -8,6 +8,7 @@ import com.engx1.thegympodtvapp.api.ApiService
 import com.engx1.thegympodtvapp.model.InstructorDetailResponse
 import com.engx1.thegympodtvapp.model.InstructorListResponse
 import com.engx1.thegympodtvapp.model.MainWorkoutResponse
+import com.engx1.thegympodtvapp.model.ProgrammeListResponse
 import com.engx1.thegympodtvapp.utils.Resource
 import kotlinx.coroutines.launch
 
@@ -15,6 +16,22 @@ class AcademyViewModel(private val apiService: ApiService): ViewModel() {
     private val mDataMainWorkout = MutableLiveData<Resource<MainWorkoutResponse>>()
     private val mDataListInstructor = MutableLiveData<Resource<InstructorListResponse>>()
     private val mDataInstructorDetail = MutableLiveData<Resource<InstructorDetailResponse>>()
+    private val mDataProgrammeList = MutableLiveData<Resource<ProgrammeListResponse>>()
+
+    fun getDataProgrammeList(): LiveData<Resource<ProgrammeListResponse>> {
+        return mDataProgrammeList
+    }
+
+    fun getProgrammeList(token: String, mainProgrammeId: Int) {
+        viewModelScope.launch {
+            mDataProgrammeList.postValue(Resource.loading(null))
+            try {
+                mDataProgrammeList.postValue(Resource.success(apiService.getProgrammeList(token, mainProgrammeId)))
+            } catch (exception: Exception) {
+                mDataProgrammeList.postValue(Resource.error(exception.message.toString(), data = null))
+            }
+        }
+    }
 
     fun getDataInstructorDetail(): LiveData<Resource<InstructorDetailResponse>> {
         return mDataInstructorDetail

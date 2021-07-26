@@ -22,6 +22,7 @@ interface ApiService {
         const val GET_ACADEMY_MAIN_PROGRAMME = "workout/main"
         const val GET_INSTRUCTOR = "workout/instructor"
         const val USER_LOGIN = "login"
+        const val GET_PROGRAMME_LIST = "workout/programme"
     }
 
     @POST(USER_LOGIN)
@@ -32,6 +33,9 @@ interface ApiService {
         @Query("platform") platform: String,
         @Query("version") version: String
     ) : LoginResponse
+
+    @POST(GET_PROGRAMME_LIST)
+    suspend fun getProgrammeList(@Header("Authorization") bearerToken: String, @Query("main_category_id") mainCategoryId: Int): ProgrammeListResponse
 
     @GET("$GET_INSTRUCTOR/{id}")
     suspend fun getInstructorDetail(@Header("Authorization") bearerToken: String, @Path("id") id: Int): InstructorDetailResponse

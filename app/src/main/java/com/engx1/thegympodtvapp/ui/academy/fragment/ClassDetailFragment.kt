@@ -50,6 +50,10 @@ class ClassDetailFragment : Fragment() {
         token = SharedPrefManager.getPreferenceString(context, "token").toString()
         val instructorProgramme : InstructorProgramme? = arguments?.get("class") as InstructorProgramme?
 
+        binding.back.setOnClickListener {
+            activity?.onBackPressed()
+        }
+
         classVideoAdapter = ClassVideoAdapter {
             Toast.makeText(context, it.name, Toast.LENGTH_SHORT).show()
         }

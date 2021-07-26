@@ -59,7 +59,17 @@ class AcademyLandingPageFragment : Fragment() {
         }
 
         academyAdapter = MainProgrammeAdapter {
-            Toast.makeText(context, it.name, Toast.LENGTH_SHORT).show()
+            //Toast.makeText(context, it.name, Toast.LENGTH_SHORT).show()
+            val args = Bundle()
+            args.putInt("id", it.id)
+            args.putString("name", it.name)
+            val fragment = ProgrammeListFragment()
+            fragment.arguments = args
+            activity?.supportFragmentManager
+                ?.beginTransaction()
+                ?.replace(R.id.academyLayout, fragment)
+                ?.addToBackStack(null)
+                ?.commit()
         }
         binding.academyRV.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)

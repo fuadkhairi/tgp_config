@@ -28,6 +28,7 @@
         android:textSize="@dimen/_18ssp" />
 
     <ScrollView
+        android:layout_marginTop="@dimen/_12sdp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/programmeTitleTV">
@@ -41,7 +42,6 @@
                 android:id="@+id/programmeBannerIV"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_160sdp"
-                android:layout_marginTop="@dimen/_12sdp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/default_bg" />
 
@@ -119,7 +119,20 @@
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_120sdp"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/default_bg" />
+                        android:src="@drawable/default_bg"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="#000000"
+                        android:alpha="0.3"/>
+
+                    <ImageView
+                        android:layout_width="@dimen/_48sdp"
+                        android:layout_height="@dimen/_48sdp"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/ic_baseline_play_circle_outline_24"/>
+
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
 
@@ -130,7 +143,7 @@
                 android:layout_marginVertical="@dimen/_6sdp"
                 android:layout_marginStart="@dimen/_12sdp"
                 android:fontFamily="@font/exo_bold"
-                android:text="Description"
+                android:text="Classes"
                 android:textColor="@color/lb_tv_white"
                 android:textSize="@dimen/_12sdp" />
 
@@ -138,7 +151,7 @@
                 android:id="@+id/classVideoRV"
                 tools:listitem="@layout/layout_class_video_list"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="@dimen/_360sdp"/>
         </LinearLayout>
 
     </ScrollView>

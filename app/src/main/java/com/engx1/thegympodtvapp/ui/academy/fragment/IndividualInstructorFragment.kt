@@ -64,7 +64,7 @@ class IndividualInstructorFragment : Fragment() {
         subProgrammeAdapter = SubProgrammeAdapter {
             //Toast.makeText(context, it.name, Toast.LENGTH_SHORT).show()
             val args = Bundle()
-            args.putInt("id", it.id!!)
+            args.putSerializable("class", it)
             val fragment = ClassDetailFragment()
             fragment.arguments = args
             activity?.supportFragmentManager

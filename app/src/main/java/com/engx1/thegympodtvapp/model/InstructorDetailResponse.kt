@@ -1,6 +1,7 @@
 package com.engx1.thegympodtvapp.model
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class InstructorDetailResponse(
     @SerializedName("success")
@@ -75,14 +76,14 @@ data class InstructorProgramme(
     var instructor: ArrayList<InstructorName>?,
     @SerializedName("exercises")
     var exercises: ArrayList<ProgrammeExercise>?
-)
+): Serializable
 
 data class InstructorName(
     @SerializedName("id")
     var id: Int?,
     @SerializedName("name")
     var name: String?
-)
+): Serializable
 
 data class ProgrammeExercise(
     @SerializedName("id")
@@ -101,7 +102,7 @@ data class ProgrammeExercise(
     var status: Int?,
     @SerializedName("pivot")
     var pivot: InstructorPivot?
-)
+): Serializable
 
 
 data class InstructorPivot(
@@ -121,4 +122,4 @@ data class InstructorPivot(
     var workoutReps: Int?,
     @SerializedName("is_sets")
     var isSets: Boolean?
-)
+): Serializable

@@ -1,6 +1,7 @@
 package com.engx1.thegympodtvapp.model
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class BookingProgrammeResponse(
     @SerializedName("success")
@@ -52,7 +53,7 @@ data class UserHomeProgramme(
 data class HomeProgrammeImage(
     @SerializedName("listing_image")
     var listingImage: String
-)
+): Serializable
 
 data class Exercise(
     @SerializedName("id")

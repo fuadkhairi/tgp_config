@@ -101,7 +101,9 @@ data class ProgrammeExercise(
     @SerializedName("status")
     var status: Int?,
     @SerializedName("pivot")
-    var pivot: InstructorPivot?
+    var pivot: InstructorPivot?,
+    @SerializedName("vimeo_id")
+    var vimeoId: String
 ): Serializable
 
 

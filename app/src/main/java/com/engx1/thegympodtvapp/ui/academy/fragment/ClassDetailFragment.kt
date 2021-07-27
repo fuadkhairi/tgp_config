@@ -55,10 +55,23 @@ class ClassDetailFragment : Fragment() {
         }
 
         classVideoAdapter = ClassVideoAdapter {
-            Toast.makeText(context, it.name, Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "No Vimeo ID Available", Toast.LENGTH_SHORT).show()
         }
         binding.classVideoRV.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         binding.classVideoRV.adapter = classVideoAdapter
+
+        binding.introVideoLayout.setOnClickListener {
+            val args = Bundle()
+            args.putSerializable("class", instructorProgramme)
+            args.putBoolean("isIntro", true)
+            val fragment = ClassVideoFragment()
+            fragment.arguments = args
+            activity?.supportFragmentManager
+                ?.beginTransaction()
+                ?.replace(R.id.academyLayout, fragment)
+                ?.addToBackStack(null)
+                ?.commit()
+        }
 
         instructorProgramme?.let { programme ->
             binding.programmeTitleTV.text = programme.name

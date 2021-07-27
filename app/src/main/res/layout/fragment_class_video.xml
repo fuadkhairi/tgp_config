@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/pure_black"
+    android:keepScreenOn="true"
+    tools:context=".ui.academy.fragment.ClassVideoFragment">
+
+    <ImageView
+        android:id="@+id/back"
+        android:layout_width="@dimen/_22sdp"
+        android:layout_height="@dimen/_22sdp"
+        android:layout_margin="@dimen/_12sdp"
+        android:src="@drawable/ic_chevron_left_solid" />
+
+    <TextView
+        android:id="@+id/classTitleTV"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/_22sdp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:fontFamily="@font/exo_regular"
+        android:gravity="center"
+        android:text="@string/instructors"
+        android:textColor="@color/lb_tv_white"
+        android:textSize="@dimen/_18ssp" />
+
+    <VideoView
+        android:id="@+id/videoView"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_200sdp"
+        android:layout_centerInParent="true" />
+
+
+    <RelativeLayout
+        android:layout_below="@+id/videoView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/playPauseButton"
+            android:layout_width="@dimen/_26sdp"
+            android:layout_height="@dimen/_26sdp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/_4sdp"
+            android:src="@drawable/lb_ic_play" />
+
+        <TextView
+            android:id="@+id/runningTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_12sdp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:text="00:00"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/_10ssp" />
+
+        <SeekBar
+            android:id="@+id/seekBar"
+            android:thumbTint="@color/colorPrimary"
+            android:progressTint="@color/colorPrimary"
+            android:progressBackgroundTint="@color/lb_tv_white"
+            android:layout_marginRight="@dimen/_4sdp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@id/runningTime"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@id/playPauseButton" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

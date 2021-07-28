@@ -18,6 +18,7 @@
         android:id="@+id/classTitleTV"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/_22sdp"
+        android:layout_marginHorizontal="@dimen/_40sdp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/_12sdp"
         android:fontFamily="@font/exo_regular"

@@ -64,6 +64,11 @@ class ClassVideoFragment : Fragment(), MediaPlayer.OnCompletionListener, MediaPl
             binding.classTitleTV.text = instructorProgramme?.name
         }
 
+        binding.back.setOnClickListener {
+            activity?.onBackPressed()
+        }
+
+
         sampleVideoView = binding.videoView
         playPauseButton = binding.playPauseButton
         playPauseButton?.setOnClickListener(this)

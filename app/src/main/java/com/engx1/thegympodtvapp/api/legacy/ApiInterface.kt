@@ -2,10 +2,10 @@ package com.engx1.thegympodtvapp.api.legacy
 
 import com.engx1.thegympodtvapp.api.ApiService
 import com.engx1.thegympodtvapp.model.*
+import com.google.gson.JsonObject
+import org.json.JSONObject
 import retrofit2.Call
-import retrofit2.http.GET
-import retrofit2.http.Header
-import retrofit2.http.Path
+import retrofit2.http.*
 
 interface ApiInterface {
     @GET(ApiService.GET_COLOR_LIST)
@@ -27,6 +27,15 @@ interface ApiInterface {
 
     @GET("${ApiService.GET_INSTRUCTOR}/{id}")
     fun getInstructorDetail(@Path("id") id: Int): Call<InstructorDetailResponse>
+
+    @GET(ApiService.GET_VIMEO_VIDEO)
+    fun getVimeoVideoConfig(@Path("VIMEO_ID") vimeoId: String): Call<VimeoConfigResponse>
+
+    @PUT(ApiService.LOG_VIDEO)
+    fun logStartVideo(@Body jsonObject: JsonObject): Call<Any>
+
+    @PATCH(ApiService.LOG_VIDEO)
+    fun logEndVideo(@Body jsonObject: JsonObject): Call<Any>
 
 //
 //    @POST(GET_BANK_ACCOUNT_INQUIRY)

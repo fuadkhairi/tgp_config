@@ -10,11 +10,17 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
 import com.engx1.thegympodtvapp.R
+import com.engx1.thegympodtvapp.api.ApiService
+import com.engx1.thegympodtvapp.api.legacy.ApiCallBack
+import com.engx1.thegympodtvapp.api.legacy.ApiManager
+import com.engx1.thegympodtvapp.api.legacy.ApiResponseListener
 import com.engx1.thegympodtvapp.databinding.FragmentClassVideoBinding
 import com.engx1.thegympodtvapp.model.InstructorProgramme
+import com.engx1.thegympodtvapp.model.VimeoConfigResponse
+import com.engx1.thegympodtvapp.utils.CommonUtils
 import com.engx1.thegympodtvapp.utils.ProgressDialogUtils
-import java.util.*
-import java.util.concurrent.TimeUnit
+import com.google.gson.JsonObject
+import org.json.JSONObject
 import kotlin.concurrent.fixedRateTimer
 
 
@@ -31,6 +37,8 @@ class ClassVideoFragment : Fragment(), MediaPlayer.OnCompletionListener, MediaPl
     private var isRunning = false
 
     private var isIntroVideo: Boolean = false
+    private var isLogged = false
+    private var instructorProgramme : InstructorProgramme? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,7 +52,7 @@ class ClassVideoFragment : Fragment(), MediaPlayer.OnCompletionListener, MediaPl
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val instructorProgramme : InstructorProgramme? = arguments?.get("class") as InstructorProgramme?
+        instructorProgramme = arguments?.get("class") as InstructorProgramme?
         context?.let { ProgressDialogUtils.show(it, "Please wait...") }
 
         isIntroVideo = arguments?.getBoolean("isIntro") as Boolean
@@ -52,10 +60,7 @@ class ClassVideoFragment : Fragment(), MediaPlayer.OnCompletionListener, MediaPl
             binding.classTitleTV.text = instructorProgramme?.name
         }
 
-
         sampleVideoView = binding.videoView
-        sampleVideoView?.setVideoURI(Uri.parse(HLS_STREAMING_SAMPLE))
-
         playPauseButton = binding.playPauseButton
         playPauseButton?.setOnClickListener(this)
 
@@ -65,16 +70,95 @@ class ClassVideoFragment : Fragment(), MediaPlayer.OnCompletionListener, MediaPl
         runningTime = binding.runningTime
         runningTime?.text = "00:00"
 
+        retrieveVimeoConfig(instructorProgramme?.introductionVimeoId.toString())
+
         //Add the listeners
         sampleVideoView?.setOnCompletionListener(this)
         sampleVideoView?.setOnErrorListener(this)
         sampleVideoView?.setOnPreparedListener(this)
     }
 
+    private fun retrieveVimeoConfig(vimeoId: String) {
+        if (CommonUtils.isOnline(requireContext())) {
+            val apiCallBack = ApiCallBack(object :
+                ApiResponseListener<VimeoConfigResponse> {
+                override fun onApiSuccess(response: VimeoConfigResponse, apiName: String) {
+                    sampleVideoView?.setVideoURI(Uri.parse(response.request.files.hls.cdns.akfireInterconnectQuic.url))
+                }
+
+                override fun onApiError(responses: String, apiName: String) {
+                    Toast.makeText(context, responses, Toast.LENGTH_SHORT).show()
+                    ProgressDialogUtils.dismiss()
+                }
+
+                override fun onApiFailure(failureMessage: String, apiName: String) {
+                    Toast.makeText(context, failureMessage, Toast.LENGTH_SHORT).show()
+                    ProgressDialogUtils.dismiss()
+                }
+            }, ApiService.GET_VIMEO_VIDEO, requireContext())
+            ApiManager(requireContext()).getVimeoVideo(apiCallBack, vimeoId)
+        } else {
+            Toast.makeText(requireContext(), "Not connected to Internet", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun startLoggingVideo(id: Int) {
+        if (CommonUtils.isOnline(requireContext())) {
+            val apiCallBack = ApiCallBack(object :
+                ApiResponseListener<Any> {
+                override fun onApiSuccess(response: Any, apiName: String) {
+
+                }
+
+                override fun onApiError(responses: String, apiName: String) {
+                    Toast.makeText(context, responses, Toast.LENGTH_SHORT).show()
+                    ProgressDialogUtils.dismiss()
+                }
+
+                override fun onApiFailure(failureMessage: String, apiName: String) {
+                    Toast.makeText(context, failureMessage, Toast.LENGTH_SHORT).show()
+                    ProgressDialogUtils.dismiss()
+                }
+            }, ApiService.LOG_VIDEO, requireContext())
+            val jsonObject = JsonObject()
+            jsonObject.addProperty("class_identifier", id)
+            ApiManager(requireContext()).startLoggingVideo(apiCallBack, jsonObject)
+        } else {
+            Toast.makeText(requireContext(), "Not connected to Internet", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun endLoggingVideo(id: Int) {
+        if (CommonUtils.isOnline(requireContext())) {
+            val apiCallBack = ApiCallBack(object :
+                ApiResponseListener<Any> {
+                override fun onApiSuccess(response: Any, apiName: String) {
+
+                }
+
+                override fun onApiError(responses: String, apiName: String) {
+                    Toast.makeText(context, responses, Toast.LENGTH_SHORT).show()
+                    ProgressDialogUtils.dismiss()
+                }
+
+                override fun onApiFailure(failureMessage: String, apiName: String) {
+                    Toast.makeText(context, failureMessage, Toast.LENGTH_SHORT).show()
+                    ProgressDialogUtils.dismiss()
+                }
+            }, ApiService.LOG_VIDEO, requireContext())
+            val jsonObject = JsonObject()
+            jsonObject.addProperty("class_identifier", id)
+            ApiManager(requireContext()).endLoggingVideo(apiCallBack, jsonObject)
+        } else {
+            Toast.makeText(requireContext(), "Not connected to Internet", Toast.LENGTH_SHORT).show()
+        }
+    }
+
     override fun onCompletion(p0: MediaPlayer?) {
-        if (isIntroVideo!!) {
+        if (isIntroVideo) {
             activity?.onBackPressed()
         }
+        isLogged = false
     }
 
     override fun onError(p0: MediaPlayer?, p1: Int, p2: Int): Boolean {
@@ -87,6 +171,8 @@ class ClassVideoFragment : Fragment(), MediaPlayer.OnCompletionListener, MediaPl
         seekBar?.max = sampleVideoView?.duration!!
         sampleVideoView?.start()
         isRunning = true
+        isLogged = false
+        instructorProgramme?.id?.let { startLoggingVideo(it) }
 
         fixedRateTimer(name = "timer",
             initialDelay = 0, period = 1000) {
@@ -104,10 +190,14 @@ class ClassVideoFragment : Fragment(), MediaPlayer.OnCompletionListener, MediaPl
             return
         }
 
-
         val time = sampleVideoView?.currentPosition!! / 1000
         val minute = (time / 60)
         val second = (time % 60)
+
+        if (second > 300 && !isLogged) {
+            isLogged = true
+            instructorProgramme?.id?.let { endLoggingVideo(it) }
+        }
 
         activity?.runOnUiThread {
             runningTime?.text = String.format("%02d:%02d", minute, second)

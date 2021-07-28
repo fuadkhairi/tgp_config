@@ -23,6 +23,8 @@ interface ApiService {
         const val GET_INSTRUCTOR = "workout/instructor"
         const val USER_LOGIN = "login"
         const val GET_PROGRAMME_LIST = "workout/programme"
+        const val GET_VIMEO_VIDEO = "https://player.vimeo.com/video/{VIMEO_ID}/config"
+        const val LOG_VIDEO = "workout/exercise/log"
     }
 
     @POST(USER_LOGIN)

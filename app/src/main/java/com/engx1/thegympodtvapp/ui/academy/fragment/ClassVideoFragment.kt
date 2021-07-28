@@ -16,6 +16,7 @@ import com.engx1.thegympodtvapp.api.legacy.ApiManager
 import com.engx1.thegympodtvapp.api.legacy.ApiResponseListener
 import com.engx1.thegympodtvapp.databinding.FragmentClassVideoBinding
 import com.engx1.thegympodtvapp.model.InstructorProgramme
+import com.engx1.thegympodtvapp.model.LoggingResponse
 import com.engx1.thegympodtvapp.model.VimeoConfigResponse
 import com.engx1.thegympodtvapp.utils.CommonUtils
 import com.engx1.thegympodtvapp.utils.ProgressDialogUtils
@@ -39,6 +40,9 @@ class ClassVideoFragment : Fragment(), MediaPlayer.OnCompletionListener, MediaPl
     private var isIntroVideo: Boolean = false
     private var isLogged = false
     private var instructorProgramme : InstructorProgramme? = null
+
+    private var logIdentifier: Int? = null
+    private var watchDuration: Int? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -105,9 +109,10 @@ class ClassVideoFragment : Fragment(), MediaPlayer.OnCompletionListener, MediaPl
     private fun startLoggingVideo(id: Int) {
         if (CommonUtils.isOnline(requireContext())) {
             val apiCallBack = ApiCallBack(object :
-                ApiResponseListener<Any> {
-                override fun onApiSuccess(response: Any, apiName: String) {
-
+                ApiResponseListener<LoggingResponse> {
+                override fun onApiSuccess(response: LoggingResponse, apiName: String) {
+                    logIdentifier = response.data.identifier
+                    watchDuration = response.data.watchDuration
                 }
 
                 override fun onApiError(responses: String, apiName: String) {
@@ -121,7 +126,7 @@ class ClassVideoFragment : Fragment(), MediaPlayer.OnCompletionListener, MediaPl
                 }
             }, ApiService.LOG_VIDEO, requireContext())
             val jsonObject = JsonObject()
-            jsonObject.addProperty("class_identifier", id)
+            jsonObject.addProperty("classIdentifier", id)
             ApiManager(requireContext()).startLoggingVideo(apiCallBack, jsonObject)
         } else {
             Toast.makeText(requireContext(), "Not connected to Internet", Toast.LENGTH_SHORT).show()
@@ -131,8 +136,8 @@ class ClassVideoFragment : Fragment(), MediaPlayer.OnCompletionListener, MediaPl
     private fun endLoggingVideo(id: Int) {
         if (CommonUtils.isOnline(requireContext())) {
             val apiCallBack = ApiCallBack(object :
-                ApiResponseListener<Any> {
-                override fun onApiSuccess(response: Any, apiName: String) {
+                ApiResponseListener<LoggingResponse> {
+                override fun onApiSuccess(response: LoggingResponse, apiName: String) {
 
                 }
 
@@ -147,7 +152,8 @@ class ClassVideoFragment : Fragment(), MediaPlayer.OnCompletionListener, MediaPl
                 }
             }, ApiService.LOG_VIDEO, requireContext())
             val jsonObject = JsonObject()
-            jsonObject.addProperty("class_identifier", id)
+            jsonObject.addProperty("identifier", id)
+            jsonObject.addProperty("isWatched", true)
             ApiManager(requireContext()).endLoggingVideo(apiCallBack, jsonObject)
         } else {
             Toast.makeText(requireContext(), "Not connected to Internet", Toast.LENGTH_SHORT).show()
@@ -194,9 +200,11 @@ class ClassVideoFragment : Fragment(), MediaPlayer.OnCompletionListener, MediaPl
         val minute = (time / 60)
         val second = (time % 60)
 
-        if (second > 300 && !isLogged) {
-            isLogged = true
-            instructorProgramme?.id?.let { endLoggingVideo(it) }
+        if (watchDuration!=null) {
+            if (second > watchDuration!! && !isLogged) {
+                isLogged = true
+                logIdentifier?.let { endLoggingVideo(it) }
+            }
         }
 
         activity?.runOnUiThread {

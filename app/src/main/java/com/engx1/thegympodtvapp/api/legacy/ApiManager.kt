@@ -11,11 +11,11 @@ class ApiManager(private var mContext: Context?) : ApiClient(mContext) {
         current(mContext, true).getInstructorDetail(id).enqueue(callBack)
     }
 
-    fun startLoggingVideo(callBack: ApiCallBack<Any>, jsonObject: JsonObject) {
+    fun startLoggingVideo(callBack: ApiCallBack<LoggingResponse>, jsonObject: JsonObject) {
         current(mContext, true).logStartVideo(jsonObject).enqueue(callBack)
     }
 
-    fun endLoggingVideo(callBack: ApiCallBack<Any>, jsonObject: JsonObject) {
+    fun endLoggingVideo(callBack: ApiCallBack<LoggingResponse>, jsonObject: JsonObject) {
         current(mContext, true).logEndVideo(jsonObject).enqueue(callBack)
     }
 

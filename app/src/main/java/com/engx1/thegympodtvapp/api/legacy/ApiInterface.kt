@@ -32,10 +32,10 @@ interface ApiInterface {
     fun getVimeoVideoConfig(@Path("VIMEO_ID") vimeoId: String): Call<VimeoConfigResponse>
 
     @PUT(ApiService.LOG_VIDEO)
-    fun logStartVideo(@Body jsonObject: JsonObject): Call<Any>
+    fun logStartVideo(@Body jsonObject: JsonObject): Call<LoggingResponse>
 
     @PATCH(ApiService.LOG_VIDEO)
-    fun logEndVideo(@Body jsonObject: JsonObject): Call<Any>
+    fun logEndVideo(@Body jsonObject: JsonObject): Call<LoggingResponse>
 
 //
 //    @POST(GET_BANK_ACCOUNT_INQUIRY)

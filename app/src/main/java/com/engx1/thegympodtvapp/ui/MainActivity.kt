@@ -47,6 +47,7 @@ class MainActivity : AppCompatActivity() {
     var isBooked = false
     var token = ""
     var name = ""
+    var gympodId = "gympod_1"
     //var enableFakeBook = true
 
     companion object {
@@ -73,11 +74,6 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
-//        SharedPrefManager.savePreferenceString(
-//            this,
-//            "token",
-//            "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6Ijc4YWRmOWE4MzY1NjY2MjI2ZTQxYTg0MDcxNTg5MzhmNmY2ZGQyNDkyYTY5Mjg1YTYwNWUxNGU3NDkzMGNiYjk3OThmYTQzNDI3NjI4NGZlIn0.eyJhdWQiOiIzIiwianRpIjoiNzhhZGY5YTgzNjU2NjYyMjZlNDFhODQwNzE1ODkzOGY2ZjZkZDI0OTJhNjkyODVhNjA1ZTE0ZTc0OTMwY2JiOTc5OGZhNDM0Mjc2Mjg0ZmUiLCJpYXQiOjE2MjY2NTU0MjUsIm5iZiI6MTYyNjY1NTQyNSwiZXhwIjoxNjU4MTkxNDI1LCJzdWIiOiIzMiIsInNjb3BlcyI6W119.P_T7PgWI5sS3HslfaQGgvJdPbn2cHibCQa9kWHgZGU3eSqv8jYU0Co4xzBIsjdMLIEhYbGkwHOrpmM-Nlo6csyVfCqpdCtzhsVJvfodtbjnGMrn7sL2L4e55S_H5yDwHbH-p9j_D7Wi9NNjZuBq-ga08i40RKc9ujG2QzCiMXW_YsLr4HYYCMRd9RbZkWIha1UGZK29bmMeBd-8mKdv5R9lp50w6r_93vNicTFW5kDBkhiUPYh4xnszm9JOGoUemeAzZD6ZchYLfUZtNLoxCzc2tlz3Hsdwvoe6x_DY3Sygi4JMXziMuEI48ifL-EOdaqPrRg1PnAkXnyNQAFky3CA"
-//        )
 
         PermissionManager.Builder()
             .key(REQUEST_PERMISSIONS)
@@ -157,7 +153,9 @@ class MainActivity : AppCompatActivity() {
             val apiCallBack = ApiCallBack(object :
                 ApiResponseListener<AvailableUpdateResponse> {
                 override fun onApiSuccess(response: AvailableUpdateResponse, apiName: String) {
-                    //compareVersion(response)
+                    if (response.data.isNotEmpty()) {
+                        compareVersion(response)
+                    }
                 }
 
                 override fun onApiError(responses: String, apiName: String) {
@@ -185,7 +183,15 @@ class MainActivity : AppCompatActivity() {
         val newVersion = compareTo.data[0].version
         val vc = VersionChecker()
         if (vc.getVersionStatus(newVersion) < 0) {
-            showUpdateDialog(compareTo.data[0].downloadUrl)
+            if (compareTo.data[0].updateAllGympod) {
+                showUpdateDialog(compareTo.data[0].downloadUrl)
+            } else {
+                for (id in compareTo.data[0].updateById) {
+                    if (id == gympodId) {
+                        showUpdateDialog(compareTo.data[0].downloadUrl)
+                    }
+                }
+            }
         }
     }
 

@@ -1,0 +1,23 @@
+{
+    "type": "update",
+    "data": [
+        {
+          "title": "30 July 2021 Update",
+          "version": "1.0.0",
+          "update_all_gympod": true,
+          "update_by_id": [
+            "gympod_1",
+            "gympod_2",
+            "gympod_3"
+          ],
+          "download_url": "https://github.com/fuadkhairi/tgp_config/raw/master/update_file/1.0.1.apk",
+          "change_log":
+            [
+              "Updated UI",
+              "Removed Unused Data",
+              "Now load music data from Github",
+              "Mood Setting improved"
+            ]
+        }
+      ]   
+  }

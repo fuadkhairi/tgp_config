@@ -47,6 +47,7 @@ class MainActivity : AppCompatActivity() {
     var isBooked = false
     var token = ""
     var name = ""
+    var email = ""
     var gympodId = "gympod_1"
     //var enableFakeBook = true
 
@@ -135,6 +136,7 @@ class MainActivity : AppCompatActivity() {
                     binding.bookedView.visibility = View.GONE
                     isBooked = false
                     name = ""
+                    email = ""
                     //enableFakeBook = false
                     SessionUtils.removeCurrentSession(this@MainActivity)
                     getActiveBookings()
@@ -213,6 +215,9 @@ class MainActivity : AppCompatActivity() {
             welcomeTV.text = "Hello, $name"
         } else {
             welcomeTV.visibility = View.GONE
+        }
+        if (email != "") {
+            emailET.setText(email)
         }
         alertDialogBuilder.setView(popUp)
         alertDialogBuilder.setCancelable(true)
@@ -365,7 +370,8 @@ class MainActivity : AppCompatActivity() {
                                     )
                                 )
 
-                                name = it.data.data?.data!![0].firstName!!
+                                name = it.data.data?.data!![0].firstName.toString()
+                                email = it.data.data?.data!![0].email.toString()
 
                                 //val startTime = "2021-07-13 10:00:00"
                                 //val endTime = "2021-07-13 10:15:00"

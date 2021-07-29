@@ -18,7 +18,7 @@ interface ApiService {
         const val GET_MAIN_PROGRAMME = "tv/programme/main"
         const val GET_AVAILABLE_MUSIC = "tv/programme/playlist"
         const val GET_AVAILABLE_UPDATE =
-            "https://raw.githubusercontent.com/fuadkhairi/tgp_config/master/app_update_config.json"
+            "https://raw.githubusercontent.com/thegympod/mirror-ptx/master-native/app/src/main/java/com/engx1/thegympodtvapp/update/app_update_config.json?token=AJOVWIRFFUKCY4S4DRFGT7DBAKUCU"
         const val GET_ACADEMY_MAIN_PROGRAMME = "workout/main"
         const val GET_INSTRUCTOR = "workout/instructor"
         const val USER_LOGIN = "login"

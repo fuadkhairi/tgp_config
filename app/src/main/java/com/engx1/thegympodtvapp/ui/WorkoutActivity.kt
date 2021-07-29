@@ -34,10 +34,12 @@ class WorkoutActivity : AppCompatActivity(), AdapterClickListener {
             onBackPressed()
         }
 
-        binding.mainProgrammeRV.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        binding.mainProgrammeRV.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         binding.mainProgrammeRV.adapter = programmeAdapter
 
-        skeletonScreen = Skeleton.bind(binding.mainProgrammeRV).adapter(programmeAdapter).load(R.layout.layout_skeleton_programme).show()
+        skeletonScreen = Skeleton.bind(binding.mainProgrammeRV).adapter(programmeAdapter)
+            .load(R.layout.layout_skeleton_programme).show()
 
         getMainProgramme()
     }

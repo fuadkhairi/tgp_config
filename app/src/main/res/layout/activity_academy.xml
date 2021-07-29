@@ -9,4 +9,17 @@
     android:keepScreenOn="true"
     tools:context=".ui.academy.AcademyActivity">
 
+    <TextView
+        android:id="@+id/currentCountdown"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:layout_marginRight="@dimen/_12sdp"
+        android:text="00:00"
+        android:textColor="@color/colorPrimary"
+        android:layout_width="wrap_content"
+        android:fontFamily="@font/exo_bold"
+        android:gravity="center"
+        android:textSize="@dimen/_9ssp"
+        android:layout_height="@dimen/_22sdp"
+        android:layout_gravity="end"/>
+
 </FrameLayout>

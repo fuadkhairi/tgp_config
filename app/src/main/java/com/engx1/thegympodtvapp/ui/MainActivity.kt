@@ -13,6 +13,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -33,6 +34,7 @@ import com.engx1.thegympodtvapp.ui.academy.AcademyActivity
 import com.engx1.thegympodtvapp.utils.*
 import com.engx1.thegympodtvapp.viewmodel.MainViewModel
 import com.engx1.thegympodtvapp.viewmodel.MainViewModelFactory
+import com.google.android.material.textfield.TextInputEditText
 import com.zubair.permissionmanager.PermissionManager
 import com.zubair.permissionmanager.enums.PermissionEnum
 import java.io.File
@@ -43,6 +45,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     lateinit var viewModel: MainViewModel
     var isBooked = false
+    var token = ""
+    var name = ""
+    //var enableFakeBook = true
 
     companion object {
         private val REQUEST_PERMISSIONS = 101
@@ -68,12 +73,11 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
-
-        SharedPrefManager.savePreferenceString(
-            this,
-            "token",
-            "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6Ijc4YWRmOWE4MzY1NjY2MjI2ZTQxYTg0MDcxNTg5MzhmNmY2ZGQyNDkyYTY5Mjg1YTYwNWUxNGU3NDkzMGNiYjk3OThmYTQzNDI3NjI4NGZlIn0.eyJhdWQiOiIzIiwianRpIjoiNzhhZGY5YTgzNjU2NjYyMjZlNDFhODQwNzE1ODkzOGY2ZjZkZDI0OTJhNjkyODVhNjA1ZTE0ZTc0OTMwY2JiOTc5OGZhNDM0Mjc2Mjg0ZmUiLCJpYXQiOjE2MjY2NTU0MjUsIm5iZiI6MTYyNjY1NTQyNSwiZXhwIjoxNjU4MTkxNDI1LCJzdWIiOiIzMiIsInNjb3BlcyI6W119.P_T7PgWI5sS3HslfaQGgvJdPbn2cHibCQa9kWHgZGU3eSqv8jYU0Co4xzBIsjdMLIEhYbGkwHOrpmM-Nlo6csyVfCqpdCtzhsVJvfodtbjnGMrn7sL2L4e55S_H5yDwHbH-p9j_D7Wi9NNjZuBq-ga08i40RKc9ujG2QzCiMXW_YsLr4HYYCMRd9RbZkWIha1UGZK29bmMeBd-8mKdv5R9lp50w6r_93vNicTFW5kDBkhiUPYh4xnszm9JOGoUemeAzZD6ZchYLfUZtNLoxCzc2tlz3Hsdwvoe6x_DY3Sygi4JMXziMuEI48ifL-EOdaqPrRg1PnAkXnyNQAFky3CA"
-        )
+//        SharedPrefManager.savePreferenceString(
+//            this,
+//            "token",
+//            "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6Ijc4YWRmOWE4MzY1NjY2MjI2ZTQxYTg0MDcxNTg5MzhmNmY2ZGQyNDkyYTY5Mjg1YTYwNWUxNGU3NDkzMGNiYjk3OThmYTQzNDI3NjI4NGZlIn0.eyJhdWQiOiIzIiwianRpIjoiNzhhZGY5YTgzNjU2NjYyMjZlNDFhODQwNzE1ODkzOGY2ZjZkZDI0OTJhNjkyODVhNjA1ZTE0ZTc0OTMwY2JiOTc5OGZhNDM0Mjc2Mjg0ZmUiLCJpYXQiOjE2MjY2NTU0MjUsIm5iZiI6MTYyNjY1NTQyNSwiZXhwIjoxNjU4MTkxNDI1LCJzdWIiOiIzMiIsInNjb3BlcyI6W119.P_T7PgWI5sS3HslfaQGgvJdPbn2cHibCQa9kWHgZGU3eSqv8jYU0Co4xzBIsjdMLIEhYbGkwHOrpmM-Nlo6csyVfCqpdCtzhsVJvfodtbjnGMrn7sL2L4e55S_H5yDwHbH-p9j_D7Wi9NNjZuBq-ga08i40RKc9ujG2QzCiMXW_YsLr4HYYCMRd9RbZkWIha1UGZK29bmMeBd-8mKdv5R9lp50w6r_93vNicTFW5kDBkhiUPYh4xnszm9JOGoUemeAzZD6ZchYLfUZtNLoxCzc2tlz3Hsdwvoe6x_DY3Sygi4JMXziMuEI48ifL-EOdaqPrRg1PnAkXnyNQAFky3CA"
+//        )
 
         PermissionManager.Builder()
             .key(REQUEST_PERMISSIONS)
@@ -81,7 +85,13 @@ class MainActivity : AppCompatActivity() {
             .ask(this@MainActivity)
 
         binding.workoutToggle.setOnClickListener {
-            startActivity(Intent(this, AcademyActivity::class.java))
+            //startActivity(Intent(this, AcademyActivity::class.java))
+            val currentActiveName = SessionUtils.getSessionName(this)
+            if (currentActiveName == name) {
+                startActivity(Intent(this, AcademyActivity::class.java))
+            } else {
+                showLoginDialog()
+            }
         }
         binding.moodToggle.setOnClickListener {
             startActivity(Intent(this, MoodActivity::class.java))
@@ -126,8 +136,12 @@ class MainActivity : AppCompatActivity() {
         override fun onReceive(context: Context?, intent: Intent) {
             when {
                 intent.extras!!.getString("countdown") == "0" -> {
-                    binding.currentCountdown.visibility = View.INVISIBLE
+                    binding.bookedView.visibility = View.GONE
                     isBooked = false
+                    name = ""
+                    //enableFakeBook = false
+                    SessionUtils.removeCurrentSession(this@MainActivity)
+                    getActiveBookings()
                 }
                 else -> {
                     (intent.extras!!.getString("countdown")).also {
@@ -172,6 +186,71 @@ class MainActivity : AppCompatActivity() {
         val vc = VersionChecker()
         if (vc.getVersionStatus(newVersion) < 0) {
             showUpdateDialog(compareTo.data[0].downloadUrl)
+        }
+    }
+
+    private fun showLoginDialog() {
+        val layoutInflater = LayoutInflater.from(this)
+        val popUp: View =
+            layoutInflater.inflate(R.layout.layout_login, null)
+        val alertDialogBuilder =
+            AlertDialog.Builder(this)
+        val welcomeTV =
+            popUp.findViewById<TextView>(R.id.welcomeMessageTV)
+        val emailET =
+            popUp.findViewById<TextInputEditText>(R.id.emailET)
+        val passwordET =
+            popUp.findViewById<TextInputEditText>(R.id.passwordET)
+        val loginBT =
+            popUp.findViewById<Button>(R.id.loginBT)
+        if (name != "") {
+            welcomeTV.text = "Hello, $name"
+        } else {
+            welcomeTV.visibility = View.GONE
+        }
+        alertDialogBuilder.setView(popUp)
+        alertDialogBuilder.setCancelable(true)
+        val alertDialog = alertDialogBuilder.create()
+        alertDialog.show()
+
+        loginBT.setOnClickListener {
+            if (emailET.text.toString() != "" || passwordET.text.toString() != "") {
+                userLogin(emailET.text.toString(), passwordET.text.toString(), alertDialog)
+                ProgressDialogUtils.show(this)
+            } else {
+                Toast.makeText(this, "Complete the login data first", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+
+    private fun userLogin(email: String, password: String, alertDialog: AlertDialog) {
+        if (CommonUtils.isOnline(this)) {
+            viewModel.login(email, password, "ptx", "mirror", BuildConfig.VERSION_NAME)
+            viewModel.getDataUserLogin().observe(this, {
+                it.let {
+                    when (it.status) {
+                        Resource.Status.SUCCESS -> {
+                            ProgressDialogUtils.dismiss()
+                            it.data.apply {
+                                SessionUtils.saveSession(this@MainActivity, name, it.data?.data?.token!!)
+                                startActivity(Intent(this@MainActivity, AcademyActivity::class.java))
+                                alertDialog.dismiss()
+                            }
+                        }
+                        Resource.Status.ERROR -> {
+                            ProgressDialogUtils.dismiss()
+                            alertDialog.dismiss()
+                        }
+                        Resource.Status.LOADING -> {
+                            ProgressDialogUtils.dismiss()
+                            alertDialog.dismiss()
+                        }
+                    }
+                }
+            })
+        } else {
+            Toast.makeText(this, "Not connected to Internet", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -279,6 +358,9 @@ class MainActivity : AppCompatActivity() {
                                         theme
                                     )
                                 )
+
+                                name = it.data.data?.data!![0].firstName!!
+
                                 //val startTime = "2021-07-13 10:00:00"
                                 //val endTime = "2021-07-13 10:15:00"
 
@@ -301,6 +383,7 @@ class MainActivity : AppCompatActivity() {
                                     val c = sdf.parse(currentTime)
                                     val e = sdf.parse(endTime)
                                     val diff: Long = e.time - c.time
+
                                     startService(
                                         Intent(
                                             this,
@@ -311,7 +394,15 @@ class MainActivity : AppCompatActivity() {
                                 registerReceiver(countDownUpdate, IntentFilter("COUNTDOWN_UPDATED"))
                             } else {
                                 binding.bookedView.visibility = View.GONE
+                                SessionUtils.removeCurrentSession(this)
                                 showCurrentDateTime()
+//                                if (enableFakeBook) {
+//                                    fakeBook()
+//                                } else {
+//                                    binding.bookedView.visibility = View.GONE
+//                                    SessionUtils.removeCurrentSession(this)
+//                                    showCurrentDateTime()
+//                                }
                             }
                         }
                         Resource.Status.ERROR -> {
@@ -326,6 +417,71 @@ class MainActivity : AppCompatActivity() {
         } else {
             Toast.makeText(this, "Not connected to Internet", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun fakeBook() {
+        isBooked = true
+        name = "Mas Faud"
+
+        "Welcome, $name".also { s ->
+            binding.welcomeMessageTV.text = s
+        }
+        binding.welcomeMessageTV.setTextColor(
+            resources.getColor(
+                R.color.colorPrimary,
+                theme
+            )
+        )
+
+        val startTimeDummy = "2021-07-29 08:00:00"
+        val endTimeDummy = "2021-07-29 08:00:25"
+
+        binding.bookedView.visibility = View.VISIBLE
+
+        //getUserBookingProgramme()
+
+        val dateFormat =
+            SimpleDateFormat("EEEE, dd MMMM, HH:mm a", Locale.ENGLISH)
+        val currentDateTime = dateFormat.format(Date())
+        binding.currentDateTime.text = currentDateTime
+
+        val isRunning =
+            isServiceRunning(this, CountDownTimeService::class.java)
+
+        if (!isRunning) {
+            val endTime = endTimeDummy
+            val currentTime = startTimeDummy
+            val sdf = SimpleDateFormat("yyyy-dd-MM hh:mm:ss")
+            val c = sdf.parse(currentTime)
+            val e = sdf.parse(endTime)
+            val diff: Long = e.time - c.time
+            startService(
+                Intent(
+                    this,
+                    CountDownTimeService::class.java
+                ).putExtra("end_time", diff)
+            )
+        } else {
+            stopService(
+                Intent(
+                    this,
+                    CountDownTimeService::class.java
+                )
+            )
+            val endTime = endTimeDummy
+            val currentTime = startTimeDummy
+            val sdf = SimpleDateFormat("yyyy-dd-MM hh:mm:ss")
+            val c = sdf.parse(currentTime)
+            val e = sdf.parse(endTime)
+            val diff: Long = e.time - c.time
+            startService(
+                Intent(
+                    this,
+                    CountDownTimeService::class.java
+                ).putExtra("end_time", diff)
+            )
+        }
+        registerReceiver(countDownUpdate, IntentFilter("COUNTDOWN_UPDATED"))
     }
 
     private fun showCurrentDateTime() {
@@ -380,6 +536,7 @@ class MainActivity : AppCompatActivity() {
         getAvailableUpdate()
         getActiveBookings()
         getMotivationalQuotes()
+        name = ""
         super.onResume()
     }
 

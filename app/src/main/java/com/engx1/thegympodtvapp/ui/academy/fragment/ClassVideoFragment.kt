@@ -1,6 +1,7 @@
 package com.engx1.thegympodtvapp.ui.academy.fragment
 
 import android.annotation.SuppressLint
+import android.media.AudioManager
 import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Bundle
@@ -17,6 +18,7 @@ import com.engx1.thegympodtvapp.api.legacy.ApiResponseListener
 import com.engx1.thegympodtvapp.databinding.FragmentClassVideoBinding
 import com.engx1.thegympodtvapp.model.InstructorProgramme
 import com.engx1.thegympodtvapp.model.LoggingResponse
+import com.engx1.thegympodtvapp.model.ProgrammeExercise
 import com.engx1.thegympodtvapp.model.VimeoConfigResponse
 import com.engx1.thegympodtvapp.utils.CommonUtils
 import com.engx1.thegympodtvapp.utils.ProgressDialogUtils
@@ -40,6 +42,7 @@ class ClassVideoFragment : Fragment(), MediaPlayer.OnCompletionListener, MediaPl
     private var isIntroVideo: Boolean = false
     private var isLogged = false
     private var instructorProgramme : InstructorProgramme? = null
+    private var programmeExercise : ProgrammeExercise? = null
 
     private var logIdentifier: Int? = null
     private var watchDuration: Int? = null
@@ -56,22 +59,28 @@ class ClassVideoFragment : Fragment(), MediaPlayer.OnCompletionListener, MediaPl
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        instructorProgramme = arguments?.get("class") as InstructorProgramme?
+
         context?.let { ProgressDialogUtils.show(it, "Please wait...") }
 
         isIntroVideo = arguments?.getBoolean("isIntro") as Boolean
         if (isIntroVideo) {
             binding.classTitleTV.text = instructorProgramme?.name
+            instructorProgramme = arguments?.get("class") as InstructorProgramme?
+            retrieveVimeoConfig(instructorProgramme?.introductionVimeoId.toString())
+        } else {
+            programmeExercise = arguments?.get("class") as ProgrammeExercise?
+            retrieveVimeoConfig(programmeExercise?.vimeoId.toString())
         }
 
         binding.back.setOnClickListener {
             activity?.onBackPressed()
         }
 
-
         sampleVideoView = binding.videoView
         playPauseButton = binding.playPauseButton
         playPauseButton?.setOnClickListener(this)
+
+        binding.videoView.setAudioFocusRequest(AudioManager.AUDIOFOCUS_NONE);
 
         seekBar = binding.seekBar
         seekBar?.setOnSeekBarChangeListener(this)
@@ -79,7 +88,6 @@ class ClassVideoFragment : Fragment(), MediaPlayer.OnCompletionListener, MediaPl
         runningTime = binding.runningTime
         runningTime?.text = "00:00"
 
-        retrieveVimeoConfig(instructorProgramme?.introductionVimeoId.toString())
 
         //Add the listeners
         sampleVideoView?.setOnCompletionListener(this)
@@ -166,9 +174,7 @@ class ClassVideoFragment : Fragment(), MediaPlayer.OnCompletionListener, MediaPl
     }
 
     override fun onCompletion(p0: MediaPlayer?) {
-        if (isIntroVideo) {
-            activity?.onBackPressed()
-        }
+        activity?.onBackPressed()
         isLogged = false
     }
 

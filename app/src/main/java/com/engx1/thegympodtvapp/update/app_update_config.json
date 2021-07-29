@@ -19,5 +19,6 @@
               "Mood Setting improved"
             ]
         }
-      ]   
+      ],
+    "notes": "this update json should be placed on somewhere with the public link, then set it in the ApiService.kt class GET_AVAILABLE_UPDATE"
   }

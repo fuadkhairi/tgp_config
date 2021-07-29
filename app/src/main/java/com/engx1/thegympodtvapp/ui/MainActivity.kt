@@ -400,7 +400,7 @@ class MainActivity : AppCompatActivity() {
                                 registerReceiver(countDownUpdate, IntentFilter("COUNTDOWN_UPDATED"))
                             } else {
                                 binding.bookedView.visibility = View.GONE
-                                SessionUtils.removeCurrentSession(this)
+                                //SessionUtils.removeCurrentSession(this)
                                 showCurrentDateTime()
 //                                if (enableFakeBook) {
 //                                    fakeBook()

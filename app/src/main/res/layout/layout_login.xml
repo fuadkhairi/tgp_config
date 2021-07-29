@@ -61,6 +61,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Enter your password"
+            android:inputType="textPassword"
             android:textColor="@color/lb_tv_white"
             android:textColorHint="@color/colorPrimary"/>
     </com.google.android.material.textfield.TextInputLayout>

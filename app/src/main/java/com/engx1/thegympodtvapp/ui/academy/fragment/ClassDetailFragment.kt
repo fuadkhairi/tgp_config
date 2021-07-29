@@ -2,6 +2,7 @@ package com.engx1.thegympodtvapp.ui.academy.fragment
 
 import android.os.Bundle
 import android.text.Html
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -55,7 +56,20 @@ class ClassDetailFragment : Fragment() {
         }
 
         classVideoAdapter = ClassVideoAdapter {
-            Toast.makeText(context, "No Vimeo ID Available", Toast.LENGTH_SHORT).show()
+            if(it.vimeoId!=null) {
+                val args = Bundle()
+                args.putSerializable("class", it)
+                args.putBoolean("isIntro", false)
+                val fragment = ClassVideoFragment()
+                fragment.arguments = args
+                activity?.supportFragmentManager
+                    ?.beginTransaction()
+                    ?.replace(R.id.academyLayout, fragment)
+                    ?.addToBackStack(null)
+                    ?.commit()
+            } else {
+                Toast.makeText(context, "No Vimeo ID Available", Toast.LENGTH_SHORT).show()
+            }
         }
         binding.classVideoRV.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         binding.classVideoRV.adapter = classVideoAdapter

@@ -64,11 +64,12 @@ class ClassVideoFragment : Fragment(), MediaPlayer.OnCompletionListener, MediaPl
 
         isIntroVideo = arguments?.getBoolean("isIntro") as Boolean
         if (isIntroVideo) {
-            binding.classTitleTV.text = instructorProgramme?.name
             instructorProgramme = arguments?.get("class") as InstructorProgramme?
+            binding.classTitleTV.text = instructorProgramme?.name
             retrieveVimeoConfig(instructorProgramme?.introductionVimeoId.toString())
         } else {
             programmeExercise = arguments?.get("class") as ProgrammeExercise?
+            binding.classTitleTV.text = programmeExercise?.name
             retrieveVimeoConfig(programmeExercise?.vimeoId.toString())
         }
 

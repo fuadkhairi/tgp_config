@@ -336,6 +336,7 @@ class MainActivity : AppCompatActivity() {
                         Resource.Status.ERROR -> {
                             ProgressDialogUtils.dismiss()
                             alertDialog.dismiss()
+                            Toast.makeText(this, "Email/password is incorrect", Toast.LENGTH_SHORT).show()
                         }
                         Resource.Status.LOADING -> {
                             ProgressDialogUtils.dismiss()
@@ -495,7 +496,7 @@ class MainActivity : AppCompatActivity() {
                                 }
                                 registerReceiver(countDownUpdate, IntentFilter("COUNTDOWN_UPDATED"))
                             } else {
-                                //binding.bookedView.visibility = View.GONE
+                                binding.bookedView.visibility = View.GONE
                                 name = ""
                                 email = ""
                                 //SessionUtils.removeCurrentSession(this)
@@ -507,7 +508,7 @@ class MainActivity : AppCompatActivity() {
 //                                    SessionUtils.removeCurrentSession(this)
 //                                    showCurrentDateTime()
 //                                }
-                                fakeBook()
+                                //fakeBook()
                             }
                         }
                         Resource.Status.ERROR -> {

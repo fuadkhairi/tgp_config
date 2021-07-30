@@ -53,7 +53,7 @@ class ClassDetailFragment : Fragment() {
         token = SharedPrefManager.getPreferenceString(context, "token").toString()
         val instructorProgramme : InstructorProgramme? = arguments?.get("class") as InstructorProgramme?
 
-        isSubscribing = arguments?.get("subscription_status") as Boolean?
+        isSubscribing = arguments?.get("subscription_status") as Boolean? ?: false
 
         binding.back.setOnClickListener {
             activity?.onBackPressed()
@@ -119,7 +119,7 @@ class ClassDetailFragment : Fragment() {
         val messageTV =
             popUp.findViewById<TextView>(R.id.messageTV)
         val okBT =
-            popUp.findViewById<Button>(R.id.endSessionBT)
+            popUp.findViewById<Button>(R.id.okBT)
 
         messageTV.text = resources.getString(R.string.to_view_the_content_please_subscribe_to_the_plan_via_our_mobile_app_or_academy_website)
 

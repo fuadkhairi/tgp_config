@@ -527,7 +527,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun fakeBook() {
         isBooked = true
-        name = "Mas Faud"
+        name = "Fuad Kh"
         email = "banana@banana.com"
 
         "Welcome, $name".also { s ->

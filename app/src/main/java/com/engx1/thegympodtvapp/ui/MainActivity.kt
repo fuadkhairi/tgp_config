@@ -230,8 +230,17 @@ class MainActivity : AppCompatActivity() {
 
         loginBT.setOnClickListener {
             if (emailET.text.toString() != "" || passwordET.text.toString() != "") {
-                userLogin(emailET.text.toString(), passwordET.text.toString(), alertDialog)
-                ProgressDialogUtils.show(this)
+                if (email != "") {
+                    if (emailET.text.toString() == email) {
+                        userLogin(emailET.text.toString(), passwordET.text.toString(), alertDialog)
+                        ProgressDialogUtils.show(this)
+                    } else {
+                        Toast.makeText(this, "Only the active booking account can be logged in this session", Toast.LENGTH_SHORT).show()
+                    }
+                } else {
+                    userLogin(emailET.text.toString(), passwordET.text.toString(), alertDialog)
+                    ProgressDialogUtils.show(this)
+                }
             } else {
                 Toast.makeText(this, "Complete the login data first", Toast.LENGTH_SHORT).show()
             }
@@ -274,8 +283,17 @@ class MainActivity : AppCompatActivity() {
                         Resource.Status.SUCCESS -> {
                             ProgressDialogUtils.dismiss()
                             it.data.apply {
-                                SessionUtils.saveSession(this@MainActivity, name, it.data?.data?.token!!)
-                                startActivity(Intent(this@MainActivity, AcademyActivity::class.java))
+                                SessionUtils.saveSession(
+                                    this@MainActivity,
+                                    name,
+                                    it.data?.data?.token!!
+                                )
+                                startActivity(
+                                    Intent(
+                                        this@MainActivity,
+                                        AcademyActivity::class.java
+                                    )
+                                )
                                 alertDialog.dismiss()
                             }
                         }
@@ -442,6 +460,8 @@ class MainActivity : AppCompatActivity() {
                                 registerReceiver(countDownUpdate, IntentFilter("COUNTDOWN_UPDATED"))
                             } else {
                                 binding.bookedView.visibility = View.GONE
+                                name = ""
+                                email = ""
                                 //SessionUtils.removeCurrentSession(this)
                                 showCurrentDateTime()
 //                                if (enableFakeBook) {

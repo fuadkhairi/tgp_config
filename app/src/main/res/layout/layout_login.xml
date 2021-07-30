@@ -17,6 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:fontFamily="@font/exo_regular"
         android:textColor="@color/pure_white"
         android:text="Hello, Christina"
         android:textSize="@dimen/_16sdp"
@@ -26,6 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:fontFamily="@font/exo_regular"
         android:text="Login to your account to continue"
         android:textSize="@dimen/_12sdp"
         android:textColor="@color/pure_white"/>
@@ -44,6 +46,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Enter your email"
+            android:fontFamily="@font/exo_regular"
             android:textColor="@color/lb_tv_white"
             android:textColorHint="@color/colorPrimary"/>
     </com.google.android.material.textfield.TextInputLayout>
@@ -58,6 +61,7 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/passwordET"
+            android:fontFamily="@font/exo_regular"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Enter your password"
@@ -72,6 +76,7 @@
         android:id="@+id/loginBT"
         app:backgroundTint="@color/pure_black"
         android:layout_marginTop="36dp"
+        android:fontFamily="@font/exo_regular"
         android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

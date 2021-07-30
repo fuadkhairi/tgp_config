@@ -13,35 +13,24 @@
     android:paddingBottom="24dp">
 
     <TextView
-        android:id="@+id/welcomeMessageTV"
+        android:id="@+id/messageTV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:fontFamily="@font/exo_regular"
-        android:textColor="@color/pure_white"
-        android:text="Hello, Christina"
-        android:textSize="@dimen/_16sdp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:fontFamily="@font/exo_regular"
-        android:text="Your session is ended."
+        android:text="@string/to_view_the_content_please_subscribe_to_the_plan_via_our_mobile_app_or_academy_website"
         android:textSize="@dimen/_12sdp"
+        android:fontFamily="@font/exo_regular"
         android:textColor="@color/pure_white"/>
 
 
-
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/logOutBT"
+        android:id="@+id/okBT"
         app:backgroundTint="@color/pure_black"
         android:layout_marginTop="36dp"
         android:layout_gravity="center_horizontal"
-        android:fontFamily="@font/exo_regular"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/exo_regular"
         android:text="OK" />
 
     <View

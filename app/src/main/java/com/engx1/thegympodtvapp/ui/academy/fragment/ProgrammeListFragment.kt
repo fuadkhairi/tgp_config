@@ -22,6 +22,7 @@ class ProgrammeListFragment : Fragment() {
     private lateinit var binding: FragmentProgrammeListBinding
     private lateinit var viewModel: AcademyViewModel
     private var subProgrammeAdapter: SubProgrammeAdapter? = null
+    var subscriptionStatus: Boolean? = false
 
     private fun setupViewModel() {
         activity?.let {
@@ -59,6 +60,7 @@ class ProgrammeListFragment : Fragment() {
             //Toast.makeText(context, it.name, Toast.LENGTH_SHORT).show()
             val args = Bundle()
             args.putSerializable("class", it)
+            args.putSerializable("subscription_status", subscriptionStatus)
             val fragment = ClassDetailFragment()
             fragment.arguments = args
             activity?.supportFragmentManager
@@ -80,6 +82,7 @@ class ProgrammeListFragment : Fragment() {
                     when (it.status) {
                         Resource.Status.SUCCESS -> {
                             it.data?.data?.data?.let { programmeList -> subProgrammeAdapter!!.updateAdapter(programmeList) }
+                            subscriptionStatus = it.data?.data?.subscriptionStatus
                         }
                         Resource.Status.ERROR -> {
                             subProgrammeAdapter!!.clearAdapter()

@@ -49,6 +49,7 @@ class MainActivity : AppCompatActivity() {
     var name = ""
     var email = ""
     var gympodId = "gympod_1"
+    var isActive = false
     //var enableFakeBook = true
 
     companion object {
@@ -66,6 +67,16 @@ class MainActivity : AppCompatActivity() {
                 MainViewModelFactory(ApiClient.API_SERVICE)
             ).get(MainViewModel::class.java)
         }
+    }
+
+    override fun onStart() {
+        isActive = true
+        super.onStart()
+    }
+
+    override fun onStop() {
+        isActive = false
+        super.onStop()
     }
 
 
@@ -144,6 +155,9 @@ class MainActivity : AppCompatActivity() {
                     //enableFakeBook = false
                     SessionUtils.removeCurrentSession(this@MainActivity)
                     getActiveBookings()
+                    if (isActive) {
+                        showLogOutDialog()
+                    }
                 }
                 else -> {
                     (intent.extras!!.getString("countdown")).also {
@@ -244,6 +258,28 @@ class MainActivity : AppCompatActivity() {
             } else {
                 Toast.makeText(this, "Complete the login data first", Toast.LENGTH_SHORT).show()
             }
+        }
+    }
+
+    private fun showLogOutDialog() {
+        val layoutInflater = LayoutInflater.from(this)
+        val popUp: View =
+            layoutInflater.inflate(R.layout.layout_session_end, null)
+        val alertDialogBuilder =
+            AlertDialog.Builder(this)
+        val welcomeTV =
+            popUp.findViewById<TextView>(R.id.welcomeMessageTV)
+        val logOutBT =
+            popUp.findViewById<Button>(R.id.logOutBT)
+        welcomeTV.visibility = View.GONE
+
+        alertDialogBuilder.setView(popUp)
+        alertDialogBuilder.setCancelable(false)
+        val alertDialog = alertDialogBuilder.create()
+        alertDialog.show()
+
+        logOutBT.setOnClickListener {
+            alertDialog.dismiss()
         }
     }
 
@@ -459,7 +495,7 @@ class MainActivity : AppCompatActivity() {
                                 }
                                 registerReceiver(countDownUpdate, IntentFilter("COUNTDOWN_UPDATED"))
                             } else {
-                                binding.bookedView.visibility = View.GONE
+                                //binding.bookedView.visibility = View.GONE
                                 name = ""
                                 email = ""
                                 //SessionUtils.removeCurrentSession(this)
@@ -471,6 +507,7 @@ class MainActivity : AppCompatActivity() {
 //                                    SessionUtils.removeCurrentSession(this)
 //                                    showCurrentDateTime()
 //                                }
+                                fakeBook()
                             }
                         }
                         Resource.Status.ERROR -> {
@@ -490,6 +527,7 @@ class MainActivity : AppCompatActivity() {
     private fun fakeBook() {
         isBooked = true
         name = "Mas Faud"
+        email = "banana@banana.com"
 
         "Welcome, $name".also { s ->
             binding.welcomeMessageTV.text = s

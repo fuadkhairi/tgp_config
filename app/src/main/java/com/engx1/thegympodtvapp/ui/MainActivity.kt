@@ -96,6 +96,10 @@ class MainActivity : AppCompatActivity() {
         binding.musicToggle.setOnClickListener {
             startActivity(Intent(this, MusicActivity::class.java))
         }
+
+        binding.logOutToggle.setOnClickListener {
+            showEndSessionDialog()
+        }
         //pin the screen
         //startLockTask()
         val musicIsRunning = SharedPrefManager.getBooleanPreferences(this, "music_state")
@@ -234,6 +238,32 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun showEndSessionDialog() {
+        val layoutInflater = LayoutInflater.from(this)
+        val popUp: View =
+            layoutInflater.inflate(R.layout.layout_log_out, null)
+        val alertDialogBuilder =
+            AlertDialog.Builder(this)
+        val endSessionBT =
+            popUp.findViewById<Button>(R.id.endSessionBT)
+        val cancelBT =
+            popUp.findViewById<Button>(R.id.cancelBT)
+        alertDialogBuilder.setView(popUp)
+        alertDialogBuilder.setCancelable(true)
+        val alertDialog = alertDialogBuilder.create()
+        alertDialog.show()
+
+        endSessionBT.setOnClickListener {
+            SessionUtils.removeCurrentSession(this)
+            getActiveBookings()
+            alertDialog.dismiss()
+        }
+
+        cancelBT.setOnClickListener {
+            alertDialog.dismiss()
+        }
+    }
+
 
     private fun userLogin(email: String, password: String, alertDialog: AlertDialog) {
         if (CommonUtils.isOnline(this)) {
@@ -358,6 +388,12 @@ class MainActivity : AppCompatActivity() {
                 it.let {
                     when (it.status) {
                         Resource.Status.SUCCESS -> {
+                            if (SessionUtils.getIsActiveSessionAvailable(this)) {
+                                binding.logOutToggle.visibility = View.VISIBLE
+                            } else {
+                                binding.logOutToggle.visibility = View.GONE
+                            }
+
                             if (it.data?.data?.data?.isNotEmpty()!!) {
                                 isBooked = true
                                 "Welcome, ${it.data.data?.data!![0].firstName}".also { s ->

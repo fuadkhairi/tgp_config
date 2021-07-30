@@ -17,4 +17,5 @@
     <string name="see_all"><u>see all</u></string>
     <string name="instructors">Instructors</string>
     <string name="instructor">Instructor</string>
+    <string name="log_out_my_session">Log Out My Session</string>
 </resources>

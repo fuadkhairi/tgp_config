@@ -29,6 +29,11 @@ class SessionUtils {
             prefs.edit().remove("name").apply()
             prefs.edit().remove("token").apply()
         }
+
+        fun getIsActiveSessionAvailable(context: Context): Boolean {
+            val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+            return sharedPreferences.getString("token", "") != ""
+        }
     }
 
 }

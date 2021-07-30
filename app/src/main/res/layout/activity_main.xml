@@ -145,10 +145,35 @@
             android:layout_height="wrap_content" />
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/logOutToggle"
+        android:visibility="gone"
+        android:layout_below="@id/musicToggle"
+        android:orientation="vertical"
+        android:layout_width="@dimen/_60sdp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_28sdp"
+        android:layout_marginStart="@dimen/_12sdp"
+        android:gravity="center">
+        <ImageView
+            android:layout_width="@dimen/_22sdp"
+            android:layout_height="@dimen/_22sdp"
+            android:src="@drawable/ic_sign_out_alt_solid"
+            app:tint="@android:color/holo_red_light" />
+        <TextView
+            android:text="@string/log_out_my_session"
+            android:textAlignment="center"
+            android:textColor="@color/lb_tv_white"
+            android:layout_width="wrap_content"
+            android:fontFamily="@font/exo_bold"
+            android:textSize="@dimen/_9ssp"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
     <TextView
         android:id="@+id/quotesTV"
         android:layout_marginTop="@dimen/_60sdp"
-        android:layout_below="@id/musicToggle"
+        android:layout_below="@id/logOutToggle"
         android:textColor="@color/lb_tv_white"
         android:layout_width="wrap_content"
         android:fontFamily="@font/exo_bold"
